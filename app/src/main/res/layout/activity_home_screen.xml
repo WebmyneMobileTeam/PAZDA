@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg"
+    android:orientation="vertical"
+    tools:context="com.xitij.adzap.ui.HomeScreen">
+
+
+    <FrameLayout
+        android:layout_weight="2"
+        android:background="#8AA9A4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:layout_gravity="bottom|right"
+            android:scaleType="fitXY"
+            android:src="@drawable/setting_icon_with_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TableLayout
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <include
+                    android:id="@+id/menuOne"
+                    layout="@layout/item_home_menu"></include>
+
+                <include
+                    android:id="@+id/menuTwo"
+                    layout="@layout/item_home_menu"></include>
+
+            </TableRow>
+
+            <TableRow
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <include
+                    android:id="@+id/menuThree"
+                    layout="@layout/item_home_menu"></include>
+
+                <include
+                    android:id="@+id/menuFour"
+                    layout="@layout/item_home_menu"></include>
+
+
+            </TableRow>
+
+
+        </TableLayout>
+
+
+    </FrameLayout>
+
+
+</LinearLayout>

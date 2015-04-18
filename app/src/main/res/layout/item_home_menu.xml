@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:drakeet="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/itemHomeImage"
+        android:src="@drawable/earn_coins"
+        style="@style/ImageHomeScreen" />
+
+
+
+    <TextView
+        android:id="@+id/itemHomeText"
+        android:layout_marginTop="8dp"
+        android:text="Earn Coins"
+        style="@style/normalGreyText" />
+
+
+</LinearLayout>

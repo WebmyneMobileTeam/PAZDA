@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="red">#FFC93437</color>
+    <color name="blue">#FF375BF1</color>
+    <color name="yellow">#FFF7D23E</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="primaryColor">#009688</color>
+    <color name="primaryColorDark">#009688</color>
+    <drawable name="list_normal">#00000000</drawable>
+    <drawable name="list_selected">#d1d1d1</drawable>
+    <color name="app_grey">#526561</color>
+
+
+</resources>
