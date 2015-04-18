@@ -34,9 +34,6 @@ public class HomeScreen extends ActionBarActivity {
         setHistory();
 
 
-
-
-
     }
 
     private void setRewards() {

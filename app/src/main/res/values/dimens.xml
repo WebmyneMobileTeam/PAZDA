@@ -5,7 +5,7 @@
 
     <dimen name="big_txt">42sp</dimen>
     <dimen name="normal_textsize">18sp</dimen>
-    <dimen name="home_screen_icon">56dp</dimen>
+    <dimen name="home_screen_icon">48dp</dimen>
 
 
 </resources>
