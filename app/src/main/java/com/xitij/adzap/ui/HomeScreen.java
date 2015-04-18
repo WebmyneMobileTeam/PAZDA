@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.xitij.adzap.R;
 
 public class HomeScreen extends ActionBarActivity {
 
-    private ViewGroup menuOne,menuTwo,menuThree,menuFour;
+    private ViewGroup menuEarnCoins,menuRewards,menuFriends,menuHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +23,66 @@ public class HomeScreen extends ActionBarActivity {
 
     private void setupUI() {
 
-        menuFour = (ViewGroup)findViewById(R.id.menuFour);
-        menuOne = (ViewGroup)findViewById(R.id.menuOne);
-        menuThree = (ViewGroup)findViewById(R.id.menuThree);
-        menuTwo = (ViewGroup)findViewById(R.id.menuTwo);
+        menuHistory = (ViewGroup)findViewById(R.id.menuFour);
+        menuEarnCoins = (ViewGroup)findViewById(R.id.menuOne);
+        menuFriends = (ViewGroup)findViewById(R.id.menuThree);
+        menuRewards = (ViewGroup)findViewById(R.id.menuTwo);
+
+        setRewards();
+        setEarnCoins();
+        setFriends();
+        setHistory();
+
+
+
+
 
     }
+
+    private void setRewards() {
+
+        ImageView img = (ImageView)menuRewards.findViewById(R.id.itemHomeImage);
+        TextView txt = (TextView)menuRewards.findViewById(R.id.itemHomeText);
+
+        img.setImageResource(R.drawable.rewards);
+        txt.setText("REWARDS");
+
+
+    }
+
+    private void setEarnCoins() {
+
+        ImageView img = (ImageView)menuEarnCoins.findViewById(R.id.itemHomeImage);
+        TextView txt = (TextView)menuEarnCoins.findViewById(R.id.itemHomeText);
+
+        img.setImageResource(R.drawable.earn_coins);
+        txt.setText("EARN COINS");
+
+    }
+
+
+    private void setFriends() {
+
+        ImageView img = (ImageView)menuFriends.findViewById(R.id.itemHomeImage);
+        TextView txt = (TextView)menuFriends.findViewById(R.id.itemHomeText);
+
+        img.setImageResource(R.drawable.friends);
+        txt.setText("FRIENDS");
+
+    }
+
+
+    private void setHistory() {
+
+        ImageView img = (ImageView)menuHistory.findViewById(R.id.itemHomeImage);
+        TextView txt = (TextView)menuHistory.findViewById(R.id.itemHomeText);
+
+
+        img.setImageResource(R.drawable.history);
+        txt.setText("HISTORY");
+
+    }
+
+
+
 }
