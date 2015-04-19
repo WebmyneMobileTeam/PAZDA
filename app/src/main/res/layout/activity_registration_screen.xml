@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg"
+    android:orientation="vertical"
+    tools:context="com.xitij.adzap.ui.HomeScreen">
+    <TextView
+        android:padding="16dp"
+        android:textSize="12dp"
+        android:gravity="center"
+        android:textColor="@color/whiteColor"
+        android:text="SIGN UP"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/square_background"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"/>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/EditText_LoginScreen"
+            android:hint="Enter email"
+             />
+        <EditText
+            android:id="@+id/etName"
+            style="@style/EditText_LoginScreen"
+            android:hint="Enter name"
+            />
+
+
+        <EditText
+            android:id="@+id/etPassword"
+            style="@style/EditText_LoginScreen"
+            android:inputType="textPassword"
+            android:hint="Enter password"
+            />
+
+        <EditText
+            android:id="@+id/etCnfPassword"
+            style="@style/EditText_LoginScreen"
+            android:inputType="textPassword"
+            android:hint="Confirm password"
+            />
+
+        <EditText
+            android:id="@+id/etPhone"
+            style="@style/EditText_LoginScreen"
+            android:hint="Enter mobile number"
+            />
+
+        <TextView
+            android:id="@+id/txtBtnLogin"
+            android:gravity="center"
+            android:textColor="@color/whiteColor"
+            android:layout_margin="16dp"
+            android:padding="16dp"
+            android:text="LOGIN"
+            android:textStyle="bold"
+            android:background="@drawable/default_button_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+     </LinearLayout>
+
+</ScrollView>
+
+
+</LinearLayout>

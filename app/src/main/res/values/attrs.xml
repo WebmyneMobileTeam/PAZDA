@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CustomTypeface">
+        <!-- A string with the name of the registered Typeface to apply to this view.
+             Type Typeface are registered using CustomTypeface.registerTypeface()
+             method -->
+        <attr name="customTypeface" format="string"/>
+
+        <!-- If is set to true, the defined customTypeface attributes in parents
+             will be ignored. In this way you will be able to disable apply
+             a custom Typeface. When is set to false if any parent defines a
+             customTypeface, this will be applied. -->
+        <attr name="customTypefaceIgnoreParents" format="boolean"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="ProgressWheel">
+        <attr name="progressIndeterminate" format="boolean" />
+        <attr name="barColor" format="color" />
+        <attr name="rimColor" format="color" />
+        <attr name="rimWidth" format="dimension" />
+        <attr name="spinSpeed" format="float" />
+        <attr name="barSpinCycleTime" format="integer" />
+        <attr name="circleRadius" format="dimension" />
+        <attr name="fillRadius" format="boolean" />
+        <attr name="barWidth" format="dimension" />
+    </declare-styleable>
+
+    <integer-array name="google_colors">
+        <item>@color/red</item>
+        <item>@color/blue</item>
+        <item>@color/yellow</item>
+
+    </integer-array>
+
+</resources>
