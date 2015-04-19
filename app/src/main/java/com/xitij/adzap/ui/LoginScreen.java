@@ -2,6 +2,7 @@ package com.xitij.adzap.ui;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -31,6 +32,7 @@ public class LoginScreen extends ActionBarActivity {
     private CircleDialog dialog;
     private EditText etUname, etPassword;
     private TextView txtBtnLogin;
+    private TextView txtLoginNotRegistered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,17 @@ public class LoginScreen extends ActionBarActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         txtBtnLogin = (TextView) findViewById(R.id.txtBtnLogin);
 
-        etUname.setText("softeng.krishna@gmail.com");
+        txtLoginNotRegistered = (TextView)findViewById(R.id.txtLoginNotRegistered);
+
+        txtLoginNotRegistered.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iReg = new Intent( LoginScreen.this ,RegistrationScreen.class );
+                startActivity(iReg);
+            }
+        });
+
+      //  etUname.setText("softeng.krishna@gmail.com");
 
         txtBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

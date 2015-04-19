@@ -8,16 +8,28 @@ import android.graphics.Typeface;
  */
 public class PrefUtils {
 
-    public static boolean isEnglish(Context ctx){
-        boolean isEnglish = true;
-        int selectedLanguage = Prefs.with(ctx).getInt("selected_language",0);
-        if(selectedLanguage == 0){
-            isEnglish = true;
+    public static boolean isLogin(Context ctx){
+        boolean isLogin = true;
+        int selectedLanguage = Prefs.with(ctx).getInt("login",0);
+        if(selectedLanguage == 1){
+            isLogin = true;
         }else{
-            isEnglish = false;
+            isLogin = false;
         }
-        return isEnglish;
+        return isLogin;
     }
+
+    public static void setLogin(Context ctx, boolean isLogin){
+
+        int set = 0;
+        if(isLogin == true){
+            set = 1;
+        }else{
+            set = 0;
+        }
+        Prefs.with(ctx).save("login",set);
+    }
+
 
     public static boolean isLightTheme(Context ctx){
         boolean isLight = true;

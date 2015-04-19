@@ -24,7 +24,33 @@
             android:layout_marginLeft="16dp"
             android:scaleType="centerCrop"
             app:background_color="@color/app_grey"
-            app:border_width="1dp"/>
+            app:border_width="1dp" />
+
+        <LinearLayout
+            android:gravity="right"
+            android:layout_marginRight="16dp"
+            style="@style/wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:gravity="right"
+                style="@style/homeSmallText"
+                android:text="COINS"/>
+
+            <TextView
+                android:gravity="right"
+                style="@style/homeBigText"
+                android:text="100"/>
+
+            <TextView
+                android:gravity="right"
+                style="@style/homeNormalText"
+                android:text="₹ 100.50"/>
+
+
+
+        </LinearLayout>
 
 
     </FrameLayout>

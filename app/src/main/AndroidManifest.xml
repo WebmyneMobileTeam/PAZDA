@@ -18,6 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+
         </activity>
         <activity
             android:name=".ui.HomeScreen"
@@ -30,8 +31,10 @@
 
 
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".ui.RegistrationScreen"
             android:label="@string/app_name" >
+
 
         </activity>
 

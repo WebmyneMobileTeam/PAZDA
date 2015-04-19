@@ -1,9 +1,11 @@
 package com.xitij.adzap.ui;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,7 +13,7 @@ import android.widget.TextView;
 import com.xitij.adzap.R;
 import com.xitij.adzap.helpers.PrefUtils;
 
-public class HomeScreen extends ActionBarActivity {
+public class HomeScreen extends ActionBarActivity implements View.OnClickListener{
 
     private ViewGroup menuEarnCoins,menuRewards,menuFriends,menuHistory;
 
@@ -28,6 +30,11 @@ public class HomeScreen extends ActionBarActivity {
         menuEarnCoins = (ViewGroup)findViewById(R.id.menuOne);
         menuFriends = (ViewGroup)findViewById(R.id.menuThree);
         menuRewards = (ViewGroup)findViewById(R.id.menuTwo);
+
+        menuHistory.setOnClickListener(this);
+        menuEarnCoins.setOnClickListener(this);
+        menuFriends.setOnClickListener(this);
+        menuRewards.setOnClickListener(this);
 
         setRewards();
         setEarnCoins();
@@ -78,5 +85,16 @@ public class HomeScreen extends ActionBarActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
 
+        if(PrefUtils.isLogin(HomeScreen.this)){
+
+        }else{
+            Intent iLogin = new Intent(HomeScreen.this,LoginScreen.class);
+            startActivity(iLogin);
+        }
+
+
+    }
 }

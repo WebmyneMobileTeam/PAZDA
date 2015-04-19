@@ -85,6 +85,38 @@
 
     </style>
 
+    <style name="homeBigText" parent="wrap_content">
+        <item name="android:textSize">@dimen/big_txt</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">0.6</item>
+
+    </style>
+
+    <style name="homeSmallText" parent="wrap_content">
+        <item name="android:textSize">@dimen/small_textsize</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">0.6</item>
+
+
+    </style>
+
+    <style name="homeNormalText" parent="wrap_content">
+        <item name="android:textSize">@dimen/normal_textsize</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:shadowDx">1.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">0.6</item>
+
+
+    </style>
+
     <style name="ImageHomeScreen" parent="wrap_content">
         <item name="android:scaleType">centerInside</item>
         <item name="android:layout_height">@dimen/home_screen_icon</item>
