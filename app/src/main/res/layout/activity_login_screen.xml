@@ -23,12 +23,16 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/drawable_email"
             android:id="@+id/etUname"
             style="@style/EditText_LoginScreen"
             android:hint="Enter user email id"
              />
 
         <EditText
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/drawable_password"
             android:id="@+id/etPassword"
             style="@style/EditText_LoginScreen"
             android:inputType="textPassword"
