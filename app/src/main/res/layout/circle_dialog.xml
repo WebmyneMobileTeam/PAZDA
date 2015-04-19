@@ -10,7 +10,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerInParent="true"
-        wheel:barColor="@color/primaryColor"
+        wheel:barColor="@color/primarycolor"
         wheel:progressIndeterminate="true" />
 
 </RelativeLayout>

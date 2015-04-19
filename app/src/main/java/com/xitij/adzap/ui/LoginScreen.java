@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
 
+import java.util.regex.Pattern;
+
 public class LoginScreen extends ActionBarActivity {
 
     private CircleDialog dialog;
@@ -32,12 +35,12 @@ public class LoginScreen extends ActionBarActivity {
         setContentView(R.layout.activity_login_screen);
 
         etUname = (EditText)findViewById(R.id.etUname);
-        etPassword = (EditText)findViewById(R.id.etPassword);
+       etPassword = (EditText)findViewById(R.id.etPassword);
         txtBtnLogin = (TextView)findViewById(R.id.txtBtnLogin);
 
-        etUname.setText("softeng.krishna@gmail.com");
+       etUname.setText("softeng.krishna@gmail.com");
 
-        txtBtnLogin.setOnClickListener(new View.OnClickListener() {
+       txtBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 processValidateData();
@@ -49,10 +52,13 @@ public class LoginScreen extends ActionBarActivity {
 
 private void processValidateData(){
         if(isEdiTextEmpty(etUname)){
-            etUname.setError("Please Enter User Name !!!");
+            etUname.setError("Please Enter User Email Id !!!");
         }else if(isEdiTextEmpty(etPassword)){
             etPassword.setError("Please Enter Password !!!");
-        }else{
+        }else if(!isEmailMatch(etUname)){
+            Toast.makeText(LoginScreen.this,"Please Enter Valid Email address !!!",Toast.LENGTH_LONG).show();
+        }
+        else{
             processLogin();
         }
 
@@ -107,7 +113,10 @@ private void processLogin(){
     }.start();
 }
 
-
+    public boolean isEmailMatch(EditText param1) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(param1.getText().toString()).matches();
+    }
 
     public boolean isEdiTextEmpty(EditText et){
 
