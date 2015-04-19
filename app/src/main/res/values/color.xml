@@ -11,6 +11,15 @@
     <drawable name="list_normal">#00000000</drawable>
     <drawable name="list_selected">#d1d1d1</drawable>
     <color name="app_grey">#526561</color>
+    <color name="darkGreyColor">#8AA9A4</color>
+    <color name="buttonBackColor">#526561</color>
+    <color name="buttonBackColorLight">#758481</color>
+
+
+
+
+    <color name="whiteColor">#ffffff</color>
+
 
 
 </resources>

@@ -87,4 +87,11 @@
         <item name="android:layout_width">@dimen/home_screen_icon</item>
     </style>
 
+    <style name="EditText_LoginScreen" parent="fill_wrap_content">
+        <item name="android:padding">@dimen/normal_padding</item>
+        <item name="android:background">@drawable/edittext_background</item>
+        <item name="android:layout_margin">@dimen/normal_padding</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
 </resources>
