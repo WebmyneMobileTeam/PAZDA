@@ -28,28 +28,38 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/drawable_email"
                 android:id="@+id/etEmail"
                 style="@style/EditText_LoginScreen"
                 android:hint="EMAIL" />
 
             <EditText
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/drawable_name"
                 android:id="@+id/etName"
                 style="@style/EditText_LoginScreen"
                 android:hint="NAME" />
 
             <EditText
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/drawable_password"
                 android:id="@+id/etPassword"
                 style="@style/EditText_LoginScreen"
                 android:inputType="textPassword"
                 android:hint="PASSWORD" />
 
             <EditText
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/drawable_password"
                 android:id="@+id/etCnfPassword"
                 style="@style/EditText_LoginScreen"
                 android:inputType="textPassword"
                 android:hint="CONFIRM PASSWORD" />
 
             <EditText
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/drawable_mobile"
                 android:id="@+id/etPhone"
                 style="@style/EditText_LoginScreen"
                 android:hint="MOBILE" />
