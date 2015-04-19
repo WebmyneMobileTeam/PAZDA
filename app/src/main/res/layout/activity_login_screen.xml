@@ -5,6 +5,7 @@
     android:background="@drawable/main_bg"
     android:orientation="vertical"
     tools:context="com.xitij.adzap.ui.HomeScreen">
+
     <TextView
         android:padding="16dp"
         android:textSize="12dp"
@@ -14,9 +15,9 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/square_background"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"/>
-   <LinearLayout
+        android:layout_height="wrap_content" />
 
+    <LinearLayout
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -25,15 +26,13 @@
         <EditText
             android:id="@+id/etUname"
             style="@style/EditText_LoginScreen"
-            android:hint="Enter user email id"
-             />
+            android:hint="EMAIL" />
 
         <EditText
             android:id="@+id/etPassword"
             style="@style/EditText_LoginScreen"
             android:inputType="textPassword"
-            android:hint="Enter password"
-            />
+            android:hint="PASSWORD" />
 
         <TextView
             android:id="@+id/txtBtnLogin"
@@ -47,9 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-     </LinearLayout>
-
-
+    </LinearLayout>
 
 
 </LinearLayout>

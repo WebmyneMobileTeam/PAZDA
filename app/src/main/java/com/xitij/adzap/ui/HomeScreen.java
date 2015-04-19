@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xitij.adzap.R;
+import com.xitij.adzap.helpers.PrefUtils;
 
 public class HomeScreen extends ActionBarActivity {
 
@@ -33,14 +34,13 @@ public class HomeScreen extends ActionBarActivity {
         setFriends();
         setHistory();
 
-
     }
 
     private void setRewards() {
 
         ImageView img = (ImageView)menuRewards.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuRewards.findViewById(R.id.itemHomeText);
-
+        txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
         img.setImageResource(R.drawable.rewards);
         txt.setText("REWARDS");
 
@@ -51,7 +51,7 @@ public class HomeScreen extends ActionBarActivity {
 
         ImageView img = (ImageView)menuEarnCoins.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuEarnCoins.findViewById(R.id.itemHomeText);
-
+        txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
         img.setImageResource(R.drawable.earn_coins);
         txt.setText("EARN COINS");
 
@@ -62,19 +62,16 @@ public class HomeScreen extends ActionBarActivity {
 
         ImageView img = (ImageView)menuFriends.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuFriends.findViewById(R.id.itemHomeText);
-
+        txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
         img.setImageResource(R.drawable.friends);
         txt.setText("FRIENDS");
-
     }
-
 
     private void setHistory() {
 
         ImageView img = (ImageView)menuHistory.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuHistory.findViewById(R.id.itemHomeText);
-
-
+        txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
         img.setImageResource(R.drawable.history);
         txt.setText("HISTORY");
 

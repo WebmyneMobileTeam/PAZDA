@@ -92,6 +92,5 @@
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="materialish-progress-1.5" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.0.0" level="project" />
-    <orderEntry type="library" exported="" name="circleimageview-1.2.2" level="project" />
   </component>
 </module>

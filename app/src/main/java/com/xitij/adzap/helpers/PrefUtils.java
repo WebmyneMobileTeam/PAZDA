@@ -91,6 +91,15 @@ public class PrefUtils {
 
     }
 
+    public static Typeface getTypeFaceCalibri(Context ctx){
+
+        Typeface typeface = null;
+        typeface = Typeface.createFromAsset(ctx.getAssets(),"calibri.ttf");
+
+        return  typeface;
+
+    }
+
 
 
 
