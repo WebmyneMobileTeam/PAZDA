@@ -1,6 +1,7 @@
 package com.xitij.adzap.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.xitij.adzap.base.MyApplication;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.ComplexPreferences;
+import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.User;
 import com.xitij.adzap.widget.CircleDialog;
 
@@ -45,6 +47,8 @@ public class RegistrationScreen extends ActionBarActivity {
         txtBtnLogin = (TextView)findViewById(R.id.txtBtnLogin);
 
 
+        init();
+
         txtBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +56,17 @@ public class RegistrationScreen extends ActionBarActivity {
             }
         });
 
+
+    }
+
+    private void init(){
+        Typeface tf = PrefUtils.getTypeFaceCalibri(RegistrationScreen.this);
+        etEmail.setTypeface(tf);
+        etName.setTypeface(tf);
+        etPassword.setTypeface(tf);
+        etCnfPassword.setTypeface(tf);
+        etPhone.setTypeface(tf);
+        txtBtnLogin.setTypeface(tf);
 
     }
 

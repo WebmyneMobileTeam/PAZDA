@@ -2,6 +2,7 @@ package com.xitij.adzap.ui;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.xitij.adzap.R;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.ComplexPreferences;
+import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.User;
 import com.xitij.adzap.widget.CircleDialog;
 
@@ -48,7 +50,15 @@ public class LoginScreen extends ActionBarActivity {
             }
         });
 
+        init();
 
+    }
+
+    private void init(){
+            Typeface tf = PrefUtils.getTypeFaceCalibri(LoginScreen.this);
+            etUname.setTypeface(tf);
+            etPassword.setTypeface(tf);
+            txtBtnLogin.setTypeface(tf);
     }
 
     private void processValidateData() {
