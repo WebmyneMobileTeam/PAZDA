@@ -52,10 +52,10 @@ public class OfferListAdapter extends BaseAdapter {
         View view = convertView;
         view = layoutInflator.inflate(R.layout.offer_item_view, parent, false);
 
-        ImageView offerIcon = (ImageView)view.findViewById(R.id.offerIcon);
+        /*ImageView offerIcon = (ImageView)view.findViewById(R.id.offerIcon);
         TextView txtTitle = (TextView)view.findViewById(R.id.txtTitle);
-
-        txtTitle.setText(tempitems[position]);
+*/
+    //    txtTitle.setText(tempitems[position]);
       /*  TextView txt_sub_Title = (TextView)view.findViewById(R.id.txt_sub_Title);
         TextView txtCounter = (TextView)view.findViewById(R.id.txtCounter);*/
 

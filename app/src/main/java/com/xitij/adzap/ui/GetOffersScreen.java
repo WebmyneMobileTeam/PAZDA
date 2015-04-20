@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -32,11 +33,26 @@ public class GetOffersScreen extends ActionBarActivity {
 
     private CircleDialog dialog;
     private ListView offerListView;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getoffers_screen);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView toolbar_Title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        //toolbar.setNavigationIcon(R.drawable.icon_back_blue);
+        toolbar_Title.setText("Log ind");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+
 
         offerListView = (ListView)findViewById(R.id.offerList);
 

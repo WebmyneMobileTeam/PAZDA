@@ -6,16 +6,8 @@
     android:orientation="vertical"
     tools:context="com.xitij.adzap.ui.HomeScreen">
 
-    <TextView
-        android:padding="16dp"
-        android:textSize="12dp"
-        android:gravity="center"
-        android:textColor="@color/whiteColor"
-        android:text="GET OFFERS"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/square_background"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content" />
+    <include
+        layout="@layout/app_bar"/>
 
     <LinearLayout
         android:paddingTop="16dp"
