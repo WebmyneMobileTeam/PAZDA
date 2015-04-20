@@ -32,6 +32,13 @@
             android:label="@string/title_activity_home_screen" >
         </activity>
 
+        <activity
+            android:name=".ui.GetOffersScreen"
+            android:label="@string/title_activity_home_screen" >
+
+
+        </activity>
+
 
         <activity
             android:windowSoftInputMode="adjustPan"

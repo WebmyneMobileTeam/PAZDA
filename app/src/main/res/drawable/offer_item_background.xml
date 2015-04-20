@@ -1,0 +1,9 @@
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:drawable="@drawable/topcircular" />
+
+    <item
+        android:drawable="@drawable/rect"
+        android:left="20dp" />
+</layer-list>
