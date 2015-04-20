@@ -3,5 +3,6 @@
     >
     <solid android:color="@color/buttonBackColor"/>
     <corners android:radius="@dimen/small_padding" />
+
     <stroke android:width="3px" android:color="#ffffff"/>
 </shape>

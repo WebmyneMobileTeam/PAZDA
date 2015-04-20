@@ -1,6 +1,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <corners android:radius="@dimen/normal_padding" />
+    <corners android:radius="@dimen/small_padding" />
     <gradient android:endColor="@color/buttonBackColorLight"
         android:startColor="@color/buttonBackColorLight"
         android:angle="90" />
