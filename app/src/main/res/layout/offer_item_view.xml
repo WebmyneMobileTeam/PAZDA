@@ -18,14 +18,14 @@
             android:background="@mipmap/ic_launcher"/>
 
 
-        <RelativeLayout
+        <LinearLayout
 
-            android:layout_weight="1"
             android:background="@drawable/list_selected"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/txtAdName"
                 android:gravity="center"
                 android:padding="16dp"
                 android:textColor="#fff"
@@ -33,15 +33,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="100dp" />
 
-            <TextView
-                android:layout_gravity="bottom"
-                android:padding="16dp"
-                android:textColor="#fff"
-                android:text="View"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp" />
 
             <TextView
+                android:id="@+id/txtCoins"
+
                 android:background="@drawable/offer_darkbackground"
                 android:gravity="center"
                 android:padding="16dp"
@@ -51,7 +46,7 @@
                 android:layout_height="100dp" />
 
 
-          </RelativeLayout>
+          </LinearLayout>
 
 
 

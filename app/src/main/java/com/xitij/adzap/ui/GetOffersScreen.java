@@ -56,8 +56,7 @@ public class GetOffersScreen extends ActionBarActivity {
 
         offerListView = (ListView)findViewById(R.id.offerList);
 
-        OfferListAdapter adpater = new OfferListAdapter(GetOffersScreen.this);
-        offerListView.setAdapter(adpater);
+
 
         init();
 
@@ -96,6 +95,9 @@ public class GetOffersScreen extends ActionBarActivity {
 
                         Offers currentOffer = new GsonBuilder().create().fromJson(response, Offers.class);
                         Log.e("offer size",""+currentOffer.ViewAdz.size());
+
+                        OfferListAdapter adpater = new OfferListAdapter(GetOffersScreen.this,currentOffer);
+                        offerListView.setAdapter(adpater);
 
                        /* //store current user and domain in shared preferences
                         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);

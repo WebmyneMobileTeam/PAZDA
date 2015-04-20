@@ -16,26 +16,26 @@ import java.util.ArrayList;
 
 public class OfferListAdapter extends BaseAdapter {
 
-    String [] tempitems = {"dwdw","wwdwd","wdwdw","dwaa","saadawe","cwfc","dscvssd"};
-
     LayoutInflater layoutInflator;
     private Context ctx;
-    private ArrayList<Offers> offerItems;
+    private Offers offerItems;
 
-    public OfferListAdapter(Context ctx) {
+
+    public OfferListAdapter(Context ctx,Offers offerObj) {
         //this.offerItems = items;
         this.ctx = ctx;
+        this.offerItems = offerObj;
 
     }
 
     @Override
     public int getCount() {
-        return tempitems.length;
+        return offerItems.ViewAdz.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return tempitems[position];
+        return offerItems.ViewAdz.get(position);
     }
 
     @Override
@@ -55,6 +55,13 @@ public class OfferListAdapter extends BaseAdapter {
         /*ImageView offerIcon = (ImageView)view.findViewById(R.id.offerIcon);
         TextView txtTitle = (TextView)view.findViewById(R.id.txtTitle);
 */
+        TextView txtAdName = (TextView)view.findViewById(R.id.txtAdName);
+        TextView txtCoins = (TextView)view.findViewById(R.id.txtCoins);
+
+        txtAdName.setText(""+offerItems.ViewAdz.get(position).DisplayName);
+        txtCoins.setText("+ "+offerItems.ViewAdz.get(position).Coins);
+
+
     //    txtTitle.setText(tempitems[position]);
       /*  TextView txt_sub_Title = (TextView)view.findViewById(R.id.txt_sub_Title);
         TextView txtCounter = (TextView)view.findViewById(R.id.txtCounter);*/
