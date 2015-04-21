@@ -6,6 +6,10 @@ package com.xitij.adzap.helpers;
 public class AppConstants {
 
     // Base url for the webservice
+
+    public static String BASE_URL_IMAGE = "http://johnsite.com.accu17.com/adzapp/images/";
+    public static String BASE_URL_VIDEO = "http://johnsite.com.accu17.com/adzapp/video/";
+
     public static String BASE_URL = "http://johnsite.com.accu17.com/RewardMe/";
 
     public static String USER_LOGIN = BASE_URL + "Login.svc/json/CheckLogin/";

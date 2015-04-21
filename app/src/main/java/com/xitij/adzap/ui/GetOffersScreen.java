@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ public class GetOffersScreen extends ActionBarActivity {
     private CircleDialog dialog;
     private ListView offerListView;
     private Toolbar toolbar;
+    private Offers currentOffer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +95,7 @@ public class GetOffersScreen extends ActionBarActivity {
 
                         Toast.makeText(GetOffersScreen.this, obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
 
-                        Offers currentOffer = new GsonBuilder().create().fromJson(response, Offers.class);
+                        currentOffer = new GsonBuilder().create().fromJson(response, Offers.class);
                         Log.e("offer size",""+currentOffer.ViewAdz.size());
 
                         OfferListAdapter adpater = new OfferListAdapter(GetOffersScreen.this,currentOffer);
@@ -120,24 +122,19 @@ public class GetOffersScreen extends ActionBarActivity {
                 dialog.dismiss();
             }
         }.start();
+
+
+
+        offerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("Image Path",""+currentOffer.ViewAdz.get(position).ImagePath);
+                Log.e("Video Path",""+currentOffer.ViewAdz.get(position).VideoPath);
+            }
+        });
     }
 
-    public boolean isEmailMatch(EditText param1) {
-        Pattern pattern = Patterns.EMAIL_ADDRESS;
-        return pattern.matcher(param1.getText().toString()).matches();
-    }
 
-    public boolean isEdiTextEmpty(EditText et) {
-
-        boolean isEmpty = false;
-
-        if (et.getText() == null || et.getText().toString().equalsIgnoreCase("")) {
-            isEmpty = true;
-        }
-
-        return isEmpty;
-
-    }
 
 //end of main class
 }

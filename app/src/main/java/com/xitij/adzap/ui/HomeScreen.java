@@ -16,6 +16,7 @@ import com.xitij.adzap.helpers.PrefUtils;
 public class HomeScreen extends ActionBarActivity implements View.OnClickListener{
 
     private ViewGroup menuEarnCoins,menuRewards,menuFriends,menuHistory;
+    private  ImageView settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,8 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
     private void setupUI() {
 
+
+        settings = (ImageView)findViewById(R.id.settings);
         menuHistory = (ViewGroup)findViewById(R.id.menuFour);
         menuEarnCoins = (ViewGroup)findViewById(R.id.menuOne);
         menuFriends = (ViewGroup)findViewById(R.id.menuThree);
@@ -40,6 +43,17 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         setEarnCoins();
         setFriends();
         setHistory();
+
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent set = new Intent(HomeScreen.this,SettingsScreen.class);
+                startActivity(set);
+            }
+        });
+
+
 
     }
 
@@ -93,6 +107,14 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         }else{
             Intent iLogin = new Intent(HomeScreen.this,LoginScreen.class);
             startActivity(iLogin);
+        }
+
+
+        switch (v.getId()){
+            case R.id.menuOne:
+                Intent offer = new Intent(HomeScreen.this,GetOffersScreen.class);
+                startActivity(offer);
+                break;
         }
 
 

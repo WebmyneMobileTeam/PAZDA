@@ -61,6 +61,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/settings"
             android:layout_gravity="bottom|right"
             android:scaleType="fitXY"
             android:src="@drawable/setting_icon_with_bg"
