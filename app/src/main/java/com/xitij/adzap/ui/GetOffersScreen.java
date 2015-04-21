@@ -130,6 +130,15 @@ public class GetOffersScreen extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.e("Image Path",""+currentOffer.ViewAdz.get(position).ImagePath);
                 Log.e("Video Path",""+currentOffer.ViewAdz.get(position).VideoPath);
+
+                String tempPath = currentOffer.ViewAdz.get(position).VideoPath.toString();
+                String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
+
+                Log.e("Sub Path",subPath);
+
+                Intent set = new Intent(GetOffersScreen.this,VideoPlayer.class);
+                set.putExtra("url",AppConstants.BASE_URL_VIDEO+subPath);
+                startActivity(set);
             }
         });
     }
