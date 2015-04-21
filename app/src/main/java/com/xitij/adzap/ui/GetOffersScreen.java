@@ -138,6 +138,7 @@ public class GetOffersScreen extends ActionBarActivity {
 
                 Intent set = new Intent(GetOffersScreen.this,VideoPlayer.class);
                 set.putExtra("url",AppConstants.BASE_URL_VIDEO+subPath);
+                set.putExtra("adID",currentOffer.ViewAdz.get(position).AdId);
                 startActivity(set);
             }
         });

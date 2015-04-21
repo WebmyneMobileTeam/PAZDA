@@ -15,7 +15,11 @@ public class AppConstants {
     public static String USER_LOGIN = BASE_URL + "Login.svc/json/CheckLogin/";
     public static String USER_REGISTERATION = BASE_URL + "Login.svc/json/RegisterUser";
 
+
+    public static String VIEW_PROFILE = BASE_URL + "/Login.svc/json/ViewProfile/";
+
     public static String GET_OFFERS = BASE_URL + "ViewAdz.svc/json/GetOffers/";
+    public static String REQUEST_POINTS = BASE_URL + "ViewAdz.svc/json/UpdateWallet";
 
 
 }

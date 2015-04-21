@@ -3,30 +3,100 @@ package com.xitij.adzap.ui;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
+import com.xitij.adzap.adapters.OfferListAdapter;
+import com.xitij.adzap.helpers.AppConstants;
+import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.PrefUtils;
+import com.xitij.adzap.model.Offers;
+import com.xitij.adzap.model.User;
+import com.xitij.adzap.widget.CircleDialog;
+
+import org.json.JSONObject;
 
 public class HomeScreen extends ActionBarActivity implements View.OnClickListener{
 
     private ViewGroup menuEarnCoins,menuRewards,menuFriends,menuHistory;
     private  ImageView settings;
+    private TextView txtCoin,txtINR;
+    private CircleDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         setupUI();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupBalance();
+    }
+
+    private void setupBalance(){
+        dialog = new CircleDialog(HomeScreen.this, 0);
+        dialog.setCancelable(false);
+        dialog.show();
+
+
+        new CallWebService(AppConstants.VIEW_PROFILE + 5, CallWebService.TYPE_JSONOBJECT) {
+
+            @Override
+            public void response(String response) {
+                dialog.dismiss();
+                Log.e("response", response.toString());
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.getString("Response").equalsIgnoreCase("0")) {
+                        User currentUser = new GsonBuilder().create().fromJson(response, User.class);
+
+                        if(currentUser.Balance == null){
+                            txtCoin.setText("0");
+                            txtINR.setText("₹ 0");
+                        }else{
+                            txtCoin.setText(currentUser.Balance);
+                            txtINR.setText("₹ "+currentUser.Balance);
+                        }
+
+
+                    } else {
+                        Toast.makeText(HomeScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (Exception e) {
+
+                }
+
+
+            }
+
+            @Override
+            public void error(VolleyError error) {
+                Log.e("volly er", error.toString());
+                dialog.dismiss();
+            }
+        }.start();
     }
 
     private void setupUI() {
 
+
+        txtCoin = (TextView)findViewById(R.id.txtCoin);
+        txtINR = (TextView)findViewById(R.id.txtINR);
 
         settings = (ImageView)findViewById(R.id.settings);
         menuHistory = (ViewGroup)findViewById(R.id.menuFour);
