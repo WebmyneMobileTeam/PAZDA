@@ -82,12 +82,12 @@ public class SettingsScreen extends ActionBarActivity {
 
                 new SweetAlertDialog(SettingsScreen.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Are you sure want to logout?")
-                        .setConfirmText("Yes,Logout me")
+                        .setConfirmText("Yes, Logout me")
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
 
-                                sDialog.setTitleText("Logout")
+                                sDialog.setTitleText("Logged out")
                                         .setConfirmText("OK")
                                         .showCancelButton(false)
                                         .setCancelClickListener(null)
@@ -98,7 +98,7 @@ public class SettingsScreen extends ActionBarActivity {
                                                 PrefUtils.setLogin(SettingsScreen.this,false);
 
                                                 Intent iHomeScreen = new Intent(SettingsScreen.this,LoginScreen.class);
-                                                iHomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                iHomeScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(iHomeScreen);
                                                 finish();
                                             }

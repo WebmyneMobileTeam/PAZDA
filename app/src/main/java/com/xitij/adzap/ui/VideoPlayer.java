@@ -99,7 +99,6 @@ public class VideoPlayer extends ActionBarActivity {
 
                 int dur = mp.getDuration();
                 
-                
 
                 dur = dur/1000;
                 finalDuration = Math.floor(dur)+1;
@@ -118,7 +117,7 @@ public class VideoPlayer extends ActionBarActivity {
                     @Override
                     public void onFinish() {
                         Toast.makeText(VideoPlayer.this,"Time is complete",Toast.LENGTH_LONG).show();
-                        processRegisterRewardCoins();
+
                     }
                 }.start();
             }
@@ -129,6 +128,7 @@ public class VideoPlayer extends ActionBarActivity {
             public void onCompletion(MediaPlayer mp) {
                 Toast.makeText(VideoPlayer.this,"Video is complete",Toast.LENGTH_LONG).show();
                 Log.e("Video is complete","completed");
+                processRegisterRewardCoins();
 
             }
         });
@@ -137,6 +137,7 @@ public class VideoPlayer extends ActionBarActivity {
     }
 
 private void processRegisterRewardCoins(){
+
     int adID = getIntent().getIntExtra("adID",0);
     //store current user and domain in shared preferences
     ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(VideoPlayer.this, "user_pref", 0);
