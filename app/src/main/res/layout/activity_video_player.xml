@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,7 +6,22 @@
     android:orientation="vertical"
     tools:context="com.xitij.adzap.ui.HomeScreen">
 <VideoView
+    android:layout_margin="16dp"
     android:id="@+id/videoPlayer"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
-</LinearLayout>
+
+    <TextView
+        android:layout_margin="24dp"
+        android:background="@drawable/circle"
+        android:layout_alignParentBottom="true"
+        android:textSize="24sp"
+        android:id="@+id/txtTimer"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:gravity="bottom|left"
+        android:text="10"
+        android:textColor="#52CC29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

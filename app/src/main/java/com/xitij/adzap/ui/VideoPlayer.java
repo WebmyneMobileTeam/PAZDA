@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,6 +42,10 @@ public class VideoPlayer extends ActionBarActivity {
 
     private CircleDialog dialog;
     private VideoView videoPlayer;
+    private TextView txtTimer;
+    private int counter=20;
+    double finalDuration;
+    int temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,7 @@ public class VideoPlayer extends ActionBarActivity {
 
 
         videoPlayer = (VideoView) findViewById(R.id.videoPlayer);
+        txtTimer = (TextView)findViewById(R.id.txtTimer);
 
         init();
         String url = getIntent().getStringExtra("url");
@@ -75,7 +81,7 @@ public class VideoPlayer extends ActionBarActivity {
             mc.setAnchorView(videoPlayer);
             mc.setMediaPlayer(videoPlayer);
             Uri uri = Uri.parse(path);
-            videoPlayer.setMediaController(mc);
+            videoPlayer.setMediaController(null);
             videoPlayer.setVideoURI(uri);
 
         } catch (Exception e) {
@@ -90,6 +96,30 @@ public class VideoPlayer extends ActionBarActivity {
             public void onPrepared(MediaPlayer mp) {
                 dialog.dismiss();
                 videoPlayer.start();
+
+                int dur = mp.getDuration();
+                
+                
+
+                dur = dur/1000;
+                finalDuration = Math.floor(dur)+1;
+                temp = (int)finalDuration;
+
+                Toast.makeText(VideoPlayer.this,"video length is- "+temp,Toast.LENGTH_LONG).show();
+
+                new CountDownTimer(temp*1000,1000){
+
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        temp = temp - 1;
+                        txtTimer.setText(""+temp);
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                    }
+                }.start();
             }
         });
 

@@ -17,6 +17,11 @@
     <color name="buttonBackColor">#526561</color>
     <color name="buttonBackColorLight">#758481</color>
 
+    <color name="orangeColor">#F95D0C</color>
+
+    <color name="freindsTextviewBackground">#8A9C8a</color>
+
+    <color name="freindsViewBackground">#B7B8A2</color>
 
 
 
