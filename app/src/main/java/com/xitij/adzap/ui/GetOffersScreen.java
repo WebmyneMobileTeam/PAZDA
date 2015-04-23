@@ -1,15 +1,20 @@
 package com.xitij.adzap.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +29,7 @@ import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.Offers;
 import com.xitij.adzap.model.User;
+import com.xitij.adzap.widget.AdvancedSpannableString;
 import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
@@ -36,13 +42,30 @@ public class GetOffersScreen extends ActionBarActivity {
     private ListView offerListView;
     private Toolbar toolbar;
     private Offers currentOffer;
+    private TextView txtCoin;
+    private View emptyView;
+    private ImageView earnCoin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_getoffers_screen);
+      //  setContentView(R.layout.activity_getoffers_screen);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setContentView(R.layout.offer_item_emptyview);
+
+        txtCoin = (TextView)findViewById(R.id.txtCoin);
+        earnCoin= (ImageView) findViewById(R.id.earnCoin);
+
+
+
+
+
+        int col = Color.parseColor("#FFFFE6");
+        earnCoin.setColorFilter(col, PorterDuff.Mode.SRC_ATOP);
+        earnCoin.setImageResource(R.drawable.earn_coins);
+
+    /*    toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView toolbar_Title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         //toolbar.setNavigationIcon(R.drawable.icon_back_blue);
         toolbar_Title.setText("Log ind");
@@ -54,6 +77,8 @@ public class GetOffersScreen extends ActionBarActivity {
         });
 
 
+        emptyView = ((LayoutInflater) GetOffersScreen.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.offer_item_emptyview, null, false);
+        txtmsg = (TextView)emptyView.findViewById(R.id.txtmsg);
 
 
         offerListView = (ListView)findViewById(R.id.offerList);
@@ -62,7 +87,7 @@ public class GetOffersScreen extends ActionBarActivity {
 
         init();
 
-        processGetOffers();
+        processGetOffers();*/
 
     }
 
@@ -142,7 +167,7 @@ public class GetOffersScreen extends ActionBarActivity {
 
                 Intent set = new Intent(GetOffersScreen.this,VideoPlayer.class);
                 set.putExtra("url",AppConstants.BASE_URL_VIDEO+subPath);
-                set.putExtra("pos",position);
+                set.putExtra("pos", position);
                 startActivity(set);
             }
         });
