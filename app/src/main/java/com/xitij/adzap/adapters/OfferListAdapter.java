@@ -59,12 +59,11 @@ public class OfferListAdapter extends BaseAdapter {
         TextView txtCoins = (TextView)view.findViewById(R.id.txtCoins);
 
         txtAdName.setText(""+offerItems.ViewAdz.get(position).DisplayName);
-        txtCoins.setText("+ "+offerItems.ViewAdz.get(position).Coins);
 
+        double coin = Double.valueOf(offerItems.ViewAdz.get(position).Coins);
+        int c = (int) coin;
 
-    //    txtTitle.setText(tempitems[position]);
-      /*  TextView txt_sub_Title = (TextView)view.findViewById(R.id.txt_sub_Title);
-        TextView txtCounter = (TextView)view.findViewById(R.id.txtCounter);*/
+        txtCoins.setText("+ "+String.valueOf(c));
 
 
         return view;

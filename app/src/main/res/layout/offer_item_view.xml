@@ -51,11 +51,11 @@
             <TextView
                 android:id="@+id/txtCoins"
                 android:background="@drawable/offer_darkbackground"
-                android:gravity="center"
+                android:gravity="right"
                 android:padding="16dp"
                 android:textColor="#fff"
                 android:text="+ 100"
-                android:layout_width="100dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content" />
 
 
