@@ -107,7 +107,7 @@ public class VideoPlayer extends ActionBarActivity {
 
                 Toast.makeText(VideoPlayer.this,"video length is- "+temp,Toast.LENGTH_LONG).show();
 
-                new CountDownTimer(temp*1000,1000){
+                new CountDownTimer(temp*1000,1020){
 
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -117,7 +117,8 @@ public class VideoPlayer extends ActionBarActivity {
 
                     @Override
                     public void onFinish() {
-
+                        Toast.makeText(VideoPlayer.this,"Time is complete",Toast.LENGTH_LONG).show();
+                        processRegisterRewardCoins();
                     }
                 }.start();
             }
@@ -126,8 +127,9 @@ public class VideoPlayer extends ActionBarActivity {
         videoPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                Toast.makeText(VideoPlayer.this,"Video is complete",Toast.LENGTH_LONG).show();
                 Log.e("Video is complete","completed");
-                processRegisterRewardCoins();
+
             }
         });
 

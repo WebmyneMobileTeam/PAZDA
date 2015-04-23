@@ -11,6 +11,8 @@
     <drawable name="list_normal">#00000000</drawable>
     <drawable name="list_selected">#d1d1d1</drawable>
 
+    <drawable name="list_selected2">#80d1d1d1</drawable>
+
     <color name="list_light_selected">#d1d1d1</color>
     <color name="app_grey">#526561</color>
     <color name="darkGreyColor">#8AA9A4</color>
