@@ -25,7 +25,7 @@
     <View
         android:gravity="center"
         android:layout_gravity="center"
-        android:background="@color/white"
+        android:background="@color/primarycolor"
         android:layout_width="48dp"
         android:layout_height="2dp"/>
 

@@ -108,8 +108,6 @@ public class LoginScreen extends ActionBarActivity {
                     JSONObject obj = new JSONObject(response);
                     if (obj.getString("Response").equalsIgnoreCase("0")) {
 
-                        Toast.makeText(LoginScreen.this, obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
-
                         User currentUser = new GsonBuilder().create().fromJson(response, User.class);
                         //store current user and domain in shared preferences
                         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(LoginScreen.this, "user_pref", 0);
