@@ -63,6 +63,19 @@
                 android:layout_width="100dp"
                 android:layout_height="40dp" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtLogout"
+            android:layout_gravity="center"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:text="Logout"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
     </LinearLayout>
 
 

@@ -3,6 +3,7 @@ package com.xitij.adzap.ui;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -114,6 +115,15 @@ public class LoginScreen extends ActionBarActivity {
                         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(LoginScreen.this, "user_pref", 0);
                         complexPreferences.putObject("current_user", currentUser);
                         complexPreferences.commit();
+
+                        PrefUtils.setLogin(LoginScreen.this,true);
+
+                        Intent iHomeScreen = new Intent(LoginScreen.this,HomeScreen.class);
+                        startActivity(iHomeScreen);
+                        finish();
+
+
+
                     } else {
                         Toast.makeText(LoginScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }

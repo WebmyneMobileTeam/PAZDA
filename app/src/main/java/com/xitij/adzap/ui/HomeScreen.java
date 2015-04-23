@@ -18,6 +18,7 @@ import com.xitij.adzap.R;
 import com.xitij.adzap.adapters.OfferListAdapter;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
+import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.CheckBalance;
 import com.xitij.adzap.model.Offers;
@@ -52,8 +53,12 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         dialog.setCancelable(false);
         dialog.show();
 
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(HomeScreen.this, "user_pref", 0);
+        User currentUser = complexPreferences.getObject("current_user", User.class);
 
-        new CallWebService(AppConstants.CHECK_BALANCE + 10008, CallWebService.TYPE_JSONOBJECT) {
+
+
+        new CallWebService(AppConstants.CHECK_BALANCE + currentUser.UserId, CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String response) {
@@ -172,14 +177,6 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-
-        if(PrefUtils.isLogin(HomeScreen.this)){
-
-        }else{
-            Intent iLogin = new Intent(HomeScreen.this,LoginScreen.class);
-            startActivity(iLogin);
-        }
-
 
         switch (v.getId()){
             case R.id.menuOne:

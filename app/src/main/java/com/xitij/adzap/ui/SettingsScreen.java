@@ -1,5 +1,6 @@
 package com.xitij.adzap.ui;
 
+import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.MediaController;
@@ -23,11 +25,14 @@ import com.xitij.adzap.R;
 import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.widget.CircleDialog;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class SettingsScreen extends ActionBarActivity {
 
     private CircleDialog dialog;
     private Toolbar toolbar;
     private Switch swLock,swBackground;
+    private TextView txtLogout;
 
 
     @Override
@@ -37,9 +42,10 @@ public class SettingsScreen extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView subTitle_toolbar = (TextView)toolbar.findViewById(R.id.toolbar_title);
 
+
         subTitle_toolbar.setText("Settings");
 
-
+        txtLogout = (TextView)findViewById(R.id.txtLogout);
         swLock = (Switch)findViewById(R.id.swLock);
         swBackground = (Switch)findViewById(R.id.swBackground);
         init();
@@ -65,6 +71,43 @@ public class SettingsScreen extends ActionBarActivity {
                 }else{
                     //processSetUnLock();
                 }
+            }
+        });
+
+
+
+        txtLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new SweetAlertDialog(SettingsScreen.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Are you sure want to logout?")
+                        .setConfirmText("Yes,Logout me")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+
+                                sDialog.setTitleText("Logout")
+                                        .setConfirmText("OK")
+                                        .showCancelButton(false)
+                                        .setCancelClickListener(null)
+                                        .setConfirmClickListener(null)
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                PrefUtils.setLogin(SettingsScreen.this,false);
+
+                                                Intent iHomeScreen = new Intent(SettingsScreen.this,LoginScreen.class);
+                                                iHomeScreen.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(iHomeScreen);
+                                                finish();
+                                            }
+                                        })
+                                        .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                            }
+                        })
+                        .show();
+
             }
         });
 
