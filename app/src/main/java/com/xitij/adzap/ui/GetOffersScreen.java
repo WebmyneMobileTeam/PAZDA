@@ -81,8 +81,12 @@ public class GetOffersScreen extends ActionBarActivity {
         dialog.setCancelable(false);
         dialog.show();
 
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
+        User currentUser = complexPreferences.getObject("current_user", User.class);
 
-        new CallWebService(AppConstants.GET_OFFERS + 5, CallWebService.TYPE_JSONOBJECT) {
+
+
+        new CallWebService(AppConstants.GET_OFFERS + currentUser.UserId, CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String response) {
@@ -98,13 +102,13 @@ public class GetOffersScreen extends ActionBarActivity {
                         currentOffer = new GsonBuilder().create().fromJson(response, Offers.class);
                         Log.e("offer size",""+currentOffer.ViewAdz.size());
 
+                        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
+                        complexPreferences.putObject("current_offer", currentOffer);
+                        complexPreferences.commit();
+
                         OfferListAdapter adpater = new OfferListAdapter(GetOffersScreen.this,currentOffer);
                         offerListView.setAdapter(adpater);
 
-                       /* //store current user and domain in shared preferences
-                        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
-                        complexPreferences.putObject("current_user", currentUser);
-                        complexPreferences.commit();*/
                     } else {
                         Toast.makeText(GetOffersScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }
@@ -138,7 +142,7 @@ public class GetOffersScreen extends ActionBarActivity {
 
                 Intent set = new Intent(GetOffersScreen.this,VideoPlayer.class);
                 set.putExtra("url",AppConstants.BASE_URL_VIDEO+subPath);
-                set.putExtra("adID",currentOffer.ViewAdz.get(position).AdId);
+                set.putExtra("pos",position);
                 startActivity(set);
             }
         });

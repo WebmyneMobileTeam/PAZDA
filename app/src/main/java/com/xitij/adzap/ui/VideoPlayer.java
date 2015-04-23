@@ -138,15 +138,21 @@ public class VideoPlayer extends ActionBarActivity {
 
 private void processRegisterRewardCoins(){
 
-    int adID = getIntent().getIntExtra("adID",0);
+    int pos = getIntent().getIntExtra("pos",0);
+
+    ComplexPreferences complexPreferences1 = ComplexPreferences.getComplexPreferences(VideoPlayer.this, "user_pref", 0);
+    Offers currentOffer = complexPreferences1.getObject("current_offer", Offers.class);
+
+
     //store current user and domain in shared preferences
-    ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(VideoPlayer.this, "user_pref", 0);
-    User currentUser = complexPreferences.getObject("current_user", User.class);
+    ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(VideoPlayer.this, "user_pref", 0);
+    User currentUser = complexPreferences2.getObject("current_user", User.class);
 
     try{
         JSONObject userobj = new JSONObject();
-        userobj.put("AdId",adID);
-        userobj.put("Userid",currentUser.UserId);
+        userobj.put("AdId",currentOffer.ViewAdz.get(pos).AdId);
+        userobj.put("UserId",String.valueOf(currentUser.UserId));
+        userobj.put("Coins",currentOffer.ViewAdz.get(pos).Coins);
 
         Log.e("Req Resgister",userobj.toString());
 
