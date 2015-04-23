@@ -8,7 +8,9 @@
 
     <include
         layout="@layout/app_bar"/>
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
@@ -24,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <LinearLayout
+            android:id="@+id/linear1"
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -47,24 +50,40 @@
 
             </LinearLayout>
 
-        <TextView
-            android:padding="16dp"
-            android:background="@drawable/freinds_textview_background"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:text="Friend's Invited"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_marginTop="16dp"
-            android:padding="16dp"
+            android:id="@+id/txtFriend"
+            android:drawableLeft="@drawable/ic_friends_invited"
+            android:paddingLeft="16dp"
+            android:drawablePadding="16dp"
+            android:textColor="@color/whiteColor"
             android:background="@drawable/freinds_textview_background"
-            android:textSize="16sp"
-            android:gravity="center"
+            android:textSize="18sp"
+            android:gravity="left|center"
+            android:text="Friend's Invited"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+
+        <TextView
+            android:id="@+id/txtCoins"
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/ic_coins"
+            android:paddingLeft="16dp"
+            android:drawablePadding="16dp"
+            android:textColor="@color/whiteColor"
+            android:background="@drawable/freinds_textview_background"
+            android:textSize="18sp"
+            android:gravity="left|center"
             android:text="Coins from friend's"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+
 
         <LinearLayout
             android:background="@drawable/freinds_view_background"
@@ -73,17 +92,43 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginTop="16dp"
+                android:background="@drawable/iconshare"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             <TextView
                 android:padding="16dp"
                 android:textSize="16sp"
-                android:gravity="top"
-                android:text="Share with friends to get more coins"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="Tap to Share your referral code with friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtRefCode"
+                android:layout_marginBottom="16dp"
+                android:background="#B7B8A2"
+                android:padding="16dp"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="123456ABC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="@string/freinds_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-
+</ScrollView>
 
 </LinearLayout>

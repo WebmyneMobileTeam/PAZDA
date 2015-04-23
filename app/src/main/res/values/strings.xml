@@ -4,4 +4,5 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="freinds_msg">Get unlimited coins when friends complete tasks. They get 5 coins or more, you get 30% of their task\'s reward.</string>
 </resources>

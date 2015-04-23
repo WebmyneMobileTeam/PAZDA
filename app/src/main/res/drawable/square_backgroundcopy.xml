@@ -3,7 +3,7 @@
     android:shape="rectangle"
     >
 
-    <solid android:color="@color/freindsViewBackground"/>
-
+    <solid android:color="#8095ab9b"/>
+    <corners android:radius="16dp" />
 
 </shape>
