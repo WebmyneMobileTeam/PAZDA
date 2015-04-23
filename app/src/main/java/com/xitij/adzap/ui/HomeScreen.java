@@ -19,6 +19,7 @@ import com.xitij.adzap.adapters.OfferListAdapter;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.PrefUtils;
+import com.xitij.adzap.model.CheckBalance;
 import com.xitij.adzap.model.Offers;
 import com.xitij.adzap.model.User;
 import com.xitij.adzap.widget.CircleDialog;
@@ -52,7 +53,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         dialog.show();
 
 
-        new CallWebService(AppConstants.VIEW_PROFILE + 5, CallWebService.TYPE_JSONOBJECT) {
+        new CallWebService(AppConstants.CHECK_BALANCE + 10008, CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String response) {
@@ -62,14 +63,14 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
                 try {
                     JSONObject obj = new JSONObject(response);
                     if (obj.getString("Response").equalsIgnoreCase("0")) {
-                        User currentUser = new GsonBuilder().create().fromJson(response, User.class);
+                        CheckBalance chkBalance = new GsonBuilder().create().fromJson(response, CheckBalance.class);
 
-                        if(currentUser.Balance == null){
+                        if(chkBalance.ClosingBal == null){
                             txtCoin.setText("0");
                             txtINR.setText("₹ 0");
                         }else{
-                            txtCoin.setText(currentUser.Balance);
-                            txtINR.setText("₹ "+currentUser.Balance);
+                            txtCoin.setText(chkBalance.ClosingBal);
+                            txtINR.setText("₹ "+chkBalance.ClosingBal);
                         }
 
 
