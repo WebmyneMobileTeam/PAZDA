@@ -80,6 +80,7 @@ public class FriendsScreen extends ActionBarActivity {
         setBadges();
     }
 
+
     private void setBadges(){
 
         int badgeColor = Color.parseColor("#F95D0C");
