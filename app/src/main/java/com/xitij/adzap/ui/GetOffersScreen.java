@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,30 +46,29 @@ public class GetOffersScreen extends ActionBarActivity {
     private TextView txtCoin;
     private View emptyView;
     private ImageView earnCoin;
+    private LinearLayout linearList,linearEmpty;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  setContentView(R.layout.activity_getoffers_screen);
+        setContentView(R.layout.activity_getoffers_screen);
 
-
-        setContentView(R.layout.offer_item_emptyview);
+        linearList = (LinearLayout)findViewById(R.id.linearList);
+        linearEmpty= (LinearLayout)findViewById(R.id.linearEmpty);
+      /*  setContentView(R.layout.offer_item_emptyview);
 
         txtCoin = (TextView)findViewById(R.id.txtCoin);
         earnCoin= (ImageView) findViewById(R.id.earnCoin);
 
-
-
-
-
         int col = Color.parseColor("#FFFFE6");
         earnCoin.setColorFilter(col, PorterDuff.Mode.SRC_ATOP);
         earnCoin.setImageResource(R.drawable.earn_coins);
-
-    /*    toolbar = (Toolbar) findViewById(R.id.toolbar);
+*/
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView toolbar_Title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         //toolbar.setNavigationIcon(R.drawable.icon_back_blue);
-        toolbar_Title.setText("Log ind");
+        toolbar_Title.setText("Offers");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,8 +77,8 @@ public class GetOffersScreen extends ActionBarActivity {
         });
 
 
-        emptyView = ((LayoutInflater) GetOffersScreen.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.offer_item_emptyview, null, false);
-        txtmsg = (TextView)emptyView.findViewById(R.id.txtmsg);
+       // emptyView = ((LayoutInflater) GetOffersScreen.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.offer_item_emptyview, null, false);
+        txtCoin = (TextView)findViewById(R.id.txtCoin);
 
 
         offerListView = (ListView)findViewById(R.id.offerList);
@@ -87,7 +87,7 @@ public class GetOffersScreen extends ActionBarActivity {
 
         init();
 
-        processGetOffers();*/
+
 
     }
 
@@ -99,7 +99,11 @@ public class GetOffersScreen extends ActionBarActivity {
     }
 
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        processGetOffers();
+    }
 
     private void processGetOffers() {
         dialog = new CircleDialog(GetOffersScreen.this, 0);
@@ -122,6 +126,9 @@ public class GetOffersScreen extends ActionBarActivity {
                     JSONObject obj = new JSONObject(response);
                     if (obj.getString("Response").equalsIgnoreCase("0")) {
 
+                        linearList.setVisibility(View.VISIBLE);
+                        linearEmpty.setVisibility(View.GONE);
+
                         Toast.makeText(GetOffersScreen.this, obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
 
                         currentOffer = new GsonBuilder().create().fromJson(response, Offers.class);
@@ -135,6 +142,11 @@ public class GetOffersScreen extends ActionBarActivity {
                         offerListView.setAdapter(adpater);
 
                     } else {
+
+                        linearList.setVisibility(View.GONE);
+                        linearEmpty.setVisibility(View.VISIBLE);
+
+                        txtCoin.setText(PrefUtils.getRecentcoins(GetOffersScreen.this));
                         Toast.makeText(GetOffersScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }
 

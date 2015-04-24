@@ -46,6 +46,8 @@ public class VideoPlayer extends ActionBarActivity {
     private int counter=20;
     double finalDuration;
     int temp;
+    Offers currentOffer;
+    int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,10 +140,10 @@ public class VideoPlayer extends ActionBarActivity {
 
 private void processRegisterRewardCoins(){
 
-    int pos = getIntent().getIntExtra("pos",0);
+    pos = getIntent().getIntExtra("pos",0);
 
     ComplexPreferences complexPreferences1 = ComplexPreferences.getComplexPreferences(VideoPlayer.this, "user_pref", 0);
-    Offers currentOffer = complexPreferences1.getObject("current_offer", Offers.class);
+    currentOffer = complexPreferences1.getObject("current_offer", Offers.class);
 
 
     //store current user and domain in shared preferences
@@ -181,6 +183,10 @@ private void processRegisterRewardCoins(){
 */
 
                         Toast.makeText(VideoPlayer.this,obj.getString("ResponseMsg").toString(),Toast.LENGTH_LONG).show();
+
+
+                        int coins = Integer.valueOf(currentOffer.ViewAdz.get(pos).Coins);
+                        PrefUtils.setRecentcoins(VideoPlayer.this,String.valueOf(coins));
 
                         Intent video = new Intent( VideoPlayer.this ,GetOffersScreen.class);
                         startActivity(video);

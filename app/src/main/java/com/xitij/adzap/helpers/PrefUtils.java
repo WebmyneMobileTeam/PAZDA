@@ -30,6 +30,15 @@ public class PrefUtils {
         Prefs.with(ctx).save("login",set);
     }
 
+    public static void setRecentcoins(Context ctx, String coinValue){
+        Prefs.with(ctx).save("recentCoins",coinValue);
+    }
+
+    public static String getRecentcoins(Context ctx){
+        String coins = Prefs.with(ctx).getString("recentCoins","");
+        return coins;
+    }
+
 
     public static boolean isLightTheme(Context ctx){
         boolean isLight = true;
