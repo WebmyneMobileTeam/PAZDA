@@ -66,6 +66,22 @@
                 style="@style/EditText_LoginScreen"
                 android:hint="MOBILE" />
 
+            <EditText
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColorHint="@color/whiteColor"
+                android:textColor="@color/whiteColor"
+                android:drawablePadding="5dp"
+                android:background="@drawable/square_backgroundcopy"
+                android:id="@+id/etReferalCode"
+                android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:padding="16dp"
+                android:layout_height="wrap_content"
+                android:hint="REFERAL CODE" />
+
 
 
         </LinearLayout>

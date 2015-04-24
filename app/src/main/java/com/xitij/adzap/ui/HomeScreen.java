@@ -27,12 +27,15 @@ import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
 
+
+
 public class HomeScreen extends ActionBarActivity implements View.OnClickListener{
 
     private ViewGroup menuEarnCoins,menuRewards,menuFriends,menuHistory;
     private  ImageView settings;
     private TextView txtCoin,txtINR;
     private CircleDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +73,21 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
                     if (obj.getString("Response").equalsIgnoreCase("0")) {
                         CheckBalance chkBalance = new GsonBuilder().create().fromJson(response, CheckBalance.class);
 
+                        // 1 Rs = 15 Coins
                         if(chkBalance.ClosingBal == null){
                             txtCoin.setText("0");
                             txtINR.setText("₹ 0");
                         }else{
+
                             txtCoin.setText(chkBalance.ClosingBal);
-                            txtINR.setText("₹ "+chkBalance.ClosingBal);
+
+
+                            Float coins = Float.valueOf(chkBalance.ClosingBal);
+                            Float temp_rupees = coins /15;
+                            String final_rate = String.format("%.2f", temp_rupees);
+                            txtINR.setText("₹ "+final_rate);
+
+
                         }
 
 
