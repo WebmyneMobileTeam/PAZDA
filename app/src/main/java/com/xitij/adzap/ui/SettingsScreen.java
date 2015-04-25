@@ -4,6 +4,7 @@ import android.app.KeyguardManager;
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +28,16 @@ import android.widget.Toast;
 import com.xitij.adzap.R;
 import com.xitij.adzap.helpers.PrefUtils;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,6 +52,7 @@ public class SettingsScreen extends ActionBarActivity {
     private Toolbar toolbar;
     private Switch swLock,swBackground;
     private TextView txtLogout;
+    String saveImagePath;
 
 
     @Override
@@ -76,6 +88,7 @@ public class SettingsScreen extends ActionBarActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(swBackground.isChecked()){
                     processSetWallpaper();
+
                 }else{
                     processUnSetWallpaper();
                 }
@@ -154,7 +167,7 @@ public class SettingsScreen extends ActionBarActivity {
             myWallpaperManager.setBitmap(wallpaper);
             Toast.makeText(SettingsScreen.this,"Sucessfully Wallpaper set",Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-
+        Log.e("error in prr","dsd");
             e.printStackTrace();
         }
     }
@@ -242,7 +255,8 @@ public class SettingsScreen extends ActionBarActivity {
             pDialog.dismiss();
 
             if(isImageSucessfullyLoaded){
-                processsetImage();
+                //processsetImage();
+                loadImageFromStorage(saveImagePath);
 
             }else
                 Toast.makeText(SettingsScreen.this,"Image not found or network error",Toast.LENGTH_LONG).show();
@@ -258,11 +272,10 @@ public class SettingsScreen extends ActionBarActivity {
             try {
                 //set the download URL, a url that points to a file on the internet
                 //this is the file to be downloaded
+             //   http://www.allindiaflorist.com/imgs/arrangemen4.jpg
+         /*       URL url = new URL("http://www.johnsite.com.accu17.com/ADZAPP/Images/d39683dd-36ac-47d5-b9f7-9163f9d4e298.JPG");
 
-
-                URL url = new URL("http://johnsite.com.accu17.com/ADZAPP/Images/d39683dd-36ac-47d5-b9f7-9163f9d4e298.JPG");
-
-              //  URL url = new URL("http://www.androidbegin.com/wp-content/uploads/2013/07/HD-Logo.gif");
+                //  URL url = new URL("http://www.androidbegin.com/wp-content/uploads/2013/07/HD-Logo.gif");
                 //create the new connection
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 //set up some things on the connection
@@ -270,9 +283,31 @@ public class SettingsScreen extends ActionBarActivity {
                 urlConnection.setDoOutput(true);
 
                 //and connect!
-                urlConnection.connect();
+                urlConnection.connect();*/
 
-                //set the path where we want to save the file
+
+
+
+                URL url = new URL("http://www.johnsite.com.accu17.com/ADZAPP/Images/d39683dd-36ac-47d5-b9f7-9163f9d4e298.JPG");
+                HttpGet httpRequest = null;
+
+                httpRequest = new HttpGet(url.toURI());
+
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpResponse response = (HttpResponse) httpclient.execute(httpRequest);
+
+                HttpEntity entity = response.getEntity();
+                BufferedHttpEntity bufHttpEntity = new BufferedHttpEntity(entity);
+                InputStream input = bufHttpEntity.getContent();
+
+                Bitmap bitmap = BitmapFactory.decodeStream(input);
+                input.close();
+
+                saveImagePath = saveToInternalSorage(bitmap);
+
+
+
+      /*          //set the path where we want to save the file
                 //in this case, going to save it on the root directory of the
                 //sd card.
                 File SDCardRoot = Environment.getExternalStorageDirectory();
@@ -309,7 +344,7 @@ public class SettingsScreen extends ActionBarActivity {
 
                 }
                 //close the output stream when done
-                fileOutput.close();
+                fileOutput.close();*/
 
                 isImageSucessfullyLoaded = true;
 
@@ -333,6 +368,53 @@ public class SettingsScreen extends ActionBarActivity {
             return null;
         }
     }
+
+
+private void loadImageFromStorage(String path)    {
+
+        try {
+            File f=new File(path, "ADZAPWallpaper.jpg");
+            Bitmap wallpaper = BitmapFactory.decodeStream(new FileInputStream(f));
+
+            WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+            try {
+                myWallpaperManager.setBitmap(wallpaper);
+                Toast.makeText(SettingsScreen.this,"Sucessfully Wallpaper set",Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                Log.e("error in prr","dsd");
+                e.printStackTrace();
+            }
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+private String saveToInternalSorage(Bitmap bitmapImage){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("ADZAP", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory,"ADZAPWallpaper.jpg");
+
+        FileOutputStream fos = null;
+        try {
+
+            fos = new FileOutputStream(mypath);
+
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return directory.getAbsolutePath();
+    }
+
+
+
 
 //end of main class
 }
