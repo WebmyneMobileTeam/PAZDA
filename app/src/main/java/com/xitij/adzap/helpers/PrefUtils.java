@@ -35,8 +35,28 @@ public class PrefUtils {
     }
 
     public static String getRecentcoins(Context ctx){
-        String coins = Prefs.with(ctx).getString("recentCoins","");
+        String coins = Prefs.with(ctx).getString("recentCoins","0");
         return coins;
+    }
+
+
+
+    public static void setChangeBackground(Context ctx, boolean Value){
+        Prefs.with(ctx).save("isChnageBackground",Value);
+    }
+
+    public static boolean getChangeBackground(Context ctx){
+        boolean value = Prefs.with(ctx).getBoolean("isChnageBackground",false);
+        return value;
+    }
+
+    public static void setLocalScreenBackground(Context ctx, boolean Value){
+        Prefs.with(ctx).save("isLockScreenBackground",Value);
+    }
+
+    public static boolean getLocalScreenBackground(Context ctx){
+        boolean value = Prefs.with(ctx).getBoolean("isLockScreenBackground",false);
+        return value;
     }
 
 

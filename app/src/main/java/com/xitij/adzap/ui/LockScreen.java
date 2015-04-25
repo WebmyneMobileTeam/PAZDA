@@ -1,5 +1,6 @@
 package com.xitij.adzap.ui;
 
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -41,4 +42,12 @@ public class LockScreen extends ActionBarActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent i = new Intent(LockScreen.this,HomeScreen.class);
+        startActivity(i);
+        finish();
+
+    }
 }

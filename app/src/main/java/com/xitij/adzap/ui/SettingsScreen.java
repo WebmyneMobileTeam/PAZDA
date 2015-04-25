@@ -1,8 +1,6 @@
 package com.xitij.adzap.ui;
 
-import android.app.AlertDialog;
 import android.app.KeyguardManager;
-import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,8 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,16 +19,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
-import android.widget.MediaController;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.xitij.adzap.R;
-import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.PrefUtils;
-import com.xitij.adzap.widget.CircleDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -131,13 +123,27 @@ public class SettingsScreen extends ActionBarActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(PrefUtils.getChangeBackground(SettingsScreen.this)){
+            swBackground.setChecked(true);
+        }
+
+        if(PrefUtils.getLocalScreenBackground(SettingsScreen.this)){
+            swLock.setChecked(true);
+        }
+
+    }
+
     private void processSetWallpaper(){
 
-        myAsyncTask myWebFetch = new myAsyncTask();
+      /*  myAsyncTask myWebFetch = new myAsyncTask();
         myWebFetch.execute();
-
-
-
+*/
+        startService(new Intent(SettingsScreen.this , ChangeWallpaperService.class));
+        PrefUtils.setChangeBackground(SettingsScreen.this,true);
     }
 
     private void processsetImage(){
@@ -148,7 +154,7 @@ public class SettingsScreen extends ActionBarActivity {
             myWallpaperManager.setBitmap(wallpaper);
             Toast.makeText(SettingsScreen.this,"Sucessfully Wallpaper set",Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
     }
@@ -156,13 +162,15 @@ public class SettingsScreen extends ActionBarActivity {
 
 
     private void processUnSetWallpaper(){
-      WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
+        stopService(new Intent(SettingsScreen.this , ChangeWallpaperService.class));
+        PrefUtils.setChangeBackground(SettingsScreen.this,false);
+      /*WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
         try {
             myWallpaperManager.setResource(R.raw.default_wallpaper);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
-        }
+        }*/
 
 
 
@@ -176,6 +184,7 @@ public class SettingsScreen extends ActionBarActivity {
         registerReceiver(mybroadcast, new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(mybroadcast, new IntentFilter(Intent.ACTION_SCREEN_OFF));
 
+        PrefUtils.setLocalScreenBackground(SettingsScreen.this, true);
 
 
 
@@ -184,6 +193,8 @@ public class SettingsScreen extends ActionBarActivity {
     private void processSetUnLock(){
         ((KeyguardManager)getSystemService(SettingsScreen.this.KEYGUARD_SERVICE)).newKeyguardLock("IN").reenableKeyguard();
          unregisterReceiver(mybroadcast);
+
+        PrefUtils.setLocalScreenBackground(SettingsScreen.this,false);
     }
 
 
