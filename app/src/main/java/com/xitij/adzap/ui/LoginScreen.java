@@ -116,6 +116,8 @@ public class LoginScreen extends ActionBarActivity {
 
                         PrefUtils.setLogin(LoginScreen.this,true);
 
+                        PrefUtils.setReferenceCode(LoginScreen.this,currentUser.ReferanceCode);
+
                         Intent iHomeScreen = new Intent(LoginScreen.this,HomeScreen.class);
                         startActivity(iHomeScreen);
                         finish();

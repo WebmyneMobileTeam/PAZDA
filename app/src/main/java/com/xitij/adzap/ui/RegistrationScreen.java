@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class RegistrationScreen extends ActionBarActivity {
 
     private CircleDialog dialog;
-    private EditText etEmail,etName,etPassword,etCnfPassword,etPhone;
+    private EditText etEmail,etName,etPassword,etCnfPassword,etPhone,etReferalCode;
     private TextView txtBtnLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class RegistrationScreen extends ActionBarActivity {
         etCnfPassword = (EditText)findViewById(R.id.etCnfPassword);
         etPhone = (EditText)findViewById(R.id.etPhone);
         txtBtnLogin = (TextView)findViewById(R.id.txtBtnLogin);
-
+        etReferalCode= (EditText)findViewById(R.id.etReferalCode);
 
         init();
 
@@ -66,6 +66,7 @@ public class RegistrationScreen extends ActionBarActivity {
         etPassword.setTypeface(tf);
         etCnfPassword.setTypeface(tf);
         etPhone.setTypeface(tf);
+        etReferalCode.setTypeface(tf);
         txtBtnLogin.setTypeface(tf);
 
     }
@@ -104,6 +105,7 @@ private void processRegister(){
         userobj.put("Name",etName.getText().toString().trim());
         userobj.put("Password",etCnfPassword.getText().toString().trim());
         userobj.put("Phone",etPhone.getText().toString().trim());
+        userobj.put("ReferanceCode",etReferalCode.getText().toString().trim());
         userobj.put("UserId",0);
 
         Log.e("Req Resgister",userobj.toString());

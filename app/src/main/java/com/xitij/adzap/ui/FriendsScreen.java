@@ -62,6 +62,8 @@ public class FriendsScreen extends ActionBarActivity {
         init();
 
 
+        REFERAL_CODE = PrefUtils.getReferenceCode(FriendsScreen.this);
+        txtRefCode.setText(REFERAL_CODE);
 
         txtRefCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +108,7 @@ public class FriendsScreen extends ActionBarActivity {
     }
     private void init(){
             Typeface tf = PrefUtils.getTypeFaceCalibri(FriendsScreen.this);
+              txtRefCode.setTypeface(tf);
           /*  etUname.setTypeface(tf);
             etPassword.setTypeface(tf);
             txtBtnLogin.setTypeface(tf);*/

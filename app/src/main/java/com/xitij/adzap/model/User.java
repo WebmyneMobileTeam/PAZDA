@@ -27,4 +27,8 @@ public class User {
 
     @SerializedName("UserId")
     public long UserId;
+
+    @SerializedName("ReferanceCode")
+    public String ReferanceCode;
+
 }

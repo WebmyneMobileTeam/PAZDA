@@ -40,6 +40,16 @@ public class PrefUtils {
     }
 
 
+    public static void setReferenceCode(Context ctx, String coinValue){
+        Prefs.with(ctx).save("referenceCode",coinValue);
+    }
+
+    public static String getReferenceCode(Context ctx){
+        String code = Prefs.with(ctx).getString("referenceCode","123ABC");
+        return code;
+    }
+
+
 
     public static void setChangeBackground(Context ctx, boolean Value){
         Prefs.with(ctx).save("isChnageBackground",Value);

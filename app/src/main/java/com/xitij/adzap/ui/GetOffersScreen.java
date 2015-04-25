@@ -147,7 +147,7 @@ public class GetOffersScreen extends ActionBarActivity {
                         linearEmpty.setVisibility(View.VISIBLE);
 
                         txtCoin.setText(PrefUtils.getRecentcoins(GetOffersScreen.this));
-                        Toast.makeText(GetOffersScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(GetOffersScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }
 
                 } catch (Exception e) {

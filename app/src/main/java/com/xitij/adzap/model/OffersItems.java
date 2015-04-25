@@ -21,6 +21,9 @@ public class OffersItems {
     @SerializedName("DisplayName")
     public String DisplayName;
 
+    @SerializedName("Icon")
+    public String Icon;
+
     @SerializedName("ImagePath")
     public String ImagePath;
 

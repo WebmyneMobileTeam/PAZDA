@@ -2,6 +2,7 @@ package com.xitij.adzap.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.xitij.adzap.R;
+import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.model.Offers;
+import com.xitij.adzap.widget.CircleTransform;
 
 import java.util.ArrayList;
 
@@ -57,6 +61,16 @@ public class OfferListAdapter extends BaseAdapter {
 */
         TextView txtAdName = (TextView)view.findViewById(R.id.txtAdName);
         TextView txtCoins = (TextView)view.findViewById(R.id.txtCoins);
+        ImageView imgIcon = (ImageView)view.findViewById(R.id.imgIcon);
+
+
+        Log.e("Image Path", "" + offerItems.ViewAdz.get(position).Icon);
+        String tempPath = offerItems.ViewAdz.get(position).Icon.toString();
+        String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
+        Log.e("Sub Path",subPath);
+
+
+        Glide.with(ctx).load(AppConstants.BASE_URL_IMAGE + subPath).transform(new CircleTransform(ctx)).thumbnail(0.1f).into(imgIcon);
 
         txtAdName.setText(""+offerItems.ViewAdz.get(position).DisplayName);
 

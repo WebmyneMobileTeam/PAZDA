@@ -6,8 +6,11 @@
     android:orientation="vertical"
     tools:context="com.xitij.adzap.ui.HomeScreen">
 <VideoView
-    android:layout_margin="16dp"
     android:id="@+id/videoPlayer"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
 
@@ -18,9 +21,12 @@
         android:textSize="24sp"
         android:id="@+id/txtTimer"
         android:textStyle="bold"
-        android:padding="12dp"
+
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:gravity="bottom|left"
-        android:text="10"
         android:textColor="#52CC29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

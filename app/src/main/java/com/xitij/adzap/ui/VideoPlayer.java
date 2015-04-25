@@ -62,6 +62,7 @@ public class VideoPlayer extends ActionBarActivity {
         String url = getIntent().getStringExtra("url");
         processGetVideoPlayer(url);
 
+        txtTimer.setVisibility(View.INVISIBLE);
     }
 
     private void init(){
@@ -94,21 +95,24 @@ public class VideoPlayer extends ActionBarActivity {
 
         videoPlayer.requestFocus();
         videoPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+
+
             @Override
             public void onPrepared(MediaPlayer mp) {
                 dialog.dismiss();
                 videoPlayer.start();
 
                 int dur = mp.getDuration();
-                
+                txtTimer.setVisibility(View.VISIBLE);
 
                 dur = dur/1000;
                 finalDuration = Math.floor(dur)+1;
                 temp = (int)finalDuration;
 
-                Toast.makeText(VideoPlayer.this,"video length is- "+temp,Toast.LENGTH_LONG).show();
+              //  Toast.makeText(VideoPlayer.this,"video length is- "+temp,Toast.LENGTH_LONG).show();
 
-                new CountDownTimer(temp*1000,1020){
+                new CountDownTimer(temp*1000,1000){
 
                     @Override
                     public void onTick(long millisUntilFinished) {
@@ -118,12 +122,14 @@ public class VideoPlayer extends ActionBarActivity {
 
                     @Override
                     public void onFinish() {
-                        Toast.makeText(VideoPlayer.this,"Time is complete",Toast.LENGTH_LONG).show();
+                       // Toast.makeText(VideoPlayer.this,"Time is complete",Toast.LENGTH_LONG).show();
 
                     }
                 }.start();
             }
         });
+
+
 
         videoPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -185,8 +191,8 @@ private void processRegisterRewardCoins(){
                         Toast.makeText(VideoPlayer.this,obj.getString("ResponseMsg").toString(),Toast.LENGTH_LONG).show();
 
 
-                        int coins = Integer.valueOf(currentOffer.ViewAdz.get(pos).Coins);
-                        PrefUtils.setRecentcoins(VideoPlayer.this,String.valueOf(coins));
+                        String coins = currentOffer.ViewAdz.get(pos).Coins;
+                        PrefUtils.setRecentcoins(VideoPlayer.this,coins);
 
                         Intent video = new Intent( VideoPlayer.this ,GetOffersScreen.class);
                         startActivity(video);
@@ -194,7 +200,7 @@ private void processRegisterRewardCoins(){
                     }
 
                     else {
-                        Toast.makeText(VideoPlayer.this,"Error - "+obj.getString("ResponseMsg").toString(),Toast.LENGTH_LONG).show();
+                     //   Toast.makeText(VideoPlayer.this,"Error - "+obj.getString("ResponseMsg").toString(),Toast.LENGTH_LONG).show();
                     }
 
                 } catch (Exception e) {

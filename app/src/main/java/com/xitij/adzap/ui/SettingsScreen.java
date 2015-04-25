@@ -139,10 +139,10 @@ public class SettingsScreen extends ActionBarActivity {
 
     private void processSetWallpaper(){
 
-      /*  myAsyncTask myWebFetch = new myAsyncTask();
+        myAsyncTask myWebFetch = new myAsyncTask();
         myWebFetch.execute();
-*/
-        startService(new Intent(SettingsScreen.this , ChangeWallpaperService.class));
+
+       /* startService(new Intent(SettingsScreen.this , ChangeWallpaperService.class));*/
         PrefUtils.setChangeBackground(SettingsScreen.this,true);
     }
 
@@ -260,9 +260,9 @@ public class SettingsScreen extends ActionBarActivity {
                 //this is the file to be downloaded
 
 
-             //   URL url = new URL("http://johnsite.com.accu17.com/ADZAPP/Images/51a870d4-6665-400c-b0cd-5d336174241d.JPG");
+                URL url = new URL("http://johnsite.com.accu17.com/ADZAPP/Images/d39683dd-36ac-47d5-b9f7-9163f9d4e298.JPG");
 
-                URL url = new URL("http://www.androidbegin.com/wp-content/uploads/2013/07/HD-Logo.gif");
+              //  URL url = new URL("http://www.androidbegin.com/wp-content/uploads/2013/07/HD-Logo.gif");
                 //create the new connection
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 //set up some things on the connection

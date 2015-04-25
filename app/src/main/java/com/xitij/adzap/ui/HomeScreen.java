@@ -92,7 +92,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
 
                     } else {
-                        Toast.makeText(HomeScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
+                     //   Toast.makeText(HomeScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }
 
                 } catch (Exception e) {
