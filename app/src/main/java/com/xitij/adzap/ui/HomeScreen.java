@@ -105,7 +105,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
             @Override
             public void error(VolleyError error) {
-                Log.e("volly er", error.toString());
+                Toast.makeText(HomeScreen.this, "Network Error, Please Try again.", Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
         }.start();

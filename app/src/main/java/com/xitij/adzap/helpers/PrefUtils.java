@@ -49,6 +49,14 @@ public class PrefUtils {
         return code;
     }
 
+    public static void setPositionForWallpaper(Context ctx, int pos){
+        Prefs.with(ctx).save("posWallpaperCounter",pos);
+    }
+
+    public static int gettPositionForWallpaper(Context ctx){
+        int pos = Prefs.with(ctx).getInt("posWallpaperCounter",0);
+        return pos;
+    }
 
 
     public static void setChangeBackground(Context ctx, boolean Value){

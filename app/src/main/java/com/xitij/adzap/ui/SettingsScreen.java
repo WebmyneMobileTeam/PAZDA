@@ -25,8 +25,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
+import com.xitij.adzap.helpers.AppConstants;
+import com.xitij.adzap.helpers.CallWebService;
+import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
+import com.xitij.adzap.model.AdImageList;
+import com.xitij.adzap.model.CheckBalance;
+import com.xitij.adzap.model.User;
+import com.xitij.adzap.widget.CircleDialog;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -34,6 +43,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -51,9 +61,10 @@ public class SettingsScreen extends ActionBarActivity {
 
     private Toolbar toolbar;
     private Switch swLock,swBackground;
-    private TextView txtLogout;
+    private TextView txtLogout,txtSetWallpaper;
     String saveImagePath;
-
+    private CircleDialog cDialog;
+    AdImageList adImageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +75,13 @@ public class SettingsScreen extends ActionBarActivity {
 
 
         subTitle_toolbar.setText("Settings");
-
+        txtSetWallpaper= (TextView)findViewById(R.id.txtSetWallpaper);
         txtLogout = (TextView)findViewById(R.id.txtLogout);
         swLock = (Switch)findViewById(R.id.swLock);
-        swBackground = (Switch)findViewById(R.id.swBackground);
+       // swBackground = (Switch)findViewById(R.id.swBackground);
         init();
 
-
+        processloadImageLists();
 
         swLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -83,7 +94,14 @@ public class SettingsScreen extends ActionBarActivity {
             }
         });
 
-        swBackground.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        txtSetWallpaper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processSetWallpaper();
+            }
+        });
+      /*  swBackground.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(swBackground.isChecked()){
@@ -93,7 +111,7 @@ public class SettingsScreen extends ActionBarActivity {
                     processUnSetWallpaper();
                 }
             }
-        });
+        });*/
 
 
 
@@ -140,23 +158,77 @@ public class SettingsScreen extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        if(PrefUtils.getChangeBackground(SettingsScreen.this)){
-            swBackground.setChecked(true);
-        }
-
         if(PrefUtils.getLocalScreenBackground(SettingsScreen.this)){
             swLock.setChecked(true);
         }
 
     }
 
+
+
+private void processloadImageLists(){
+    cDialog = new CircleDialog(SettingsScreen.this, 0);
+    cDialog.setCancelable(false);
+    cDialog.show();
+
+    ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(SettingsScreen.this, "user_pref", 0);
+    User currentUser = complexPreferences.getObject("current_user", User.class);
+
+
+
+    new CallWebService(AppConstants.GET_AD_IMAGES + currentUser.UserId, CallWebService.TYPE_JSONOBJECT) {
+
+        @Override
+        public void response(String response) {
+            cDialog.dismiss();
+            Log.e("response", response.toString());
+
+            try {
+                JSONObject obj = new JSONObject(response);
+                if (obj.getString("Response").equalsIgnoreCase("0")) {
+                    adImageList = new GsonBuilder().create().fromJson(response, AdImageList.class);
+
+
+                } else {
+                    //   Toast.makeText(HomeScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
+                }
+
+            } catch (Exception e) {
+
+            }
+
+
+
+        }
+
+        @Override
+        public void error(VolleyError error) {
+            Log.e("volly er", error.toString());
+            cDialog.dismiss();
+        }
+    }.start();
+    }
+
     private void processSetWallpaper(){
 
-        myAsyncTask myWebFetch = new myAsyncTask();
+        int counter = PrefUtils.gettPositionForWallpaper(SettingsScreen.this);
+
+        if(counter == adImageList.Img.size()){
+            counter=0;
+        }
+
+        Log.e("Image Path",""+adImageList.Img.get(counter).ImgPath.toString());
+
+        String tempPath = adImageList.Img.get(counter).ImgPath.toString();
+        String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
+
+        Log.e("Sub Path",subPath);
+        String imagUrl=subPath;
+        myAsyncTask myWebFetch = new myAsyncTask(imagUrl,counter);
         myWebFetch.execute();
 
        /* startService(new Intent(SettingsScreen.this , ChangeWallpaperService.class));*/
-        PrefUtils.setChangeBackground(SettingsScreen.this,true);
+       // PrefUtils.setChangeBackground(SettingsScreen.this,true);
     }
 
     private void processsetImage(){
@@ -241,8 +313,12 @@ public class SettingsScreen extends ActionBarActivity {
     class myAsyncTask extends AsyncTask<Void, Void, Void> {
         SweetAlertDialog pDialog;
         boolean isImageSucessfullyLoaded=false;
-        myAsyncTask()
+        int counter;
+        String imageUrl;
+        myAsyncTask(String uurl,int count)
         {
+            this.counter = count;
+            this.imageUrl = uurl;
             pDialog = new SweetAlertDialog(SettingsScreen.this, SweetAlertDialog.PROGRESS_TYPE);
             pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
             pDialog.setTitleText("Setting up Wallpaper");
@@ -288,7 +364,7 @@ public class SettingsScreen extends ActionBarActivity {
 
 
 
-                URL url = new URL("http://www.johnsite.com.accu17.com/ADZAPP/Images/d39683dd-36ac-47d5-b9f7-9163f9d4e298.JPG");
+                URL url = new URL(AppConstants.BASE_URL_IMAGE+imageUrl);
                 HttpGet httpRequest = null;
 
                 httpRequest = new HttpGet(url.toURI());
@@ -305,6 +381,8 @@ public class SettingsScreen extends ActionBarActivity {
 
                 saveImagePath = saveToInternalSorage(bitmap);
 
+                counter +=1;
+                PrefUtils.setPositionForWallpaper(SettingsScreen.this,counter);
 
 
       /*          //set the path where we want to save the file

@@ -7,7 +7,7 @@ public class AppConstants {
 
     // Base url for the webservice
 
-    public static String BASE_URL_IMAGE = "http://johnsite.com.accu17.com/adzapp/images/";
+    public static String BASE_URL_IMAGE = "http://www.johnsite.com.accu17.com/adzapp/images/";
     public static String BASE_URL_VIDEO = "http://johnsite.com.accu17.com/adzapp/video/";
 
     public static String BASE_URL = "http://johnsite.com.accu17.com/RewardMe/";
@@ -23,6 +23,9 @@ public class AppConstants {
 
     public static String GET_OFFERS = BASE_URL + "ViewAdz.svc/json/GetOffers/";
     public static String REQUEST_POINTS = BASE_URL + "ViewAdz.svc/json/UpdateWallet";
+
+
+    public static String GET_AD_IMAGES= BASE_URL + "ViewAdz.svc/json/GetADzImages/";
 
 
 }

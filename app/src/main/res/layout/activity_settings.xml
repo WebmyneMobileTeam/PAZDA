@@ -46,22 +46,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/txtSetWallpaper"
                 android:layout_gravity="center"
                 android:padding="16dp"
                 android:textStyle="bold"
-                android:text="Change Screen Backgorund"
+                android:text="Change Wallpaper"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
 
-            <Switch
+         <!--   <Switch
                 android:id="@+id/swBackground"
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
                 android:layout_width="100dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp" />-->
         </LinearLayout>
 
         <TextView
