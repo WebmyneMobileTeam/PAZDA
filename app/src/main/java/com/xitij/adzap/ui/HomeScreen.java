@@ -209,6 +209,10 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
                 Intent frnd = new Intent(HomeScreen.this,FriendsScreen.class);
                 startActivity(frnd);
                 break;
+            case R.id.menuFour:
+                Intent history = new Intent(HomeScreen.this,HistoryScreen.class);
+                startActivity(history);
+                break;
         }
 
 

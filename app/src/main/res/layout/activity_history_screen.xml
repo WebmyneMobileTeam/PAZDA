@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp"
+    android:orientation="vertical"
+    android:background="@drawable/main_bg"
+    tools:context="com.xitij.adzap.ui.HomeScreen">
+    <include
+        layout="@layout/app_bar"/>
+
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:background="@drawable/square_backgroundcopy"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+<ListView
+    android:dividerHeight="0dp"
+    android:divider="@null"
+    android:padding="8dp"
+    android:id="@+id/listHistory"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"></ListView>
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
