@@ -71,6 +71,9 @@ public class FriendsScreen extends ActionBarActivity {
         REFERAL_CODE = PrefUtils.getReferenceCode(FriendsScreen.this);
         txtRefCode.setText(REFERAL_CODE);
 
+
+        getBadges();
+
         txtRefCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,15 +95,15 @@ public class FriendsScreen extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getBadges();
+
 
     }
 
 
     private void getBadges(){
-        dialog = new CircleDialog(FriendsScreen.this, 0);
+       /* dialog = new CircleDialog(FriendsScreen.this, 0);
         dialog.setCancelable(false);
-        dialog.show();
+        dialog.show();*/
 
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(FriendsScreen.this, "user_pref", 0);
         User currentUser = complexPreferences.getObject("current_user", User.class);
@@ -111,7 +114,7 @@ public class FriendsScreen extends ActionBarActivity {
 
             @Override
             public void response(String response) {
-                dialog.dismiss();
+               // dialog.dismiss();
                 Log.e("response", response.toString());
 
                 try {
@@ -135,7 +138,7 @@ public class FriendsScreen extends ActionBarActivity {
             @Override
             public void error(VolleyError error) {
                 Toast.makeText(FriendsScreen.this, "Network Error, Please Try again.", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+               // dialog.dismiss();
             }
         }.start();
     }

@@ -61,9 +61,9 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
     }
 
     private void setupBalance(){
-        dialog = new CircleDialog(HomeScreen.this, 0);
+      /*  dialog = new CircleDialog(HomeScreen.this, 0);
         dialog.setCancelable(false);
-        dialog.show();
+        dialog.show();*/
 
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(HomeScreen.this, "user_pref", 0);
         User currentUser = complexPreferences.getObject("current_user", User.class);
@@ -74,7 +74,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
             @Override
             public void response(String response) {
-                dialog.dismiss();
+             //   dialog.dismiss();
                 Log.e("response", response.toString());
 
                 try {
@@ -115,7 +115,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
             @Override
             public void error(VolleyError error) {
                 Toast.makeText(HomeScreen.this, "Network Error, Please Try again.", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
+             //   dialog.dismiss();
             }
         }.start();
     }
