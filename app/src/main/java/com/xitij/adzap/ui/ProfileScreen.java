@@ -40,7 +40,6 @@ public class ProfileScreen extends ActionBarActivity {
     private boolean isNewPassword=false;
     User currentUser;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
