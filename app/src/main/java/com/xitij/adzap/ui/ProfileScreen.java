@@ -75,8 +75,9 @@ private void processValidateData() {
         etPhone.setError("Please Enter Mobile no. !!!");
     }  else {
 
-                if(etPassword.length()!=0 || etCnfPassword.length()!=0){
+                if(etPassword.length()==0 || etCnfPassword.length()==0){
                     isNewPassword=false;
+                    processRegister();
                 }else{
                     if (isEdiTextEmpty(etPassword)) {
                         etPassword.setError("Please Enter Password !!!");
@@ -84,11 +85,14 @@ private void processValidateData() {
                         etCnfPassword.setError("Please Enter Confirm Password !!!");
                     } else if (!isPasswordMatch(etPassword, etCnfPassword)) {
                         Toast.makeText(ProfileScreen.this, "Password do not macth !!!", Toast.LENGTH_LONG).show();
+                    }else{
+                        isNewPassword=true;
+                        processRegister();
                     }
 
-                    isNewPassword=true;
+
                 }
-                processRegister();
+
     }
 }
 
@@ -128,7 +132,7 @@ private void processValidateData() {
 
         try{
             JSONObject userobj = new JSONObject();
-            //userobj.put("EmailId",currentUser.EmailId);
+            userobj.put("EmailId",currentUser.EmailId);
             userobj.put("Image","");
             userobj.put("Name",etName.getText().toString().trim());
 
@@ -150,7 +154,7 @@ private void processValidateData() {
             dialog.setCancelable(false);
             dialog.show();
 
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.USER_REGISTERATION, userobj, new Response.Listener<JSONObject>() {
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.UPDATE_PROFILE, userobj, new Response.Listener<JSONObject>() {
 
                 @Override
                 public void onResponse(JSONObject jobj) {

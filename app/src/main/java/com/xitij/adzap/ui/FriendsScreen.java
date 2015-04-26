@@ -22,8 +22,12 @@ import com.xitij.adzap.R;
 import com.xitij.adzap.adapters.OfferListAdapter;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
+import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
+import com.xitij.adzap.model.CheckBalance;
+import com.xitij.adzap.model.History;
 import com.xitij.adzap.model.Offers;
+import com.xitij.adzap.model.User;
 import com.xitij.adzap.widget.BadgeView;
 import com.xitij.adzap.widget.CircleDialog;
 
@@ -40,6 +44,8 @@ public class FriendsScreen extends ActionBarActivity {
 
     private String REFERAL_CODE = "123456ABC";
     BadgeView badgeFreinds,badgeCoins;
+    private String txtFriendsValue,txtFreindsCoinsValue;
+   private History historyObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,23 +85,92 @@ public class FriendsScreen extends ActionBarActivity {
             }
         });
 
-        setBadges();
+
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getBadges();
+
+    }
+
+
+    private void getBadges(){
+        dialog = new CircleDialog(FriendsScreen.this, 0);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(FriendsScreen.this, "user_pref", 0);
+        User currentUser = complexPreferences.getObject("current_user", User.class);
+
+
+
+        new CallWebService(AppConstants.VIEW_HISTORY + currentUser.UserId, CallWebService.TYPE_JSONOBJECT) {
+
+            @Override
+            public void response(String response) {
+                dialog.dismiss();
+                Log.e("response", response.toString());
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.getString("Response").equalsIgnoreCase("0")) {
+                        historyObject = new GsonBuilder().create().fromJson(response, History.class);
+
+                        setBadges();
+                    } else {
+                        //   Toast.makeText(HomeScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (Exception e) {
+
+                }
+
+
+
+            }
+
+            @Override
+            public void error(VolleyError error) {
+                Toast.makeText(FriendsScreen.this, "Network Error, Please Try again.", Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+        }.start();
+    }
+
 
 
     private void setBadges(){
 
         int badgeColor = Color.parseColor("#F95D0C");
 
+        if(historyObject.Transcation.size()==0){
+            txtFreindsCoinsValue = "0";
+            txtFriendsValue = "0";
+        }else{
+            int counter=0;
+            for(int i=0;i<historyObject.Transcation.size();i++){
+                if(historyObject.Transcation.get(i).DisplayName ==null || historyObject.Transcation.get(i).DisplayName.equalsIgnoreCase("")||historyObject.Transcation.get(i).DisplayName.toString().length()==0 ){
+                    counter+=1;
+                }
+            }
+
+            txtFriendsValue=String.valueOf(counter);
+            int coins = counter * 20;
+            txtFreindsCoinsValue = String.valueOf(coins);
+        }
+
 
         badgeFreinds = new BadgeView(this, txtFriend);
         badgeCoins  = new BadgeView(this, txtCoins);
 
-        badgeFreinds.setText("12");
+        badgeFreinds.setText(txtFriendsValue);
         badgeFreinds.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
         badgeFreinds.setBadgeBackgroundColor(badgeColor);
 
-        badgeCoins.setText("0");
+        badgeCoins.setText(txtFreindsCoinsValue);
         badgeCoins.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
         badgeCoins.setBadgeBackgroundColor(badgeColor);
 
