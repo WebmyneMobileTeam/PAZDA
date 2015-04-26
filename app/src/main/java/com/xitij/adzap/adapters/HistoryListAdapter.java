@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.xitij.adzap.R;
 import com.xitij.adzap.helpers.AppConstants;
+import com.xitij.adzap.model.History;
+import com.xitij.adzap.model.HistoryItem;
 import com.xitij.adzap.model.Offers;
 import com.xitij.adzap.widget.CircleTransform;
 
@@ -19,24 +21,22 @@ public class HistoryListAdapter extends BaseAdapter {
 
     LayoutInflater layoutInflator;
     private Context ctx;
-    private Offers offerItems;
+    private History histItem;
 
 
-    public HistoryListAdapter(Context ctx) {
-        //this.offerItems = items;
+    public HistoryListAdapter(Context ctx,History items) {
+        this.histItem = items;
         this.ctx = ctx;
-      //  this.offerItems = offerObj;
-
     }
 
     @Override
     public int getCount() {
-        return 20;
+        return histItem.Transcation.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return histItem.Transcation.get(position);
     }
 
     @Override
@@ -53,13 +53,21 @@ public class HistoryListAdapter extends BaseAdapter {
         View view = convertView;
         view = layoutInflator.inflate(R.layout.history_item_view, parent, false);
 
-/*
-        TextView txtAdName = (TextView)view.findViewById(R.id.txtAdName);
+
+        TextView txtAdname = (TextView)view.findViewById(R.id.txtAdname);
         TextView txtCoins = (TextView)view.findViewById(R.id.txtCoins);
-        ImageView imgIcon = (ImageView)view.findViewById(R.id.imgIcon);*/
+        TextView txtDate = (TextView)view.findViewById(R.id.txtDate);
 
+        if(histItem.Transcation.get(position).DisplayName ==null || histItem.Transcation.get(position).DisplayName.equalsIgnoreCase("")||histItem.Transcation.get(position).DisplayName.toString().length()==0 ) {
+            txtAdname.setText("Earned from Referral Code");
+        }else{
+            txtAdname.setText(histItem.Transcation.get(position).DisplayName);
+        }
 
-
+        double coin = Double.valueOf(histItem.Transcation.get(position).CreaditedBal);
+        int c = (int) coin;
+        txtCoins.setText(""+c+" Coins");
+        txtDate.setText(histItem.Transcation.get(position).TransDate);
 
         return view;
     }

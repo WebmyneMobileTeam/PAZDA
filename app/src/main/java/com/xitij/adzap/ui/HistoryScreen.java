@@ -55,60 +55,16 @@ public class HistoryScreen extends ActionBarActivity {
 
         listHistory = (ListView)findViewById(R.id.listHistory);
 
-
-        HistoryListAdapter adpater = new HistoryListAdapter(HistoryScreen.this);
-        listHistory.setAdapter(adpater);
-/*
-        txtFriend = (TextView)findViewById(R.id.txtFriend);
-        txtCoins = (TextView)findViewById(R.id.txtCoins);
-        txtRefCode = (TextView)findViewById(R.id.txtRefCode);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        init();
-
-
-        REFERAL_CODE = PrefUtils.getReferenceCode(HistoryScreen.this);
-        txtRefCode.setText(REFERAL_CODE);
-
-
-        getBadges();
-
-        txtRefCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String text="Won't you like to get gifts every time you're bored ?\nUse my referal code : "+REFERAL_CODE+" to get bonous coins.\nhttp://wallet.sm.kdmg";
-
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, text);
-                // sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject");
-                startActivity(Intent.createChooser(sharingIntent, "Share using"));
-            }
-        });
-*/
-
+        getHistory();
 
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-
-    }
-
-
-    private void getBadges(){
-       /* dialog = new CircleDialog(FriendsScreen.this, 0);
+    private void getHistory(){
+        dialog = new CircleDialog(HistoryScreen.this, 0);
         dialog.setCancelable(false);
-        dialog.show();*/
+        dialog.show();
 
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(HistoryScreen.this, "user_pref", 0);
         User currentUser = complexPreferences.getObject("current_user", User.class);
@@ -119,7 +75,7 @@ public class HistoryScreen extends ActionBarActivity {
 
             @Override
             public void response(String response) {
-               // dialog.dismiss();
+                dialog.dismiss();
                 Log.e("response", response.toString());
 
                 try {
@@ -127,7 +83,8 @@ public class HistoryScreen extends ActionBarActivity {
                     if (obj.getString("Response").equalsIgnoreCase("0")) {
                         historyObject = new GsonBuilder().create().fromJson(response, History.class);
 
-                        setBadges();
+                        HistoryListAdapter adpater = new HistoryListAdapter(HistoryScreen.this,historyObject);
+                        listHistory.setAdapter(adpater);
                     } else {
                         //   Toast.makeText(HomeScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }
@@ -143,62 +100,10 @@ public class HistoryScreen extends ActionBarActivity {
             @Override
             public void error(VolleyError error) {
                 Toast.makeText(HistoryScreen.this, "Network Error, Please Try again.", Toast.LENGTH_LONG).show();
-               // dialog.dismiss();
+                dialog.dismiss();
             }
         }.start();
     }
-
-
-
-    private void setBadges(){
-
-        int badgeColor = Color.parseColor("#F95D0C");
-
-        if(historyObject.Transcation.size()==0){
-            txtFreindsCoinsValue = "0";
-            txtFriendsValue = "0";
-        }else{
-            int counter=0;
-            for(int i=0;i<historyObject.Transcation.size();i++){
-                if(historyObject.Transcation.get(i).DisplayName ==null || historyObject.Transcation.get(i).DisplayName.equalsIgnoreCase("")||historyObject.Transcation.get(i).DisplayName.toString().length()==0 ){
-                    counter+=1;
-                }
-            }
-
-            txtFriendsValue=String.valueOf(counter);
-            int coins = counter * 20;
-            txtFreindsCoinsValue = String.valueOf(coins);
-        }
-
-
-        badgeFreinds = new BadgeView(this, txtFriend);
-        badgeCoins  = new BadgeView(this, txtCoins);
-
-        badgeFreinds.setText(txtFriendsValue);
-        badgeFreinds.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-        badgeFreinds.setBadgeBackgroundColor(badgeColor);
-
-        badgeCoins.setText(txtFreindsCoinsValue);
-        badgeCoins.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-        badgeCoins.setBadgeBackgroundColor(badgeColor);
-
-        TranslateAnimation anim = new TranslateAnimation(-100, 0, 0, 0);
-        anim.setInterpolator(new BounceInterpolator());
-        anim.setDuration(1000);
-        badgeFreinds.toggle(anim, null);
-        badgeCoins.toggle(anim, null);
-
-    }
-    private void init(){
-            Typeface tf = PrefUtils.getTypeFaceCalibri(HistoryScreen.this);
-              txtRefCode.setTypeface(tf);
-          /*  etUname.setTypeface(tf);
-            etPassword.setTypeface(tf);
-            txtBtnLogin.setTypeface(tf);*/
-    }
-
-
-
 
 
 
