@@ -27,5 +27,7 @@ public class AppConstants {
 
     public static String GET_AD_IMAGES= BASE_URL + "ViewAdz.svc/json/GetADzImages/";
 
+    public static String UPDATE_PROFILE= BASE_URL + "Login.svc/json/UpDateProfile";
+
 
 }

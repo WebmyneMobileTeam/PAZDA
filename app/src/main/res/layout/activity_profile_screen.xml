@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.xitij.adzap.ui.HomeScreen">
+
+<LinearLayout
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:id="@+id/linearTop"
+    android:orientation="vertical"
+    android:background="@color/primarycolor"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <com.xitij.adzap.widget.DSAvatarImageView
+        android:id="@+id/imgProfile"
+        android:gravity="center"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/default_wallpaper"
+        app:border_color="@color/whiteColor"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        app:background_color="@color/app_grey"
+        app:border_width="2dp" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/whiteColor"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ram Sharma"/>
+    <TextView
+        android:id="@+id/txtEmail"
+        android:layout_marginTop="2dp"
+        android:textSize="16sp"
+        android:textColor="@color/whiteColor"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ram@gmail.com"/>
+
+</LinearLayout>
+<ScrollView
+    android:layout_below="@+id/linearTop"
+    android:paddingTop="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/drawable_name"
+            android:id="@+id/etName"
+            style="@style/EditText_LoginScreen"
+            android:hint="NAME" />
+
+        <EditText
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/drawable_password"
+            android:id="@+id/etPassword"
+            style="@style/EditText_LoginScreen"
+            android:inputType="textPassword"
+            android:hint="NEW PASSWORD" />
+
+
+        <EditText
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/drawable_password"
+            android:id="@+id/etCnfPassword"
+            style="@style/EditText_LoginScreen"
+            android:inputType="textPassword"
+            android:hint="CONFIRM NEW PASSWORD" />
+
+
+
+        <EditText
+            android:drawablePadding="5dp"
+            android:drawableLeft="@drawable/drawable_mobile"
+            android:id="@+id/etPhone"
+            style="@style/EditText_LoginScreen"
+            android:hint="MOBILE" />
+
+        <TextView
+            android:gravity="left"
+            android:textColor="#494949"
+            android:layout_alignParentBottom="true"
+            android:padding="16dp"
+            android:text="* If you don't want to update your password, leave it blank."
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+</ScrollView>
+    <TextView
+        android:id="@+id/txtBtnLogin"
+        android:gravity="center"
+        android:textColor="@color/whiteColor"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp"
+        android:text="UPDATE PROFILE"
+        android:textStyle="bold"
+        android:background="@drawable/default_button_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

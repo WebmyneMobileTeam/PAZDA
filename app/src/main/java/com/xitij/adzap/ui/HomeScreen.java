@@ -32,7 +32,7 @@ import org.json.JSONObject;
 public class HomeScreen extends ActionBarActivity implements View.OnClickListener{
 
     private ViewGroup menuEarnCoins,menuRewards,menuFriends,menuHistory;
-    private  ImageView settings;
+    private  ImageView settings,imgProfile;
     private TextView txtCoin,txtINR;
     private CircleDialog dialog;
 
@@ -41,8 +41,17 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        imgProfile = (ImageView)findViewById(R.id.imgProfile);
         setupUI();
 
+
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeScreen.this,ProfileScreen.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override

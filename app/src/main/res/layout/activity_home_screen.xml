@@ -16,6 +16,7 @@
 
 
         <com.xitij.adzap.widget.DSAvatarImageView
+            android:id="@+id/imgProfile"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:src="@drawable/ic_timer_auto"
