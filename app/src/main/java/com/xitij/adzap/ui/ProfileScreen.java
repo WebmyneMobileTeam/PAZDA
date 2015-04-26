@@ -1,9 +1,12 @@
 package com.xitij.adzap.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -38,6 +41,10 @@ public class ProfileScreen extends ActionBarActivity {
     private EditText etPassword,etName,etCnfPassword,etPhone,etReferalCode;
     private TextView txtBtnLogin,txtEmail,txtName;
     private boolean isNewPassword=false;
+
+    private static final int PICK_MEDIA_REQUEST_CODE=3;
+    private static final int SHARE_MEDIA_REQUEST_CODE = 9;
+    final CharSequence[] items = { "Take Photo", "Choose from Gallery" };
     User currentUser;
 
     @Override
@@ -62,6 +69,13 @@ public class ProfileScreen extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 processValidateData();
+            }
+        });
+
+        imgProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processUploadImageDialog();
             }
         });
 
@@ -119,6 +133,35 @@ private void processValidateData() {
 
 
     }
+
+    private void processUploadImageDialog() {
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileScreen.this);
+        builder.setTitle("Upload Profile Image");
+
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Take Photo")) {
+                    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                    startActivityForResult(takePicture, PICK_MEDIA_REQUEST_CODE);
+                    Log.e("Camera ","exit");
+
+                } else if (items[item].equals("Choose from Gallery")) {
+                    Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                    startActivityForResult(pickPhoto , PICK_MEDIA_REQUEST_CODE);
+                }
+            }
+        });
+        builder.show();
+
+
+    }
+
 
     private void fillDetails(){
         txtName.setText(currentUser.Name);
