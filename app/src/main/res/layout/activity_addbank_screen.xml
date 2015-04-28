@@ -9,19 +9,20 @@
     <include
         layout="@layout/app_bar"/>
 
+<ScrollView
 
+    android:background="@drawable/square_backgroundcopy"
+    android:layout_margin="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
         android:padding="16dp"
-        android:background="@drawable/square_backgroundcopy"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <EditText
+            android:id="@+id/etBankName"
             android:drawablePadding="5dp"
             android:hint="Enter Bank name"
             android:textColorHint="@color/whiteColor"
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/etBankBranchName"
             android:drawablePadding="5dp"
             android:hint="Enter Branch name"
             android:textColorHint="@color/whiteColor"
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/etAccNo"
             android:drawablePadding="5dp"
             android:hint="Enter Bank account number"
             android:textColorHint="@color/whiteColor"
@@ -45,15 +48,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <EditText
-            android:drawablePadding="5dp"
-            android:hint="Checking / Savings"
-            android:textColorHint="@color/whiteColor"
-            android:drawableLeft="@drawable/ic_action_credit_card"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/whiteColor"
+            android:text="Account Type"
+            android:layout_width="0dp"
             android:layout_height="wrap_content" />
+        <Spinner
+
+            android:layout_weight="1"
+            android:id="@+id/spAccountType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"></Spinner>
+        </LinearLayout>
+
 
         <EditText
+            android:id="@+id/etAccPersonName"
             android:drawablePadding="5dp"
             android:hint="Enter bank account holder name"
             android:textColorHint="@color/whiteColor"
@@ -62,6 +80,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/etIFSCCode"
             android:drawablePadding="5dp"
             android:hint="Enter bank IFSC code"
             android:textColorHint="@color/whiteColor"
@@ -70,6 +89,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
+            android:id="@+id/etAddress"
             android:lines="5"
             android:drawablePadding="5dp"
             android:hint="Enter bank address"
@@ -78,8 +98,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/txtSave"
+            android:gravity="center"
+            android:textColor="@color/whiteColor"
+            android:padding="16dp"
+            android:text="SAVE"
+            android:textStyle="bold"
+            android:background="@drawable/default_button_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>
-
+</ScrollView>
 </LinearLayout>

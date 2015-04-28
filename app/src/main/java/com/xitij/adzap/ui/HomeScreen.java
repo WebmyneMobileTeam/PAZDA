@@ -205,6 +205,10 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
                 Intent offer = new Intent(HomeScreen.this,GetOffersScreen.class);
                 startActivity(offer);
                 break;
+            case R.id.menuTwo:
+                Intent reward = new Intent(HomeScreen.this,RewardsScreen.class);
+                startActivity(reward);
+                break;
             case R.id.menuThree:
                 Intent frnd = new Intent(HomeScreen.this,FriendsScreen.class);
                 startActivity(frnd);

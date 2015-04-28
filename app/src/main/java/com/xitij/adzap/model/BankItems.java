@@ -5,9 +5,7 @@ package com.xitij.adzap.model;
  */
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
-public class InvoicesItems {
+public class BankItems {
 
     @SerializedName("IFSCNo")
     public String IFSCNo;
@@ -24,23 +22,19 @@ public class InvoicesItems {
     @SerializedName("Address")
     public String Address;
 
-    @SerializedName("Amount")
-    public String Amount;
 
     @SerializedName("BankBranch")
     public String BankBranch;
+
+    @SerializedName("BankId")
+    public long BankId;
 
 
     @SerializedName("BankName")
     public String BankName;
 
-    @SerializedName("Coins")
-    public String Coins;
-
     @SerializedName("CustId")
     public long CustId;
 
-    @SerializedName("Date")
-    public String Date;
 
 }

@@ -31,5 +31,13 @@ public class AppConstants {
 
     public static String VIEW_HISTORY = BASE_URL + "ViewAdz.svc/json/ViewHistory/";
 
+    public static String VIEW_INVOICE = BASE_URL + "Invoice.svc/json/ViewInvoice/";
+    public static String VIEW_BANK_DETAILS= BASE_URL + "Invoice.svc/json/ViewBanks/";
+
+    public static String GENERATE_INVOICE = BASE_URL + "Invoice.svc/json/GenerateInvoice";
+    public static String SAVE_BANK_DETAILS= BASE_URL + "Invoice.svc/json/SaveBankInfo";
+    public static String UPDATE_BANK_DETAILS= BASE_URL + "Invoice.svc/json/UpdateBank";
+
+
 
 }

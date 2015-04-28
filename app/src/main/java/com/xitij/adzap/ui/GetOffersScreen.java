@@ -129,7 +129,7 @@ public class GetOffersScreen extends ActionBarActivity {
                         linearList.setVisibility(View.VISIBLE);
                         linearEmpty.setVisibility(View.GONE);
 
-                        Toast.makeText(GetOffersScreen.this, obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
+                       // Toast.makeText(GetOffersScreen.this, obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
 
                         currentOffer = new GsonBuilder().create().fromJson(response, Offers.class);
                         Log.e("offer size",""+currentOffer.ViewAdz.size());
