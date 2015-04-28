@@ -31,7 +31,23 @@
 
         <EditText
             android:drawablePadding="5dp"
+            android:hint="Enter Branch name"
+            android:textColorHint="@color/whiteColor"
+            android:drawableLeft="@drawable/ic_brachname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:drawablePadding="5dp"
             android:hint="Enter Bank account number"
+            android:textColorHint="@color/whiteColor"
+            android:drawableLeft="@drawable/ic_action_credit_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:drawablePadding="5dp"
+            android:hint="Checking / Savings"
             android:textColorHint="@color/whiteColor"
             android:drawableLeft="@drawable/ic_action_credit_card"
             android:layout_width="match_parent"
