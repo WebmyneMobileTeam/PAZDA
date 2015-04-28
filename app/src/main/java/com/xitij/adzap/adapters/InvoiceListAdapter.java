@@ -45,7 +45,7 @@ public class InvoiceListAdapter extends BaseAdapter {
 
         layoutInflator = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = convertView;
-        view = layoutInflator.inflate(R.layout.banklist_item_view, parent, false);
+        view = layoutInflator.inflate(R.layout.invoicelist_item_view, parent, false);
 
 
         TextView txtPersonName = (TextView)view.findViewById(R.id.txtPersonName);
@@ -58,6 +58,9 @@ public class InvoiceListAdapter extends BaseAdapter {
 
         TextView txtAdd = (TextView)view.findViewById(R.id.txtAdd);
 
+        TextView txtAmount = (TextView)view.findViewById(R.id.txtAmount);
+        TextView txtDate = (TextView)view.findViewById(R.id.txtDate);
+        TextView txtStatus = (TextView)view.findViewById(R.id.txtStatus);
 
 
         txtPersonName.setText(InVOICeItem.Invoices.get(position).AccountPersonName.toString().trim());
@@ -69,6 +72,9 @@ public class InvoiceListAdapter extends BaseAdapter {
         txtAdd.setText(InVOICeItem.Invoices.get(position).Address.toString().trim());
 
 
+        txtDate.setText(InVOICeItem.Invoices.get(position).Date.toString().trim());
+        txtAmount.setText("INR "+InVOICeItem.Invoices.get(position).Amount.toString().trim());
+        txtStatus.setText("Status :"+InVOICeItem.Invoices.get(position).Status.toString().toString());
 
 
         return view;

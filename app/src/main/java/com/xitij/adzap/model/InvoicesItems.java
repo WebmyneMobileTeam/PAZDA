@@ -43,4 +43,9 @@ public class InvoicesItems {
     @SerializedName("Date")
     public String Date;
 
+
+    @SerializedName("Status")
+    public String Status;
+
+
 }
