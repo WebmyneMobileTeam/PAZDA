@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -64,6 +65,21 @@ public class BankListScreen extends ActionBarActivity {
         bankList = (ListView)findViewById(R.id.bankList);
 
         emptyView = ((LayoutInflater) BankListScreen.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.banklist_empty_view, null, false);
+
+
+        bankList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            PrefUtils.setBankListPos(BankListScreen.this,position);
+
+                            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(BankListScreen.this, "user_pref",0);
+                            complexPreferences.putObject("current_bank", cuurentBankList);
+                            complexPreferences.commit();
+
+                            finish();
+            }
+        });
 
 
         txtAddBank.setOnClickListener(new View.OnClickListener() {

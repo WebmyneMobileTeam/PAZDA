@@ -49,6 +49,15 @@ public class PrefUtils {
         return code;
     }
 
+    public static void setBankListPos(Context ctx, int posValue){
+        Prefs.with(ctx).save("banklistpos",posValue);
+    }
+
+    public static int getBankListPos(Context ctx){
+        int pos = Prefs.with(ctx).getInt("banklistpos",0);
+        return pos;
+    }
+
     public static void setPositionForWallpaper(Context ctx, int pos){
         Prefs.with(ctx).save("posWallpaperCounter",pos);
     }

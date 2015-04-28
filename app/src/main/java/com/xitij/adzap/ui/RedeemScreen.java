@@ -15,13 +15,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
+import com.xitij.adzap.base.MyApplication;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
+import com.xitij.adzap.model.BankList;
 import com.xitij.adzap.model.User;
 import com.xitij.adzap.model.ViewInvoice;
 import com.xitij.adzap.widget.CircleDialog;
@@ -41,6 +46,9 @@ public class RedeemScreen extends ActionBarActivity {
     private static final String[] amount = new String[] {
             "Select", "INR 100", "INR 200", "INR 500", "INR 1000"
     };
+    BankList currentBankList;
+    User currentUser;
+    int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +87,43 @@ public class RedeemScreen extends ActionBarActivity {
             }
         });
 
-        getRewards();
+
+        txtRedeem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                processRedeem();
+            }
+        });
+
+
+
+
+
+        // getRewards();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(RedeemScreen.this, "user_pref", 0);
+        currentUser = complexPreferences.getObject("current_user", User.class);
+
+
+        ComplexPreferences complexPreferences2= ComplexPreferences.getComplexPreferences(RedeemScreen.this, "user_pref", 0);
+        currentBankList = complexPreferences2.getObject("current_bank", BankList.class);
+
+        pos =  PrefUtils.getBankListPos(RedeemScreen.this);
+        if(currentBankList == null){
+            txtBankName.setVisibility(View.GONE);
+            txtAcc.setVisibility(View.GONE);
+        }else{
+            txtBankName.setVisibility(View.VISIBLE);
+            txtAcc.setVisibility(View.VISIBLE);
+            txtBankName.setText(currentBankList.Bank.get(pos).BankName);
+            txtAcc.setText(currentBankList.Bank.get(pos).ACNO);
+        }
 
     }
 
@@ -90,49 +134,94 @@ public class RedeemScreen extends ActionBarActivity {
             txtBtnLogin.setTypeface(tf);*/
     }
 
+    private void processRedeem(){
 
 
-    private void getRewards(){
-        dialog = new CircleDialog(RedeemScreen.this, 0);
-        dialog.setCancelable(false);
-        dialog.show();
+        try{
 
-        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(RedeemScreen.this, "user_pref", 0);
-        User currentUser = complexPreferences.getObject("current_user", User.class);
+            int spPos = spRedeemMoney.getSelectedItemPosition();
 
-        new CallWebService(AppConstants.VIEW_INVOICE + currentUser.UserId, CallWebService.TYPE_JSONOBJECT) {
+            JSONObject userobj = new JSONObject();
+            userobj.put("ACNO",currentBankList.Bank.get(pos).ACNO);
+            userobj.put("AccountPersonName",currentBankList.Bank.get(pos).AccountPersonName);
+            userobj.put("AccountType",currentBankList.Bank.get(pos).AccountType);
+            userobj.put("Address",currentBankList.Bank.get(pos).Address);
+            userobj.put("BankBranch",currentBankList.Bank.get(pos).BankBranch);
 
-            @Override
-            public void response(String response) {
-                dialog.dismiss();
-                Log.e("response invoice", response.toString());
+            userobj.put("Amount","5");
+            userobj.put("Coins","5");
+            userobj.put("Date","");
 
-                try {
-                    JSONObject obj = new JSONObject(response);
-                    if (obj.getString("Response").equalsIgnoreCase("0")) {
-                        cuurentInvoice = new GsonBuilder().create().fromJson(response, ViewInvoice.class);
+            userobj.put("BankName",currentBankList.Bank.get(pos).BankName);
+            userobj.put("CustId",currentUser.UserId);
+            userobj.put("IFSCNo",currentBankList.Bank.get(pos).IFSCNo);
 
-                     /*   HistoryListAdapter adpater = new HistoryListAdapter(RewardsScreen.this,cuurentInvoice);
-                        listHistory.setAdapter(adpater);*/
-                    } else {
-                        //   Toast.makeText(HomeScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
+            Log.e("Req redeem", userobj.toString());
+
+            dialog= new CircleDialog(RedeemScreen.this,0);
+            dialog.setCancelable(false);
+            dialog.show();
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.GENERATE_INVOICE, userobj, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject jobj) {
+                    dialog.dismiss();
+                    String response = jobj.toString();
+                    Log.e("Response redeem: ", "" + response);
+
+                    try{
+
+                        JSONObject obj = new JSONObject(response);
+
+                        if(obj.getString("Response").equalsIgnoreCase("0")){
+
+                           /* User currentUser2 = new GsonBuilder().create().fromJson(response,User.class);
+                            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(AddBankScreen.this, "user_pref",0);
+                            complexPreferences.putObject("current_user", currentUser2);
+                            complexPreferences.commit();
+*/
+
+                            Toast.makeText(RedeemScreen.this,obj.getString("ResponseMsg").toString(),Toast.LENGTH_LONG).show();
+
+                            Intent iCOnfirmSignUp = new Intent( RedeemScreen.this ,RewardsScreen.class );
+                            startActivity(iCOnfirmSignUp);
+                            finish();
+                        }
+
+                        else {
+                            Toast.makeText(RedeemScreen.this,"Error - "+obj.getString("ResponseMsg").toString(),Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (Exception e) {
+
                     }
 
-                } catch (Exception e) {
 
                 }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    dialog.dismiss();
+                    Log.e("error : ", error + "");
+                    Toast.makeText(RedeemScreen.this,"Error - "+error.toString(),Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            MyApplication.getInstance().addToRequestQueue(req);
+
+        }catch(Exception e){
+
+        }
 
 
-
-            }
-
-            @Override
-            public void error(VolleyError error) {
-                Toast.makeText(RedeemScreen.this, "Network Error, Please Try again.", Toast.LENGTH_LONG).show();
-                dialog.dismiss();
-            }
-        }.start();
     }
+
+
+
 
 
 //end of main class
