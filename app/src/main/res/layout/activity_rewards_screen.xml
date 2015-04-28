@@ -7,110 +7,33 @@
     tools:context="com.xitij.adzap.ui.HomeScreen">
 
     <LinearLayout
-        android:layout_above="@+id/txtBtnLogin"
+        android:layout_above="@+id/txtAddBank"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <include
-        layout="@layout/app_bar"/>
-
-    <LinearLayout
-        android:id="@+id/linearList"
-        android:paddingTop="16dp"
-        android:paddingLeft="16dp"
-        android:paddingBottom="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:id="@+id/offerList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/linearEmpty"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:background="@drawable/square_backgroundcopy"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/earnCoin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+        <include
+            layout="@layout/app_bar"/>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
+            android:layout_margin="16dp"
+            android:background="@drawable/square_backgroundcopy"
+            android:id="@+id/linearList"
 
-                android:gravity="center"
-                android:padding="4dp"
-                android:textSize="18sp"
-                android:text="You have recently earned"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:gravity="center"
-                android:id="@+id/txtCoin"
-                android:padding="4dp"
-                android:textSize="18sp"
-                android:text="50"
-                android:textColor="@color/orangeColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:gravity="center"
-                android:padding="4dp"
-                android:textSize="18sp"
-                android:text="coins"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:padding="8dp"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:id="@+id/invoiceList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
 
         </LinearLayout>
-
-
-
-
-        <TextView
-
-            android:gravity="center"
-            android:padding="4dp"
-            android:textSize="18sp"
-            android:text="We have no offers currently available"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-        <TextView
-            android:textColor="@color/whiteColor"
-            android:gravity="center"
-            android:padding="4dp"
-            android:textSize="18sp"
-            android:text="Visit back after some time for new offers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-
-    </LinearLayout>
-
     </LinearLayout>
 
     <TextView

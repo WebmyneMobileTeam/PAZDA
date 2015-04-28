@@ -90,7 +90,7 @@ public class BankListScreen extends ActionBarActivity {
             }
         });
 
-        getBankList();
+
 
     }
 
@@ -102,6 +102,11 @@ public class BankListScreen extends ActionBarActivity {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getBankList();
+    }
 
     private void getBankList(){
         dialog = new CircleDialog(BankListScreen.this, 0);

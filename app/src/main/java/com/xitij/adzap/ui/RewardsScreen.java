@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
+import com.xitij.adzap.adapters.BankListAdapter;
 import com.xitij.adzap.adapters.HistoryListAdapter;
+import com.xitij.adzap.adapters.InvoiceListAdapter;
 import com.xitij.adzap.adapters.OfferListAdapter;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
@@ -34,7 +36,7 @@ import org.json.JSONObject;
 public class RewardsScreen extends ActionBarActivity {
 
     private CircleDialog dialog;
-    private ListView offerListView;
+    private ListView invoiceList;
     private Toolbar toolbar;
     private ViewInvoice cuurentInvoice;
     private TextView txtRedeem;
@@ -61,7 +63,7 @@ public class RewardsScreen extends ActionBarActivity {
 
         init();
         txtRedeem = (TextView)findViewById(R.id.txtRedeem);
-
+        invoiceList = (ListView)findViewById(R.id.invoiceList);
         txtRedeem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +72,7 @@ public class RewardsScreen extends ActionBarActivity {
             }
         });
 
-        getRewards();
+
 
     }
 
@@ -81,9 +83,14 @@ public class RewardsScreen extends ActionBarActivity {
             txtBtnLogin.setTypeface(tf);*/
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        getInvoice();
+    }
 
-    private void getRewards(){
+    private void getInvoice(){
         dialog = new CircleDialog(RewardsScreen.this, 0);
         dialog.setCancelable(false);
         dialog.show();
@@ -103,10 +110,10 @@ public class RewardsScreen extends ActionBarActivity {
                     if (obj.getString("Response").equalsIgnoreCase("0")) {
                         cuurentInvoice = new GsonBuilder().create().fromJson(response, ViewInvoice.class);
 
-                     /*   HistoryListAdapter adpater = new HistoryListAdapter(RewardsScreen.this,cuurentInvoice);
-                        listHistory.setAdapter(adpater);*/
+                        InvoiceListAdapter adpater = new InvoiceListAdapter(RewardsScreen.this,cuurentInvoice);
+                        invoiceList.setAdapter(adpater);
                     } else {
-                        //   Toast.makeText(HomeScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
+                          Toast.makeText(RewardsScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }
 
                 } catch (Exception e) {
