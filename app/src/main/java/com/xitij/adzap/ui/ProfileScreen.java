@@ -1,10 +1,16 @@
 package com.xitij.adzap.ui;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
@@ -35,6 +41,9 @@ import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+
 import it.sauronsoftware.ftp4j.FTPClient;
 import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 
@@ -51,6 +60,10 @@ public class ProfileScreen extends ActionBarActivity {
     private static final int SHARE_MEDIA_REQUEST_CODE = 9;
     final CharSequence[] items = { "Take Photo", "Choose from Gallery" };
     User currentUser;
+
+    boolean NEW_PROFILE_IMAGE=false;
+    static File ProfileImagePath;
+    static String ProfileImageName;
 
 
     @Override
@@ -74,7 +87,12 @@ public class ProfileScreen extends ActionBarActivity {
         txtBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                processValidateData();
+               // processValidateData();
+
+                Log.e("image name -->",String.valueOf(ProfileImageName));
+                Log.e("image path -->",String.valueOf(ProfileImagePath));
+
+                    uploadFile(ProfileImagePath);
             }
         });
 
@@ -166,10 +184,68 @@ private void processValidateData() {
 
     }
 
+    public void uploadFile(final File fileName){
+        Log.e("filename--->",fileName+"");
+        final FTPClient client = new FTPClient();
+        new AsyncTask<Void,Void,Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    client.connect(AppConstants.ftpPath,1533);
+                    client.login(AppConstants.ftpUsername, AppConstants.ftpPassword);
+                    client.setType(FTPClient.TYPE_AUTO);
+                    client.changeDirectory("/Images/");
+
+                    client.upload(fileName, new MyTransferListener());
+                    Log.e("filename",fileName+"");
+                } catch (Exception e) {
+                    Log.e("err try1 ", e.toString());
+
+                    try {
+                        client.disconnect(true);
+                    } catch (Exception e2) {
+                        Log.e("err try2 ", e2.toString());
+                    }
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+            }
+        }.execute();
+    }
+
+
+
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Titlekris", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+
+
+
 
     public class MyTransferListener implements FTPDataTransferListener {
 
         public void started() {
+            dialog= new CircleDialog(ProfileScreen.this,0);
+            dialog.setCancelable(false);
+            dialog.show();
+
 
             Log.e("filename","Upload Started ");
             // Transfer started
@@ -187,7 +263,7 @@ private void processValidateData() {
             System.out.println(" completed ..." );
             Log.e("filename", "upload completed");
 
-
+            dialog.dismiss();
           /*  getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -202,11 +278,13 @@ private void processValidateData() {
             // Transfer aborted
             System.out.println(" transfer aborted ,please try again..." );
 //                Toast.makeText(getActivity()," transfer aborted ,please try again...", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
         }
 
         public void failed() {
             // Transfer failed
             System.out.println(" failed ..." );
+            dialog.dismiss();
         }
 
     }
@@ -311,6 +389,57 @@ private void processValidateData() {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_REQUEST) {
+            if (resultCode == RESULT_OK) {
+
+                Bitmap bmp = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+
+
+                // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+                Uri tempUri = getImageUri(ProfileScreen.this, bmp);
+                ProfileImageName = String.valueOf(tempUri);
+                // CALL THIS METHOD TO GET THE ACTUAL PATH
+                ProfileImagePath = new File(getRealPathFromURI(tempUri));
+
+                // Convert ByteArray to Bitmap::
+                final Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
+                        byteArray.length);
+                imgProfile.setBackground(null);
+                imgProfile.setImageBitmap(bitmap);
+                NEW_PROFILE_IMAGE=true;
+            }
+            else{
+                Toast.makeText(ProfileScreen.this,"Image uploading failed from Internal Storage",Toast.LENGTH_LONG).show();
+            }
+
+        }
+        else  if (requestCode == GALLERY_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Uri selectedImage = data.getData();
+                String[] filePath = { MediaStore.Images.Media.DATA };
+                Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
+                c.moveToFirst();
+                int columnIndex = c.getColumnIndex(filePath[0]);
+                String picturePath = c.getString(columnIndex);
+                c.close();
+                final Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
+                File file = new File(picturePath);
+                ProfileImagePath = file;
+                ProfileImageName= file.getName();
+                imgProfile.setBackground(null);
+                imgProfile.setImageBitmap(thumbnail);
+                NEW_PROFILE_IMAGE=true;
+
+            }
+            else{
+               Toast.makeText(ProfileScreen.this,"Image uploading failed from SD Card",Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 
 

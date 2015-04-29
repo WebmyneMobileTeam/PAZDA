@@ -46,11 +46,11 @@ public class AppConstants {
 
 
     /*********  FTP IP ***********/
-    public static final String ftpPath="192.168.1.4";
+    public static final String ftpPath="173.248.137.197";
     /*********  FTP USERNAME ***********/
-    public static final String ftpUsername="androidftp";
+    public static final String ftpUsername="johnsite";
     /*********  FTP PASSWORD ***********/
-    public static final String ftpPassword="1234567890";
+    public static final String ftpPassword="C0a7eNb90r";
     /*********  FTP image download ***********/
     public static final String fileDownloadPath="http://ws-srv-net.in.webmyne.com/applications/Android/RiteWayServices/Images/";
 }
