@@ -48,6 +48,7 @@ public class AddBankScreen extends ActionBarActivity {
     };
     User currentUser;
     private EditText etBankName,etBankBranchName,etAccNo,etAccPersonName,etIFSCCode,etAddress;
+    private boolean isNewBank = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,18 @@ public class AddBankScreen extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView toolbar_Title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         //toolbar.setNavigationIcon(R.drawable.icon_back_blue);
-        toolbar_Title.setText("Add Bank Details");
+
+        txtSave = (TextView)findViewById(R.id.txtSave);
+        isNewBank = getIntent().getBooleanExtra("isNewBankADD",false);
+
+        if(isNewBank){
+            toolbar_Title.setText("Add Bank Details");
+            txtSave .setText("SAVE DETAILS");
+        }else{
+            toolbar_Title.setText("Edit Bank Details");
+            txtSave .setText("UPDATE DETAILS");
+        }
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +85,6 @@ public class AddBankScreen extends ActionBarActivity {
 
     private void initalizeViews(){
         spAccountType = (Spinner)findViewById(R.id.spAccountType);
-        txtSave = (TextView)findViewById(R.id.txtSave);
 
         etBankName = (EditText)findViewById(R.id.etBankName);
         etBankBranchName = (EditText)findViewById(R.id.etBankBranchName);

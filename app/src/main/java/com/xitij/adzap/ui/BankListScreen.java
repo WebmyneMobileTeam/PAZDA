@@ -1,9 +1,12 @@
 package com.xitij.adzap.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -42,7 +45,7 @@ public class BankListScreen extends ActionBarActivity {
     private ImageView earnCoin;
     private LinearLayout linearList,linearEmpty;
     View emptyView;
-
+    final CharSequence[] items = { "Select Bank", "Edit bank details" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +73,7 @@ public class BankListScreen extends ActionBarActivity {
         bankList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            PrefUtils.setBankListPos(BankListScreen.this,position);
-
-                            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(BankListScreen.this, "user_pref",0);
-                            complexPreferences.putObject("current_bank", cuurentBankList);
-                            complexPreferences.commit();
-
-                            finish();
+                showalertBox(position);
             }
         });
 
@@ -86,11 +82,43 @@ public class BankListScreen extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent reward = new Intent(BankListScreen.this,AddBankScreen.class);
+                reward.putExtra("isNewBankADD",true);
                 startActivity(reward);
             }
         });
 
 
+
+    }
+
+
+private void showalertBox(final int position){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(BankListScreen.this);
+        builder.setTitle("BankList options");
+
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Select Bank")) {
+
+                    PrefUtils.setBankListPos(BankListScreen.this,position);
+                    ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(BankListScreen.this, "user_pref",0);
+                    complexPreferences.putObject("current_bank", cuurentBankList);
+                    complexPreferences.commit();
+
+                    finish();
+
+                } else if (items[item].equals("Edit bank details")) {
+
+                    Intent bank = new Intent(BankListScreen.this,AddBankScreen.class);
+                    bank.putExtra("isNewBankADD",false);
+                    startActivity(bank);
+
+                }
+            }
+        });
+        builder.show();
 
     }
 
