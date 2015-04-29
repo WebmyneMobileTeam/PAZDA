@@ -185,18 +185,25 @@ private void processValidateData() {
     }
 
     public void uploadFile(final File fileName){
+        dialog= new CircleDialog(ProfileScreen.this,0);
+        dialog.setCancelable(false);
+        dialog.show();
+
+
         Log.e("filename--->",fileName+"");
         final FTPClient client = new FTPClient();
         new AsyncTask<Void,Void,Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    client.connect(AppConstants.ftpPath,1533);
+                    client.connect(AppConstants.ftpPath,21);
                     client.login(AppConstants.ftpUsername, AppConstants.ftpPassword);
                     client.setType(FTPClient.TYPE_AUTO);
-                    client.changeDirectory("/Images/");
+                   // client.changeDirectory("/Images/");
 
-                    client.upload(fileName, new MyTransferListener());
+
+                    Log.e("client connected","sucslfully");
+                   // client.upload(fileName, new MyTransferListener());
                     Log.e("filename",fileName+"");
                 } catch (Exception e) {
                     Log.e("err try1 ", e.toString());
@@ -214,6 +221,7 @@ private void processValidateData() {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+                dialog.dismiss();
             }
         }.execute();
     }
@@ -242,9 +250,6 @@ private void processValidateData() {
     public class MyTransferListener implements FTPDataTransferListener {
 
         public void started() {
-            dialog= new CircleDialog(ProfileScreen.this,0);
-            dialog.setCancelable(false);
-            dialog.show();
 
 
             Log.e("filename","Upload Started ");
@@ -263,7 +268,7 @@ private void processValidateData() {
             System.out.println(" completed ..." );
             Log.e("filename", "upload completed");
 
-            dialog.dismiss();
+
           /*  getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -278,13 +283,13 @@ private void processValidateData() {
             // Transfer aborted
             System.out.println(" transfer aborted ,please try again..." );
 //                Toast.makeText(getActivity()," transfer aborted ,please try again...", Toast.LENGTH_SHORT).show();
-            dialog.dismiss();
+
         }
 
         public void failed() {
             // Transfer failed
             System.out.println(" failed ..." );
-            dialog.dismiss();
+
         }
 
     }
