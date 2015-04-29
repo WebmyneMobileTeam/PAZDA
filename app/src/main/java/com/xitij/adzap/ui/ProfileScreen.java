@@ -337,7 +337,13 @@ private void processValidateData() {
             userobj.put("EmailId",currentUser.EmailId);
 
             if(NEW_PROFILE_IMAGE) {
-                userobj.put("Image", ProfileImagePath);
+
+                String tempPath = String.valueOf(ProfileImagePath);
+                String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
+                Log.e("Sub Path",subPath);
+                String newPath = "http://www.johnsite.com.accu17.com/adzapp/ProfileImages/"+subPath;
+
+                userobj.put("Image", newPath);
             }else{
                 userobj.put("Image", currentUser.Image);
             }
