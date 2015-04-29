@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class HistoryScreen extends ActionBarActivity {
     private String txtFriendsValue,txtFreindsCoinsValue;
     private History historyObject;
     private ListView listHistory;
+    private LinearLayout linearEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class HistoryScreen extends ActionBarActivity {
 
         listHistory = (ListView)findViewById(R.id.listHistory);
 
+        linearEmpty = (LinearLayout)findViewById(R.id.historyemptyView);
         getHistory();
 
     }
@@ -85,6 +88,10 @@ public class HistoryScreen extends ActionBarActivity {
 
                         HistoryListAdapter adpater = new HistoryListAdapter(HistoryScreen.this,historyObject);
                         listHistory.setAdapter(adpater);
+
+                        if(historyObject.Transcation.size()==0){
+                            listHistory.setEmptyView(linearEmpty);
+                        }
                     } else {
                         //   Toast.makeText(HomeScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }

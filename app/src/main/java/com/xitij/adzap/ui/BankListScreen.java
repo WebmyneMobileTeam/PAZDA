@@ -43,8 +43,8 @@ public class BankListScreen extends ActionBarActivity {
     private TextView txtAddBank;
 
     private ImageView earnCoin;
-    private LinearLayout linearList,linearEmpty;
-    View emptyView;
+    private LinearLayout linearList;
+    LinearLayout emptyView;
     final CharSequence[] items = { "Select Bank", "Edit bank details" };
 
     @Override
@@ -67,7 +67,8 @@ public class BankListScreen extends ActionBarActivity {
         txtAddBank = (TextView)findViewById(R.id.txtAddBank);
         bankList = (ListView)findViewById(R.id.bankList);
 
-        emptyView = ((LayoutInflater) BankListScreen.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.banklist_empty_view, null, false);
+        emptyView = (LinearLayout)findViewById(R.id.bankemptyView);
+       // emptyView = ((LayoutInflater) BankListScreen.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.banklist_empty_view, null, false);
 
 
         bankList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -162,7 +163,7 @@ private void showalertBox(final int position){
                         cuurentBankList = new GsonBuilder().create().fromJson(response, BankList.class);
 
                        BankListAdapter adpater = new BankListAdapter(BankListScreen.this,cuurentBankList);
-                        bankList.setAdapter(adpater);
+                       bankList.setAdapter(adpater);
 
                         if(cuurentBankList.Bank.size()==0){
                             bankList.setEmptyView(emptyView);

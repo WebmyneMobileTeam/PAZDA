@@ -44,7 +44,6 @@ public class RewardsScreen extends ActionBarActivity {
     private ImageView earnCoin;
     private LinearLayout linearList,linearEmpty;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +59,8 @@ public class RewardsScreen extends ActionBarActivity {
                 finish();
             }
         });
+
+        linearEmpty = (LinearLayout)findViewById(R.id.rewardemptyView);
 
         init();
         txtRedeem = (TextView)findViewById(R.id.txtRedeem);
@@ -112,6 +113,10 @@ public class RewardsScreen extends ActionBarActivity {
 
                         InvoiceListAdapter adpater = new InvoiceListAdapter(RewardsScreen.this,cuurentInvoice);
                         invoiceList.setAdapter(adpater);
+
+                        if(cuurentInvoice.Invoices.size()==0){
+                            invoiceList.setEmptyView(linearEmpty);
+                        }
                     } else {
                           Toast.makeText(RewardsScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }

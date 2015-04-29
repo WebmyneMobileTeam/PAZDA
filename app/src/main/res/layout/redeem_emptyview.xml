@@ -4,34 +4,35 @@
     android:layout_height="match_parent"
     android:paddingTop="8dp"
     android:orientation="vertical"
-    android:background="@drawable/main_bg"
+    android:id="@+id/rewardemptyView"
     tools:context="com.xitij.adzap.ui.HomeScreen">
-    <include
-        layout="@layout/app_bar"/>
-
 
     <LinearLayout
         android:gravity="center"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        android:background="@drawable/square_backgroundcopy"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:background="@drawable/ic_empty"
+            android:id="@+id/earnCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
-<ListView
-    android:dividerHeight="0dp"
-    android:divider="@null"
-    android:padding="8dp"
-    android:id="@+id/listHistory"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"></ListView>
+
+        <TextView
+            android:textColor="@color/whiteColor"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textSize="20sp"
+            android:text="You have not redeem your money !"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
-        <include
-            layout="@layout/history_emptyview"/>
 
 
 
