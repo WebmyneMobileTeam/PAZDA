@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
 import com.xitij.adzap.adapters.OfferListAdapter;
@@ -43,6 +44,10 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         setContentView(R.layout.activity_home_screen);
         imgProfile = (ImageView)findViewById(R.id.imgProfile);
         setupUI();
+
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(HomeScreen.this, "user_pref", 0);
+        User currentUser1 = complexPreferences.getObject("current_user", User.class);
+        Glide.with(HomeScreen.this).load(AppConstants.BASE_URL_PROFILE_IMAGE + currentUser1.Image).thumbnail(0.1f).into(imgProfile);
 
 
         imgProfile.setOnClickListener(new View.OnClickListener() {

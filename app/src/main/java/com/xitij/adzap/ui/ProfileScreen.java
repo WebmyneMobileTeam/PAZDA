@@ -29,6 +29,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.bumptech.glide.Glide;
 import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
 import com.xitij.adzap.base.MyApplication;
@@ -38,6 +39,7 @@ import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.User;
 import com.xitij.adzap.widget.BadgeView;
 import com.xitij.adzap.widget.CircleDialog;
+import com.xitij.adzap.widget.CircleTransform;
 
 import org.json.JSONObject;
 
@@ -111,12 +113,9 @@ public class ProfileScreen extends ActionBarActivity {
               /*  File f = new File(subPath2);
                 uploadFile(f);*/
 
-                if(NEW_PROFILE_IMAGE) {
-                    uploadFile(ProfileImagePath);
+
                     processValidateData();
-                }else{
-                    processValidateData();
-                }
+
             }
         });
 
@@ -138,7 +137,11 @@ private void processValidateData() {
 
                 if(etPassword.length()==0 || etCnfPassword.length()==0){
                     isNewPassword=false;
-                    processRegister();
+                    if(NEW_PROFILE_IMAGE) {
+                        uploadFile(ProfileImagePath);
+                    }else{
+                        processRegister();
+                    }
                 }else{
                     if (isEdiTextEmpty(etPassword)) {
                         etPassword.setError("Please Enter Password !!!");
@@ -148,7 +151,13 @@ private void processValidateData() {
                         Toast.makeText(ProfileScreen.this, "Password do not macth !!!", Toast.LENGTH_LONG).show();
                     }else{
                         isNewPassword=true;
-                        processRegister();
+                        if(NEW_PROFILE_IMAGE) {
+                            uploadFile(ProfileImagePath);
+
+                        }else{
+                            processRegister();
+                        }
+
                     }
 
 
@@ -227,7 +236,7 @@ private void processValidateData() {
 
 
                     Log.e("client connected","sucslfully");
-                    //client.upload(fileName, new MyTransferListener());
+                    client.upload(fileName, new MyTransferListener());
                     Log.e("filename",fileName+"");
                 } catch (Exception e) {
                     Log.e("err try1 ", e.toString());
@@ -246,6 +255,7 @@ private void processValidateData() {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 dialog.dismiss();
+                processRegister();
             }
         }.execute();
     }
@@ -291,6 +301,7 @@ private void processValidateData() {
             // Transfer completed
             System.out.println(" completed ..." );
             Log.e("filename", "upload completed");
+
             //Toast.makeText(ProfileScreen.this, " Upload complete ...", Toast.LENGTH_SHORT).show();
 
           /*  getActivity().runOnUiThread(new Runnable() {
@@ -324,6 +335,8 @@ private void processValidateData() {
 
 
     private void fillDetails(){
+
+        Glide.with(ProfileScreen.this).load(AppConstants.BASE_URL_PROFILE_IMAGE + currentUser.Image).thumbnail(0.1f).into(imgProfile);
         txtName.setText(currentUser.Name);
         txtEmail.setText(currentUser.EmailId);
         etName.setText(currentUser.Name);
@@ -341,9 +354,12 @@ private void processValidateData() {
                 String tempPath = String.valueOf(ProfileImagePath);
                 String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
                 Log.e("Sub Path",subPath);
+               /* String tempPath = String.valueOf(ProfileImagePath);
+                String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
+                Log.e("Sub Path",subPath);
                 String newPath = "http://www.johnsite.com.accu17.com/adzapp/ProfileImages/"+subPath;
-
-                userobj.put("Image", newPath);
+*/
+                userobj.put("Image", subPath);
             }else{
                 userobj.put("Image", currentUser.Image);
             }

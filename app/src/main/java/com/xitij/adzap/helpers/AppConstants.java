@@ -11,6 +11,9 @@ public class AppConstants {
     // 1 Rs = 15 Coins
     public static int coinRate = 15;
 
+
+    public static String BASE_URL_PROFILE_IMAGE = "http://www.johnsite.com.accu17.com/adzapp/ProfileImages/";
+
     public static String BASE_URL_IMAGE = "http://www.johnsite.com.accu17.com/adzapp/images/";
     public static String BASE_URL_VIDEO = "http://johnsite.com.accu17.com/adzapp/video/";
 

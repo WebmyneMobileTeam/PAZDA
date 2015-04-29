@@ -25,7 +25,7 @@
         app:border_color="@color/whiteColor"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        app:background_color="@color/app_grey"
+        app:background_color="#80d1d1d1"
         app:border_width="2dp" />
 
     <TextView
