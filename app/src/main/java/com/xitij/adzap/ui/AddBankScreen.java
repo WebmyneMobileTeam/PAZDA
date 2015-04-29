@@ -57,7 +57,7 @@ public class AddBankScreen extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         TextView toolbar_Title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         //toolbar.setNavigationIcon(R.drawable.icon_back_blue);
-        toolbar_Title.setText("Add Bank");
+        toolbar_Title.setText("Add Bank Details");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
