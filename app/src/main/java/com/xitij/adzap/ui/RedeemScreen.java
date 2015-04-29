@@ -124,9 +124,9 @@ public class RedeemScreen extends ActionBarActivity {
                 if(currentBankList == null) {
                     Toast.makeText(RedeemScreen.this,"Please Select Bank Details !!!",Toast.LENGTH_LONG).show();
                 }
-                else if(temp_rupees<redeemAmount){
+               /* else if(temp_rupees<redeemAmount){
                     Toast.makeText(RedeemScreen.this,"You dont'have Sufficient amount !!!",Toast.LENGTH_LONG).show();
-                }
+                }*/
                 else {
                     processRedeem();
                 }
