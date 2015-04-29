@@ -169,13 +169,13 @@ private void processValidateData() {
             public void onClick(DialogInterface dialog, int item) {
                 if (items[item].equals("Take Photo")) {
                     Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePicture, PICK_MEDIA_REQUEST_CODE);
+                    startActivityForResult(takePicture, CAMERA_REQUEST);
                     Log.e("Camera ","exit");
 
                 } else if (items[item].equals("Choose from Gallery")) {
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , PICK_MEDIA_REQUEST_CODE);
+                    startActivityForResult(pickPhoto , GALLERY_REQUEST);
                 }
             }
         });
@@ -199,11 +199,11 @@ private void processValidateData() {
                     client.connect(AppConstants.ftpPath,21);
                     client.login(AppConstants.ftpUsername, AppConstants.ftpPassword);
                     client.setType(FTPClient.TYPE_AUTO);
-                   // client.changeDirectory("/Images/");
+                    client.changeDirectory("Johnsite.com/wwwroot/ADZAPP/ProfileImages/");
 
 
                     Log.e("client connected","sucslfully");
-                   // client.upload(fileName, new MyTransferListener());
+                    client.upload(fileName, new MyTransferListener());
                     Log.e("filename",fileName+"");
                 } catch (Exception e) {
                     Log.e("err try1 ", e.toString());
@@ -267,7 +267,7 @@ private void processValidateData() {
             // Transfer completed
             System.out.println(" completed ..." );
             Log.e("filename", "upload completed");
-
+            //Toast.makeText(ProfileScreen.this, " Upload complete ...", Toast.LENGTH_SHORT).show();
 
           /*  getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -394,7 +394,11 @@ private void processValidateData() {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Log.e("inside", "onactivity result");
+
         if (requestCode == CAMERA_REQUEST) {
+
             if (resultCode == RESULT_OK) {
 
                 Bitmap bmp = (Bitmap) data.getExtras().get("data");
@@ -424,6 +428,8 @@ private void processValidateData() {
         }
         else  if (requestCode == GALLERY_REQUEST) {
             if (resultCode == RESULT_OK) {
+                Log.e("request", "gallary");
+
                 Uri selectedImage = data.getData();
                 String[] filePath = { MediaStore.Images.Media.DATA };
                 Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
@@ -443,6 +449,8 @@ private void processValidateData() {
             else{
                Toast.makeText(ProfileScreen.this,"Image uploading failed from SD Card",Toast.LENGTH_LONG).show();
             }
+        }else{
+            Log.e("inside", "else bloack");
         }
 
     }
