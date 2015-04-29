@@ -108,11 +108,31 @@ public class AddBankScreen extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                if(isNewBank){
-                    processSaveBank();
-                }else{
-                   processUpdateBank();
+                if(isEdiTextEmpty(etBankName)){
+                    etBankName.setError("Please Enter Bank Name  !!!");
+                }else if(isEdiTextEmpty(etBankBranchName)){
+                    etBankBranchName.setError("Please Enter Branch Name  !!!");
+                }else if(isEdiTextEmpty(etBankBranchName)){
+                    etBankBranchName.setError("Please Enter Branch Name  !!!");
+                }else if(isEdiTextEmpty(etAccNo)){
+                    etBankBranchName.setError("Please Enter Account Number  !!!");
+                }else if(spAccountType.getSelectedItemPosition()==0){
+                  Toast.makeText(AddBankScreen.this,"Please Select Account Type !!!",Toast.LENGTH_LONG).show();
+                }else if(isEdiTextEmpty(etAccPersonName)){
+                    etAccPersonName.setError("Please Enter Account holder name  !!!");
+                }else if(isEdiTextEmpty(etIFSCCode)){
+                    etIFSCCode.setError("Please Enter IFSC Code !!!");
+                }else if(isEdiTextEmpty(etAddress)){
+                    etAddress.setError("Please Enter Bank address !!!");
+                }else {
+
+                        if (isNewBank) {
+                            processSaveBank();
+                        } else {
+                            processUpdateBank();
+                        }
                 }
+
             }
         });
     }
@@ -361,6 +381,17 @@ private void fillBankdetails(){
     }
 
 
+    public boolean isEdiTextEmpty(EditText et){
+
+        boolean isEmpty = false;
+
+        if(et.getText() == null || et.getText().toString().equalsIgnoreCase("")){
+            isEmpty = true;
+        }
+
+        return isEmpty;
+
+    }
 
 
 //end of main class
