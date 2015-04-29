@@ -7,6 +7,10 @@ public class AppConstants {
 
     // Base url for the webservice
 
+
+    // 1 Rs = 15 Coins
+    public static int coinRate = 15;
+
     public static String BASE_URL_IMAGE = "http://www.johnsite.com.accu17.com/adzapp/images/";
     public static String BASE_URL_VIDEO = "http://johnsite.com.accu17.com/adzapp/video/";
 

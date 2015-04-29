@@ -90,9 +90,8 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
                             txtCoin.setText(chkBalance.ClosingBal);
 
-
                             Float coins = Float.valueOf(chkBalance.ClosingBal);
-                            Float temp_rupees = coins /15;
+                            Float temp_rupees = coins /AppConstants.coinRate;
                             String final_rate = String.format("%.2f", temp_rupees);
                             txtINR.setText("₹ "+final_rate);
 

@@ -49,6 +49,7 @@ public class RedeemScreen extends ActionBarActivity {
     BankList currentBankList;
     User currentUser;
     int pos;
+    double redeemAmount=0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,15 +92,49 @@ public class RedeemScreen extends ActionBarActivity {
         txtRedeem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                processRedeem();
+
+
+                int spinnerPos = spRedeemMoney.getSelectedItemPosition();
+
+                if(spinnerPos == 0){
+                    Toast.makeText(RedeemScreen.this,"Please Select the amount for redeem",Toast.LENGTH_LONG).show();
+                }else if(spinnerPos==1){
+                    redeemAmount = 100.00;
+                }
+                else if(spinnerPos==2){
+                    redeemAmount = 200.00;
+                }
+                else if(spinnerPos==3){
+                    redeemAmount = 500.00;
+                }
+                else if(spinnerPos==4){
+                    redeemAmount = 1000.00;
+                }
+
+
+                // 1 Rs = 15 Coins
+                Float coins = Float.valueOf(currentUser.Balance);
+                Float temp_rupees = coins /AppConstants.coinRate;
+               // String final_rate = String.format("%.2f", temp_rupees);
+
+                Log.e("bal",""+currentUser.Balance);
+                Log.e("rupees",""+temp_rupees);
+                double userBalance = Double.parseDouble(currentUser.Balance);
+
+                if(currentBankList == null) {
+                    Toast.makeText(RedeemScreen.this,"Please Select Bank Details !!!",Toast.LENGTH_LONG).show();
+                }
+                else if(temp_rupees<redeemAmount){
+                    Toast.makeText(RedeemScreen.this,"You dont'have Sufficient amount !!!",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    processRedeem();
+                }
             }
         });
 
 
 
-
-
-        // getRewards();
 
     }
 
@@ -139,6 +174,7 @@ public class RedeemScreen extends ActionBarActivity {
 
         try{
 
+
             int spPos = spRedeemMoney.getSelectedItemPosition();
 
             JSONObject userobj = new JSONObject();
@@ -148,8 +184,11 @@ public class RedeemScreen extends ActionBarActivity {
             userobj.put("Address",currentBankList.Bank.get(pos).Address);
             userobj.put("BankBranch",currentBankList.Bank.get(pos).BankBranch);
 
-            userobj.put("Amount","5");
-            userobj.put("Coins","5");
+            userobj.put("Amount",String.valueOf(redeemAmount));
+
+            double coins = redeemAmount * AppConstants.coinRate;
+
+            userobj.put("Coins",String.valueOf(coins));
             userobj.put("Date","");
 
             userobj.put("BankName",currentBankList.Bank.get(pos).BankName);
@@ -214,7 +253,7 @@ public class RedeemScreen extends ActionBarActivity {
             MyApplication.getInstance().addToRequestQueue(req);
 
         }catch(Exception e){
-
+                Log.e("exc",e.toString());
         }
 
 
