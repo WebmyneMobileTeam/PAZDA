@@ -89,10 +89,30 @@ public class ProfileScreen extends ActionBarActivity {
             public void onClick(View v) {
                // processValidateData();
 
-                Log.e("image name -->",String.valueOf(ProfileImageName));
-                Log.e("image path -->",String.valueOf(ProfileImagePath));
+                Log.e("org image name -->",String.valueOf(ProfileImageName));
+                Log.e("org image path -->",String.valueOf(ProfileImagePath));
 
-                    uploadFile(ProfileImagePath);
+
+/*
+                String tempPath = String.valueOf(ProfileImagePath);
+                String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
+                Log.e("Sub Path",subPath);
+
+                String subPath2 = tempPath.substring(0,tempPath.lastIndexOf("/")+1);
+                Log.e("Sub Path2",subPath2);
+
+                subPath2+="1009.jpg";
+
+                Log.e("Sub Path2",subPath2);
+
+                File newPath = new File(subPath2);
+                ProfileImagePath.renameTo(newPath);
+
+              /*  File f = new File(subPath2);
+                uploadFile(f);*/
+
+
+                uploadFile(ProfileImagePath);
             }
         });
 
@@ -203,7 +223,7 @@ private void processValidateData() {
 
 
                     Log.e("client connected","sucslfully");
-                    client.upload(fileName, new MyTransferListener());
+                    //client.upload(fileName, new MyTransferListener());
                     Log.e("filename",fileName+"");
                 } catch (Exception e) {
                     Log.e("err try1 ", e.toString());
