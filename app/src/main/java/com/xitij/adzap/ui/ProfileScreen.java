@@ -111,8 +111,12 @@ public class ProfileScreen extends ActionBarActivity {
               /*  File f = new File(subPath2);
                 uploadFile(f);*/
 
-
-                uploadFile(ProfileImagePath);
+                if(NEW_PROFILE_IMAGE) {
+                    uploadFile(ProfileImagePath);
+                    processValidateData();
+                }else{
+                    processValidateData();
+                }
             }
         });
 
@@ -331,7 +335,12 @@ private void processValidateData() {
         try{
             JSONObject userobj = new JSONObject();
             userobj.put("EmailId",currentUser.EmailId);
-            userobj.put("Image","");
+
+            if(NEW_PROFILE_IMAGE) {
+                userobj.put("Image", ProfileImagePath);
+            }else{
+                userobj.put("Image", currentUser.Image);
+            }
             userobj.put("Name",etName.getText().toString().trim());
 
             if(isNewPassword){
