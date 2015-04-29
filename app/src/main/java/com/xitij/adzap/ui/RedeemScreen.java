@@ -50,6 +50,7 @@ public class RedeemScreen extends ActionBarActivity {
     User currentUser;
     int pos;
     double redeemAmount=0.0;
+    boolean isOk =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,38 +97,41 @@ public class RedeemScreen extends ActionBarActivity {
 
                 int spinnerPos = spRedeemMoney.getSelectedItemPosition();
 
-                if(spinnerPos == 0){
-                    Toast.makeText(RedeemScreen.this,"Please Select the amount for redeem",Toast.LENGTH_LONG).show();
-                }else if(spinnerPos==1){
-                    redeemAmount = 100.00;
-                }
-                else if(spinnerPos==2){
-                    redeemAmount = 200.00;
-                }
-                else if(spinnerPos==3){
-                    redeemAmount = 500.00;
-                }
-                else if(spinnerPos==4){
-                    redeemAmount = 1000.00;
-                }
-
 
                 // 1 Rs = 15 Coins
                 Float coins = Float.valueOf(currentUser.Balance);
                 Float temp_rupees = coins /AppConstants.coinRate;
-               // String final_rate = String.format("%.2f", temp_rupees);
+                // String final_rate = String.format("%.2f", temp_rupees);
 
                 Log.e("bal",""+currentUser.Balance);
                 Log.e("rupees",""+temp_rupees);
                 double userBalance = Double.parseDouble(currentUser.Balance);
 
-                if(currentBankList == null) {
+
+                if(spinnerPos == 0){
+                    Toast.makeText(RedeemScreen.this,"Please Select the amount for redeem",Toast.LENGTH_LONG).show();
+                    isOk=false;
+                }else if(currentBankList == null) {
                     Toast.makeText(RedeemScreen.this,"Please Select Bank Details !!!",Toast.LENGTH_LONG).show();
+
                 }
                /* else if(temp_rupees<redeemAmount){
                     Toast.makeText(RedeemScreen.this,"You dont'have Sufficient amount !!!",Toast.LENGTH_LONG).show();
                 }*/
                 else {
+
+                    if(spinnerPos==1){
+                        redeemAmount = 100.00;
+                    }
+                    else if(spinnerPos==2){
+                        redeemAmount = 200.00;
+                    }
+                    else if(spinnerPos==3){
+                        redeemAmount = 500.00;
+                    }
+                    else if(spinnerPos==4){
+                        redeemAmount = 1000.00;
+                    }
                     processRedeem();
                 }
             }
