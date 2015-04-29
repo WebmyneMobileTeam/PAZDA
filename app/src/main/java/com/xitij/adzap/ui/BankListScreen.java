@@ -111,6 +111,11 @@ private void showalertBox(final int position){
 
                 } else if (items[item].equals("Edit bank details")) {
 
+                    PrefUtils.setBankListPos(BankListScreen.this,position);
+                    ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(BankListScreen.this, "user_pref",0);
+                    complexPreferences.putObject("current_bank", cuurentBankList);
+                    complexPreferences.commit();
+
                     Intent bank = new Intent(BankListScreen.this,AddBankScreen.class);
                     bank.putExtra("isNewBankADD",false);
                     startActivity(bank);
