@@ -7,7 +7,7 @@
     tools:context="com.xitij.adzap.ui.HomeScreen">
 
     <LinearLayout
-        android:layout_above="@+id/txtAddBank"
+        android:layout_above="@+id/txtRedeem"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

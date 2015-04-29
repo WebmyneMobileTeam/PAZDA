@@ -1,4 +1,4 @@
-package com.xitij.adzap.widget;
+package com.xitij.adzap.helpers;
 
 import android.graphics.Typeface;
 import android.text.SpannableString;

@@ -1,41 +1,33 @@
 package com.xitij.adzap.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.Patterns;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
 import com.xitij.adzap.adapters.OfferListAdapter;
+import com.xitij.adzap.helpers.AdvancedSpannableString;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.Offers;
 import com.xitij.adzap.model.User;
-import com.xitij.adzap.widget.AdvancedSpannableString;
 import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
-
-import java.util.regex.Pattern;
 
 public class GetOffersScreen extends ActionBarActivity {
 
@@ -47,6 +39,7 @@ public class GetOffersScreen extends ActionBarActivity {
     private View emptyView;
     private ImageView earnCoin;
     private LinearLayout linearList,linearEmpty;
+
 
 
     @Override
@@ -146,7 +139,13 @@ public class GetOffersScreen extends ActionBarActivity {
                         linearList.setVisibility(View.GONE);
                         linearEmpty.setVisibility(View.VISIBLE);
 
-                        txtCoin.setText(PrefUtils.getRecentcoins(GetOffersScreen.this));
+                        String recentCoins = PrefUtils.getRecentcoins(GetOffersScreen.this);
+                        String mainString  = "You have recently earned "+recentCoins+" coins";
+                        AdvancedSpannableString adv = new AdvancedSpannableString(mainString);
+                        int col = Color.parseColor("#F95D0C");
+                        adv.setColor(col,recentCoins);
+
+                        txtCoin.setText(adv);
                       //  Toast.makeText(GetOffersScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }
 

@@ -30,6 +30,7 @@
     </LinearLayout>
 
 
+
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/linearEmpty"
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content" />
 
 
-        <LinearLayout
+     <!--   <LinearLayout
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -60,17 +61,16 @@
                 android:textSize="18sp"
                 android:text="You have recently earned"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" />-->
             <TextView
                 android:gravity="center"
                 android:id="@+id/txtCoin"
                 android:padding="4dp"
                 android:textSize="18sp"
                 android:text="50"
-                android:textColor="@color/orangeColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <TextView
+         <!--   <TextView
                 android:gravity="center"
                 android:padding="4dp"
                 android:textSize="18sp"
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-        </LinearLayout>
+        </LinearLayout>-->
 
 
 
