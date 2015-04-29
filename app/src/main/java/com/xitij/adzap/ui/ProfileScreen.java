@@ -35,6 +35,9 @@ import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
 
+import it.sauronsoftware.ftp4j.FTPClient;
+import it.sauronsoftware.ftp4j.FTPDataTransferListener;
+
 public class ProfileScreen extends ActionBarActivity {
     private  ImageView imgProfile;
     private CircleDialog dialog;
@@ -42,10 +45,13 @@ public class ProfileScreen extends ActionBarActivity {
     private TextView txtBtnLogin,txtEmail,txtName;
     private boolean isNewPassword=false;
 
+    private static final int CAMERA_REQUEST = 500;
+    private static final int GALLERY_REQUEST = 300;
     private static final int PICK_MEDIA_REQUEST_CODE=3;
     private static final int SHARE_MEDIA_REQUEST_CODE = 9;
     final CharSequence[] items = { "Take Photo", "Choose from Gallery" };
     User currentUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,14 +151,12 @@ private void processValidateData() {
             public void onClick(DialogInterface dialog, int item) {
                 if (items[item].equals("Take Photo")) {
                     Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
                     startActivityForResult(takePicture, PICK_MEDIA_REQUEST_CODE);
                     Log.e("Camera ","exit");
 
                 } else if (items[item].equals("Choose from Gallery")) {
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto , PICK_MEDIA_REQUEST_CODE);
                 }
             }
@@ -161,6 +165,55 @@ private void processValidateData() {
 
 
     }
+
+
+    public class MyTransferListener implements FTPDataTransferListener {
+
+        public void started() {
+
+            Log.e("filename","Upload Started ");
+            // Transfer started
+//                Toast.makeText(getActivity(), " Upload Started ...", Toast.LENGTH_SHORT).show();
+            System.out.println(" Upload Started ...");
+        }
+
+        public void transferred(int length) {
+            System.out.println(" transferred ..." );
+            Log.e("filename","transferred");
+        }
+
+        public void completed() {
+            // Transfer completed
+            System.out.println(" completed ..." );
+            Log.e("filename", "upload completed");
+
+
+          /*  getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    SnackBar bar = new SnackBar(getActivity(),"Profile Image Update Sucessfully...");
+                    bar.show();
+                }
+            });*/
+
+        }
+
+        public void aborted() {
+            // Transfer aborted
+            System.out.println(" transfer aborted ,please try again..." );
+//                Toast.makeText(getActivity()," transfer aborted ,please try again...", Toast.LENGTH_SHORT).show();
+        }
+
+        public void failed() {
+            // Transfer failed
+            System.out.println(" failed ..." );
+        }
+
+    }
+
+
+
+
 
 
     private void fillDetails(){
