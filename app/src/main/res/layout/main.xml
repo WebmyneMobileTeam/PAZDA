@@ -29,7 +29,7 @@
         android:background="#808AA9A4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
@@ -39,13 +39,22 @@
         <ImageView
             android:gravity="center"
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/homeupdated"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/pig"
             android:visibility="visible"
 
             android:id="@+id/home"
-            /><!--
+            />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Give me Money..."
+            android:textSize="22sp"
+            android:textColor="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!--
 
 
         <ImageView

@@ -98,7 +98,10 @@ protected void onNewIntent(Intent intent) {
     	   setContentView(R.layout.main);
     	   droid =(ImageView)findViewById(R.id.droid);
            relativeMain=(RelativeLayout)findViewById(R.id.relativeMain);
-        imgLock = (ImageView)findViewById(R.id.imgLock);
+           imgLock = (ImageView)findViewById(R.id.imgLock);
+
+            loadImageFromStorage("/data/data/com.xitij.adzap/app_ADZAP");
+
 
             processloadImageLists();
 
@@ -433,14 +436,20 @@ protected void onNewIntent(Intent intent) {
     }
 
     private void loadImageFromStorage(String path)    {
-
+        Log.e("main path of image",path);
         try {
             File f=new File(path, "ADZAPWallpaper.jpg");
             Bitmap wallpaper = BitmapFactory.decodeStream(new FileInputStream(f));
 
 
           //  WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-            imgLock.setImageBitmap(wallpaper);
+            try {
+                imgLock.setImageBitmap(wallpaper);
+            }catch (Exception e){
+                imgLock.setBackgroundResource(R.drawable.main_bg);
+                Log.e("Image not found","excpetion raised");
+            }
+
                    //   myWallpaperManager.setBitmap(wallpaper);
                 //   Toast.makeText(context,"Sucessfully Wallpaper set",Toast.LENGTH_LONG).show();
 
