@@ -79,9 +79,8 @@ public class SettingsScreen extends ActionBarActivity {
         txtLogout = (TextView)findViewById(R.id.txtLogout);
         swLock = (Switch)findViewById(R.id.swLock);
        // swBackground = (Switch)findViewById(R.id.swBackground);
-        init();
 
-        processloadImageLists();
+        //processloadImageLists();
 
         swLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -167,6 +166,7 @@ public class SettingsScreen extends ActionBarActivity {
 
 
 private void processloadImageLists(){
+
     cDialog = new CircleDialog(SettingsScreen.this, 0);
     cDialog.setCancelable(false);
     cDialog.show();
@@ -211,7 +211,7 @@ private void processloadImageLists(){
 
     private void processSetWallpaper(){
 
-        int counter = PrefUtils.gettPositionForWallpaper(SettingsScreen.this);
+  /*      int counter = PrefUtils.gettPositionForWallpaper(SettingsScreen.this);
 
         if(counter == adImageList.Img.size()){
             counter=0;
@@ -225,10 +225,10 @@ private void processloadImageLists(){
         Log.e("Sub Path",subPath);
         String imagUrl=subPath;
         myAsyncTask myWebFetch = new myAsyncTask(imagUrl,counter);
-        myWebFetch.execute();
+        myWebFetch.execute();*/
 
-       /* startService(new Intent(SettingsScreen.this , ChangeWallpaperService.class));*/
-       // PrefUtils.setChangeBackground(SettingsScreen.this,true);
+        startService(new Intent(SettingsScreen.this , ChangeWallpaperService.class));
+        PrefUtils.setChangeBackground(SettingsScreen.this,true);
     }
 
     private void processsetImage(){
@@ -264,11 +264,28 @@ private void processloadImageLists(){
 
 
     private void processSetLock(){
-        ((KeyguardManager)getSystemService(SettingsScreen.this.KEYGUARD_SERVICE)).newKeyguardLock("IN").disableKeyguard();
+      /*  Intent i = new Intent(SettingsScreen.this,LockScreenAppActivity.class);
+        startActivity(i);
+*/
 
-        registerReceiver(mybroadcast, new IntentFilter(Intent.ACTION_SCREEN_ON));
+        startService(new Intent(this,MyService.class));
+
+       /* ((KeyguardManager)getSystemService(SettingsScreen.this.KEYGUARD_SERVICE)).newKeyguardLock("IN").disableKeyguard();
+
+
+
+        Intent i0 = new Intent();
+        i0.setAction("com.xitij.adzap.ui.LockService");
+        startService(i0);*/
+
+
+       /* registerReceiver(mybroadcast, new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(mybroadcast, new IntentFilter(Intent.ACTION_SCREEN_OFF));
-
+*/
+/*
+        IntentFilter intentFilter = new IntentFilter();
+        //intentFilter.addDataType(String);
+        registerReceiver(LockReciver, intentFilter);*/
         PrefUtils.setLocalScreenBackground(SettingsScreen.this, true);
 
 
@@ -277,37 +294,14 @@ private void processloadImageLists(){
     }
     private void processSetUnLock(){
         ((KeyguardManager)getSystemService(SettingsScreen.this.KEYGUARD_SERVICE)).newKeyguardLock("IN").reenableKeyguard();
-         unregisterReceiver(mybroadcast);
-
+      //   unregisterReceiver(mybroadcast);
+stopService(new Intent(this,MyService.class));
         PrefUtils.setLocalScreenBackground(SettingsScreen.this,false);
     }
 
 
 
 
-
-
-    private void init(){
-            Typeface tf = PrefUtils.getTypeFaceCalibri(SettingsScreen.this);
-
-    }
-
-
-    BroadcastReceiver mybroadcast = new BroadcastReceiver() {
-
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            Log.e("inside service", "inside");
-            if(intent.getAction().equals("android.intent.action.SCREEN_OFF")) {
-                Intent localIntent = new Intent(context, LockScreen.class);
-                localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                localIntent.addFlags(WindowManager.LayoutParams.TYPE_SYSTEM_ERROR);
-                context.startActivity(localIntent);
-            }
-        }
-    };
 
 
     class myAsyncTask extends AsyncTask<Void, Void, Void> {

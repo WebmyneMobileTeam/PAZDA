@@ -228,5 +228,13 @@ private void processRegisterRewardCoins(){
     }
 
 }
-//end of main class
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //videoPlayer.s
+
+    }
+
+    //end of main class
 }

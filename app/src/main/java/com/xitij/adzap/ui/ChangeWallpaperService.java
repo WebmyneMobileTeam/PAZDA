@@ -25,8 +25,8 @@ public class ChangeWallpaperService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
-        timer.scheduleAtFixedRate(updateProfile, 0, 10000);
+       // Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
+        timer.scheduleAtFixedRate(updateProfile, 0, 30000);
 
     }
 
@@ -34,7 +34,7 @@ public class ChangeWallpaperService extends Service {
     public void onDestroy() {
         // TODO Auto-generated method stub
         super.onDestroy();
-        Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();
         timer.cancel();
     }
 

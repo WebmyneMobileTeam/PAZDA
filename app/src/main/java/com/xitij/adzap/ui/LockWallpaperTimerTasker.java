@@ -1,5 +1,32 @@
 package com.xitij.adzap.ui;
 
+import android.app.WallpaperManager;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.android.volley.VolleyError;
+import com.google.gson.GsonBuilder;
+import com.xitij.adzap.helpers.AppConstants;
+import com.xitij.adzap.helpers.CallWebService;
+import com.xitij.adzap.helpers.ComplexPreferences;
+import com.xitij.adzap.helpers.PrefUtils;
+import com.xitij.adzap.model.AdImageList;
+import com.xitij.adzap.model.User;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,48 +37,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.TimerTask;
 
-import android.app.WallpaperManager;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.widget.Toast;
-
-import com.android.volley.VolleyError;
-import com.google.gson.GsonBuilder;
-import com.xitij.adzap.R;
-import com.xitij.adzap.helpers.AppConstants;
-import com.xitij.adzap.helpers.CallWebService;
-import com.xitij.adzap.helpers.ComplexPreferences;
-import com.xitij.adzap.helpers.PrefUtils;
-import com.xitij.adzap.model.AdImageList;
-import com.xitij.adzap.model.User;
-import com.xitij.adzap.widget.CircleDialog;
-
-import android.util.Log;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 /**
  * Created by Krishna on 25-04-2015.
  */
-public class WallpaperTimerTasker extends TimerTask {
+public class LockWallpaperTimerTasker extends TimerTask {
     String saveImagePath;
     AdImageList adImageList;
     private Context context;
     private Handler mHandler = new Handler();
-    public WallpaperTimerTasker(Context con) {
+    public LockWallpaperTimerTasker(Context con) {
         this.context = con;
     }
     public int counter = 0;
@@ -228,6 +222,7 @@ public class WallpaperTimerTasker extends TimerTask {
         try {
             File f=new File(path, "ADZAPWallpaper.jpg");
             Bitmap wallpaper = BitmapFactory.decodeStream(new FileInputStream(f));
+
 
             WallpaperManager myWallpaperManager = WallpaperManager.getInstance(context.getApplicationContext());
             try {
