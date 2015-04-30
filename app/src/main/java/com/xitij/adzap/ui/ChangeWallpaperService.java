@@ -14,6 +14,7 @@ import java.util.TimerTask;
 public class ChangeWallpaperService extends Service {
 
 
+
     Timer timer = new Timer();
     TimerTask updateProfile = new WallpaperTimerTasker(ChangeWallpaperService.this);
 
