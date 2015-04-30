@@ -75,12 +75,11 @@ public class SettingsScreen extends ActionBarActivity {
 
 
         subTitle_toolbar.setText("Settings");
-        txtSetWallpaper= (TextView)findViewById(R.id.txtSetWallpaper);
+
         txtLogout = (TextView)findViewById(R.id.txtLogout);
         swLock = (Switch)findViewById(R.id.swLock);
-       // swBackground = (Switch)findViewById(R.id.swBackground);
+        swBackground = (Switch)findViewById(R.id.swBackground);
 
-        //processloadImageLists();
 
         swLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -94,13 +93,8 @@ public class SettingsScreen extends ActionBarActivity {
         });
 
 
-        txtSetWallpaper.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                processSetWallpaper();
-            }
-        });
-      /*  swBackground.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        swBackground.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(swBackground.isChecked()){
@@ -110,7 +104,7 @@ public class SettingsScreen extends ActionBarActivity {
                     processUnSetWallpaper();
                 }
             }
-        });*/
+        });
 
 
 
@@ -249,14 +243,6 @@ private void processloadImageLists(){
     private void processUnSetWallpaper(){
         stopService(new Intent(SettingsScreen.this , ChangeWallpaperService.class));
         PrefUtils.setChangeBackground(SettingsScreen.this,false);
-      /*WallpaperManager myWallpaperManager = WallpaperManager.getInstance(getApplicationContext());
-        try {
-            myWallpaperManager.setResource(R.raw.default_wallpaper);
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }*/
-
 
 
     }
