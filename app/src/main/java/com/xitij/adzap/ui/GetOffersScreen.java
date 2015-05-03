@@ -78,7 +78,7 @@ public class GetOffersScreen extends ActionBarActivity {
 
 
 
-        init();
+        //init();
 
 
 

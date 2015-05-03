@@ -47,7 +47,7 @@ public class RegistrationScreen extends ActionBarActivity {
         txtBtnLogin = (TextView)findViewById(R.id.txtBtnLogin);
         etReferalCode= (EditText)findViewById(R.id.etReferalCode);
 
-        init();
+        //init();
 
         txtBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

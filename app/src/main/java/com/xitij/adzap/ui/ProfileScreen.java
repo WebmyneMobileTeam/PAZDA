@@ -85,7 +85,7 @@ public class ProfileScreen extends ActionBarActivity {
         txtBtnLogin = (TextView)findViewById(R.id.txtBtnLogin);
 
 
-        init();
+        //init();
         txtBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -63,7 +63,7 @@ public class LoginScreen extends ActionBarActivity {
             }
         });
 
-        init();
+      //  init();
 
     }
 

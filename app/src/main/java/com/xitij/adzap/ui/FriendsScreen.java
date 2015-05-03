@@ -65,7 +65,7 @@ public class FriendsScreen extends ActionBarActivity {
                 finish();
             }
         });
-        init();
+        //init();
 
 
         REFERAL_CODE = PrefUtils.getReferenceCode(FriendsScreen.this);
