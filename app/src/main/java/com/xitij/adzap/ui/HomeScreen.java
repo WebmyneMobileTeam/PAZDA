@@ -1,6 +1,14 @@
 package com.xitij.adzap.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +32,7 @@ import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.CheckBalance;
 import com.xitij.adzap.model.Offers;
 import com.xitij.adzap.model.User;
+import com.xitij.adzap.receiver.AppLocationService;
 import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
@@ -31,7 +40,7 @@ import org.json.JSONObject;
 
 
 public class HomeScreen extends ActionBarActivity implements View.OnClickListener{
-
+    AppLocationService appLocationService;
     private ViewGroup menuEarnCoins,menuRewards,menuFriends,menuHistory;
     private  ImageView settings,imgProfile;
     private TextView txtCoin,txtINR;
@@ -42,6 +51,9 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        appLocationService = new AppLocationService(HomeScreen.this);
+
         imgProfile = (ImageView)findViewById(R.id.imgProfile);
         setupUI();
 
@@ -63,7 +75,75 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
         setupBalance();
+
+
+
+        Location gpsLocation = appLocationService.getLocation(LocationManager.GPS_PROVIDER);
+        if (gpsLocation != null) {
+            double latitude = gpsLocation.getLatitude();
+            double longitude = gpsLocation.getLongitude();
+            String result = "Latitude: " + gpsLocation.getLatitude() +
+                    " Longitude: " + gpsLocation.getLongitude();
+            Log.e("location",result);
+        } else {
+            //showSettingsAlert();
+            turnGPSOn();
+        }
     }
+
+
+    private void turnGPSOn(){
+        String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+        if(!provider.contains("gps")){ //if gps is disabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+
+            poke.setData(Uri.parse("3"));
+            sendBroadcast(poke);
+        }
+    }
+
+    public void showSettingsAlert() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+                HomeScreen.this);
+        alertDialog.setTitle("SETTINGS");
+        alertDialog.setMessage("Enable Location Provider! Go to settings menu?");
+        alertDialog.setPositiveButton("Settings",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(
+                                Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        HomeScreen.this.startActivity(intent);
+                    }
+                });
+        alertDialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog.show();
+    }
+
+    private class GeocoderHandler extends Handler {
+        @Override
+        public void handleMessage(Message message) {
+            String locationAddress;
+            switch (message.what) {
+                case 1:
+                    Bundle bundle = message.getData();
+                    locationAddress = bundle.getString("address");
+                    break;
+                default:
+                    locationAddress = null;
+            }
+            Log.e("location GeocoderHandler", locationAddress);
+            //tvAddress.setText(locationAddress);
+        }
+    }
+
 
     private void setupBalance(){
       /*  dialog = new CircleDialog(HomeScreen.this, 0);
