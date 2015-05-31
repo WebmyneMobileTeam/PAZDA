@@ -1,13 +1,18 @@
 package com.xitij.adzap.ui;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,17 +32,27 @@ import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class RegistrationScreen extends ActionBarActivity {
-
+    private DatePickerDialog fromDatePickerDialog;
+    private SimpleDateFormat dateFormatter;
     private CircleDialog dialog;
-    private EditText etEmail,etName,etPassword,etCnfPassword,etPhone,etReferalCode;
+    private EditText etEmail,etName,etPassword,etCnfPassword,etPhone,etReferalCode,etDateofBirth;
     private TextView txtBtnLogin;
+    RadioButton rdMale,rdFemale;
+    String gender="Male";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_screen);
+
+
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
         etEmail = (EditText)findViewById(R.id.etEmail);
         etName = (EditText)findViewById(R.id.etName);
@@ -46,7 +61,10 @@ public class RegistrationScreen extends ActionBarActivity {
         etPhone = (EditText)findViewById(R.id.etPhone);
         txtBtnLogin = (TextView)findViewById(R.id.txtBtnLogin);
         etReferalCode= (EditText)findViewById(R.id.etReferalCode);
+        etDateofBirth= (EditText)findViewById(R.id.etDateofBirth);
 
+        rdMale= (RadioButton)findViewById(R.id.rdMale);
+        rdFemale= (RadioButton)findViewById(R.id.rdFemale);
         //init();
 
         txtBtnLogin.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +74,49 @@ public class RegistrationScreen extends ActionBarActivity {
             }
         });
 
+
+        rdMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(rdMale.isChecked())
+                        gender = "Male";
+                    else
+                        gender = "Female";
+            }
+        });
+
+        rdFemale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(rdFemale.isChecked())
+                    gender = "Female";
+                else
+                    gender = "Male";
+            }
+        });
+
+        etDateofBirth.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Calendar newCalendar = Calendar.getInstance();
+
+              fromDatePickerDialog = new DatePickerDialog(RegistrationScreen.this, new DatePickerDialog.OnDateSetListener() {
+
+
+                  public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                      Calendar newDate = Calendar.getInstance();
+                      newDate.set(year, monthOfYear, dayOfMonth);
+                      etDateofBirth.setText(dateFormatter.format(newDate.getTime()));
+                  }
+
+              }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+              fromDatePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+              fromDatePickerDialog.show();
+          }
+      });
 
     }
 
@@ -81,7 +142,9 @@ private void processValidateData(){
             etPassword.setError("Please Enter Password !!!");
         }else if(isEdiTextEmpty(etCnfPassword)){
             etCnfPassword.setError("Please Enter Confirm Password !!!");
-        }else if(isEdiTextEmpty(etPhone)){
+        }else if(isEdiTextEmpty(etDateofBirth)){
+            etPhone.setError("Please Enter Birthday !!!");
+        } else if(isEdiTextEmpty(etPhone)){
             etPhone.setError("Please Enter Mobile no. !!!");
         }else if(!isEmailMatch(etEmail)){
             Toast.makeText(RegistrationScreen.this,"Please Enter Valid Email address !!!",Toast.LENGTH_LONG).show();
@@ -100,7 +163,9 @@ private void processRegister(){
 
     try{
         JSONObject userobj = new JSONObject();
-        userobj.put("EmailId",etEmail.getText().toString().trim());
+        userobj.put("Birthdate",etDateofBirth.getText().toString().trim());
+        userobj.put("EmailId", etEmail.getText().toString().trim());
+        userobj.put("Gender",gender);
         userobj.put("Image","");
         userobj.put("Name",etName.getText().toString().trim());
         userobj.put("Password",etCnfPassword.getText().toString().trim());
@@ -128,15 +193,16 @@ private void processRegister(){
 
                     if(obj.getString("Response").equalsIgnoreCase("0")){
 
-                      /*  User currentUser = new GsonBuilder().create().fromJson(response,User.class);
-                        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(SignUpActivity.this, "user_pref",0);
+                        User currentUser = new GsonBuilder().create().fromJson(response,User.class);
+                        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(RegistrationScreen.this, "user_pref",0);
                         complexPreferences.putObject("current_user", currentUser);
                         complexPreferences.commit();
-*/
 
-                        Toast.makeText(RegistrationScreen.this,obj.getString("ResponseMsg").toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegistrationScreen.this,"Verification code sent to your registered email id",Toast.LENGTH_LONG).show();
 
-                        Intent iCOnfirmSignUp = new Intent( RegistrationScreen.this ,LoginScreen.class );
+                        PrefUtils.setPendingEmailVerification(RegistrationScreen.this, true);
+
+                        Intent iCOnfirmSignUp = new Intent( RegistrationScreen.this ,EmailVerifcation.class );
                         startActivity(iCOnfirmSignUp);
                         finish();
                     }

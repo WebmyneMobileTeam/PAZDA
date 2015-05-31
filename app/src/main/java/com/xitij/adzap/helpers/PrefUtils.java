@@ -40,6 +40,17 @@ public class PrefUtils {
     }
 
 
+
+    public static void setPendingEmailVerification(Context ctx, boolean status){
+        Prefs.with(ctx).save("emailstatus",status);
+    }
+
+    public static boolean isPendingEmailVerification(Context ctx){
+        boolean status = Prefs.with(ctx).getBoolean("emailstatus", true);
+        return status;
+    }
+
+
     public static void setReferenceCode(Context ctx, String coinValue){
         Prefs.with(ctx).save("referenceCode",coinValue);
     }
@@ -48,6 +59,10 @@ public class PrefUtils {
         String code = Prefs.with(ctx).getString("referenceCode","123ABC");
         return code;
     }
+
+
+
+
 
     public static void setBankListPos(Context ctx, int posValue){
         Prefs.with(ctx).save("banklistpos",posValue);

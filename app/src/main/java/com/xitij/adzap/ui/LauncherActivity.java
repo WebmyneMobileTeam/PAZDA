@@ -37,7 +37,7 @@ public class LauncherActivity extends ActionBarActivity {
                     Intent iHomeScreen = new Intent(LauncherActivity.this,HomeScreen.class);
                     startActivity(iHomeScreen);
                     finish();
-                }else{
+                } else{
                     Intent iHomeScreen = new Intent(LauncherActivity.this,LoginScreen.class);
                     startActivity(iHomeScreen);
                     finish();

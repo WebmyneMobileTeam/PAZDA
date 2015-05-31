@@ -45,6 +45,8 @@ public class AppConstants {
     public static String SAVE_BANK_DETAILS= BASE_URL + "Invoice.svc/json/SaveBankInfo";
     public static String UPDATE_BANK_DETAILS= BASE_URL + "Invoice.svc/json/UpdateBank";
 
+    public static String RESEND_VERIFICATION_CODE= BASE_URL + "Login.svc/json/ResendEmail/";
+
 
     /*********  FTP IP ***********//*
     public static final String ftpPath="192.168.1.4";

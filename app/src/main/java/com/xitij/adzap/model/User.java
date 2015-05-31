@@ -24,6 +24,17 @@ public class User {
     @SerializedName("Phone")
     public String Phone;
 
+    @SerializedName("verifyCode")
+    public String verifyCode;
+
+
+    @SerializedName("Gender")
+    public String Gender;
+
+
+    @SerializedName("Birthdate")
+    public String Birthdate;
+
 
     @SerializedName("UserId")
     public long UserId;
