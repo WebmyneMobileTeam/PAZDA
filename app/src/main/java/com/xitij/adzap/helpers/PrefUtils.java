@@ -8,6 +8,26 @@ import android.graphics.Typeface;
  */
 public class PrefUtils {
 
+
+    public static void setCity(Context ctx,String city){
+        Prefs.with(ctx).save("city",city);
+    }
+
+    public static void setState(Context ctx,String state){
+        Prefs.with(ctx).save("state",state);
+    }
+
+    public static String getCity(Context ctx){
+        String city = Prefs.with(ctx).getString("city", "");
+        return city;
+    }
+
+    public static String getState(Context ctx){
+        String state = Prefs.with(ctx).getString("state","");
+        return state;
+    }
+
+
     public static boolean isLogin(Context ctx){
         boolean isLogin = true;
         int selectedLanguage = Prefs.with(ctx).getInt("login",0);

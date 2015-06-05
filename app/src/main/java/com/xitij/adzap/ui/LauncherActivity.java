@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,12 +19,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
+import com.xitij.adzap.adapters.OfferListAdapter;
+import com.xitij.adzap.helpers.AdvancedSpannableString;
+import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.AppLocationService;
+import com.xitij.adzap.helpers.CallWebService;
+import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
+import com.xitij.adzap.model.CITYSTATELIST;
+import com.xitij.adzap.model.Offers;
+
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Locale;
@@ -43,7 +56,9 @@ public class LauncherActivity extends ActionBarActivity {
         setContentView(R.layout.activity_launcher);
 
 
-        new CountDownTimer(2500,1000) {
+        fetchCityState();
+
+   /*     new CountDownTimer(2500,1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -52,19 +67,61 @@ public class LauncherActivity extends ActionBarActivity {
             @Override
             public void onFinish() {
 
-                if(PrefUtils.isLogin(LauncherActivity.this)){
-                    Intent iHomeScreen = new Intent(LauncherActivity.this,HomeScreen.class);
-                    startActivity(iHomeScreen);
-                    finish();
-                } else{
-                    Intent iHomeScreen = new Intent(LauncherActivity.this,LoginScreen.class);
-                    startActivity(iHomeScreen);
-                    finish();
-                }
 
             }
         }.start();
+*/
 
+
+    }
+
+
+    void fetchCityState(){
+
+        new CallWebService(AppConstants.GET_CITY_STATE_LIST , CallWebService.TYPE_JSONOBJECT) {
+
+            @Override
+            public void response(String response) {
+
+                Log.e("response loc", response.toString());
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.getString("Response").equalsIgnoreCase("1")) {
+
+                        CITYSTATELIST cityobj = new GsonBuilder().create().fromJson(response, CITYSTATELIST.class);
+
+                        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(LauncherActivity.this, "user_pref", 0);
+                        complexPreferences.putObject("current_location", cityobj);
+                        complexPreferences.commit();
+
+
+
+                        if(PrefUtils.isLogin(LauncherActivity.this)){
+                            Intent iHomeScreen = new Intent(LauncherActivity.this,HomeScreen.class);
+                            startActivity(iHomeScreen);
+                            finish();
+                        } else{
+                            Intent iHomeScreen = new Intent(LauncherActivity.this,LoginScreen.class);
+                            startActivity(iHomeScreen);
+                            finish();
+                        }
+
+
+                    }
+
+                } catch (Exception e) {
+
+                }
+
+
+            }
+
+            @Override
+            public void error(VolleyError error) {
+                Log.e("volly er", error.toString());
+            }
+        }.start();
 
 
     }
@@ -72,7 +129,6 @@ public class LauncherActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
 
         getCellTowerInfo();
 
@@ -98,11 +154,15 @@ public class LauncherActivity extends ActionBarActivity {
 
 
 
+                PrefUtils.setCity(LauncherActivity.this,cityName);
+                PrefUtils.setState(LauncherActivity.this,cityName);
+
                 Toast.makeText(
                         getApplicationContext(),
                         "Mobile Location (NW): \nLatitude: " + latitude
                                 + "\nLongitude: " + longitude + "\ncityName:" + cityName + "\ncountryName:" + countryName,
                         Toast.LENGTH_LONG).show();
+
 
             }catch (Exception e){
                 Log.e("exc",e.toString());
