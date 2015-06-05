@@ -141,6 +141,8 @@ public class LauncherActivity extends ActionBarActivity {
 
         Location nwLocation = appLocationService.getLocation(LocationManager.NETWORK_PROVIDER);
 
+
+
         if (nwLocation != null) {
             double latitude = nwLocation.getLatitude();
             double longitude = nwLocation.getLongitude();
