@@ -1,9 +1,11 @@
 package com.xitij.adzap.ui;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Handler;
@@ -78,6 +80,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
 
 
+/*
         Location gpsLocation = appLocationService.getLocation(LocationManager.GPS_PROVIDER);
         if (gpsLocation != null) {
             double latitude = gpsLocation.getLatitude();
@@ -88,8 +91,10 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         } else {
             //showSettingsAlert();
             turnGPSOn();
-        }
+        }*/
     }
+
+
 
 
     private void turnGPSOn(){

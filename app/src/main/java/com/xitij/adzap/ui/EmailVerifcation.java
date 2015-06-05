@@ -72,7 +72,7 @@ public class EmailVerifcation extends ActionBarActivity {
                 if (isEdiTextEmpty(etCode)) {
                     Toast.makeText(EmailVerifcation.this, "Please enter Verification code !!!", Toast.LENGTH_LONG).show();
                 }//else if(!etCode.getText().toString().trim().equalsIgnoreCase(currentuser.verifyCode)){
-                else if(!etCode.getText().toString().trim().equalsIgnoreCase("k")){
+                else if(!etCode.getText().toString().trim().equalsIgnoreCase(currentuser.verifyCode)){
                     Toast.makeText(EmailVerifcation.this, "Please enter Correct Verification code !!!", Toast.LENGTH_LONG).show();
                 }
                 else {
