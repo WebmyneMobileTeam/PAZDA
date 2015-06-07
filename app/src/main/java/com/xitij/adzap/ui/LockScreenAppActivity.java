@@ -34,6 +34,7 @@ import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.AdImageList;
+import com.xitij.adzap.model.GeoLocation;
 import com.xitij.adzap.model.User;
 
 import org.apache.http.HttpEntity;
@@ -308,8 +309,11 @@ protected void onNewIntent(Intent intent) {
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(LockScreenAppActivity.this, "user_pref", 0);
         User currentUser = complexPreferences.getObject("current_user", User.class);
 
+        ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(LockScreenAppActivity.this, "user_pref", 0);
+        GeoLocation gl = complexPreferences2.getObject("current_location", GeoLocation.class);
 
-        new CallWebService(AppConstants.GET_AD_IMAGES + currentUser.UserId, CallWebService.TYPE_JSONOBJECT) {
+
+        new CallWebService(AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+gl.cityID, CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String response) {
