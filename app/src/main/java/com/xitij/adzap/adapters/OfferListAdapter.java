@@ -71,7 +71,7 @@ public class OfferListAdapter extends BaseAdapter {
 
 
         Glide.with(ctx).load(AppConstants.BASE_URL_IMAGE + subPath).transform(new CircleTransform(ctx)).thumbnail(0.1f).into(imgIcon);
-
+        txtAdName.setText(""+offerItems.ViewAdz.get(position).DisplayName);
    /*     txtAdName.setText(""+offerItems.ViewAdz.get(position).DisplayName);
         double coin = Double.valueOf(offerItems.ViewAdz.get(position).Coins);
         int c = (int) coin;*/

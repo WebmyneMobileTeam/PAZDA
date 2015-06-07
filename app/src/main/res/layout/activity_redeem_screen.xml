@@ -29,16 +29,19 @@
             android:textColor="@color/whiteColor"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
-            android:text="Select Redeem Amount"
+            android:text="Enter Redeem Amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Spinner
+        <EditText
+            android:textColor="#494949"
+            android:inputType="number"
+            android:hint="enter amount"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:id="@+id/spRedeemMoney"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></Spinner>
+            android:layout_height="wrap_content"></EditText>
 
         <TextView
             android:textColor="@color/whiteColor"

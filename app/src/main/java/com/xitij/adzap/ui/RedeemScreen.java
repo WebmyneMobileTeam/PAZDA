@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -42,7 +43,7 @@ public class RedeemScreen extends ActionBarActivity {
     private TextView txtRedeem,txtSelectBank,txtBankName,txtAcc;
     private View emptyView;
     private ImageView earnCoin;
-    private Spinner spRedeemMoney;
+    private EditText spRedeemMoney;
     private static final String[] amount = new String[] {
             "Select", "INR 100", "INR 200", "INR 500", "INR 1000"
     };
@@ -74,11 +75,8 @@ public class RedeemScreen extends ActionBarActivity {
         txtBankName = (TextView)findViewById(R.id.txtBankName);
         txtSelectBank = (TextView)findViewById(R.id.txtSelectBank);
         txtRedeem = (TextView)findViewById(R.id.txtRedeem);
-        spRedeemMoney = (Spinner)findViewById(R.id.spRedeemMoney);
+        spRedeemMoney = (EditText)findViewById(R.id.spRedeemMoney);
 
-        ArrayAdapter<String> spinadapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, amount);
-        spRedeemMoney.setAdapter(spinadapter);
 
 
         txtSelectBank.setOnClickListener(new View.OnClickListener() {
@@ -95,8 +93,6 @@ public class RedeemScreen extends ActionBarActivity {
             public void onClick(View v) {
 
 
-                int spinnerPos = spRedeemMoney.getSelectedItemPosition();
-
 
                 // 1 Rs = 15 Coins
                 Float coins = Float.valueOf(currentUser.Balance);
@@ -108,8 +104,8 @@ public class RedeemScreen extends ActionBarActivity {
                 double userBalance = Double.parseDouble(currentUser.Balance);
 
 
-                if(spinnerPos == 0){
-                    Toast.makeText(RedeemScreen.this,"Please Select the amount for redeem",Toast.LENGTH_LONG).show();
+                if(spRedeemMoney.getText().toString().length()==0){
+                    Toast.makeText(RedeemScreen.this,"Please enter valid amount for redeem",Toast.LENGTH_LONG).show();
                     isOk=false;
                 }else if(currentBankList == null) {
                     Toast.makeText(RedeemScreen.this,"Please Select Bank Details !!!",Toast.LENGTH_LONG).show();
@@ -120,18 +116,8 @@ public class RedeemScreen extends ActionBarActivity {
                 }*/
                 else {
 
-                    if(spinnerPos==1){
-                        redeemAmount = 100.00;
-                    }
-                    else if(spinnerPos==2){
-                        redeemAmount = 200.00;
-                    }
-                    else if(spinnerPos==3){
-                        redeemAmount = 500.00;
-                    }
-                    else if(spinnerPos==4){
-                        redeemAmount = 1000.00;
-                    }
+                    redeemAmount = Double.valueOf(spRedeemMoney.getText().toString().trim());
+
                     processRedeem();
                 }
             }
@@ -177,9 +163,6 @@ public class RedeemScreen extends ActionBarActivity {
 
 
         try{
-
-
-            int spPos = spRedeemMoney.getSelectedItemPosition();
 
             JSONObject userobj = new JSONObject();
             userobj.put("ACNO",currentBankList.Bank.get(pos).ACNO);
