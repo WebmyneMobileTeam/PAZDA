@@ -16,8 +16,10 @@ import com.xitij.adzap.R;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.AppLocationService;
 import com.xitij.adzap.helpers.CallWebService;
+import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.CITYSTATELIST;
+import com.xitij.adzap.model.GeoLocation;
 
 import org.json.JSONObject;
 
@@ -75,16 +77,17 @@ public class LauncherActivity extends ActionBarActivity {
                         CITYSTATELIST cityobj = new GsonBuilder().create().fromJson(response, CITYSTATELIST.class);
 
                         Log.e("city size",""+cityobj.Sate.size());
-/*
-                        for(int i=0;i<cityobj.STATE.size();i++){
-                           for(int j=0;j<cityobj.STATE.get(i).City.size();i++){
-                               if(cityobj.STATE.get(i).City.get(j).CityName.equalsIgnoreCase(CITYNAME))
+                        Log.e("city size",""+cityobj.Sate.get(0).Cities.size());
+
+                        for(int i=0;i<cityobj.Sate.size();i++){
+                           for(int j=0;j<cityobj.Sate.get(i).Cities.size();j++){
+                               if(cityobj.Sate.get(i).Cities.get(j).CityName.equalsIgnoreCase(CITYNAME))
                                {
                                    GeoLocation gl = new GeoLocation();
-                                  gl.cityID = String.valueOf(cityobj.STATE.get(i).City.get(j).CityId);
-                                   gl.stateID = String.valueOf(cityobj.STATE.get(i).StateId);
-                                   gl.cityName = cityobj.STATE.get(i).City.get(j).CityName;
-                                   gl.stateName = cityobj.STATE.get(i).StateName;
+                                  gl.cityID = String.valueOf(cityobj.Sate.get(i).Cities.get(j).CityId);
+                                   gl.stateID = String.valueOf(cityobj.Sate.get(i).StateId);
+                                   gl.cityName = cityobj.Sate.get(i).Cities.get(j).CityName;
+                                   gl.stateName = cityobj.Sate.get(i).StateName;
 
                                    ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(LauncherActivity.this, "user_pref", 0);
                                    complexPreferences.putObject("current_location", gl);
@@ -92,13 +95,13 @@ public class LauncherActivity extends ActionBarActivity {
                                }
                            }
                         }
-*/
 
 
 
 
 
-                 /*       if(PrefUtils.isLogin(LauncherActivity.this)){
+
+                        if(PrefUtils.isLogin(LauncherActivity.this)){
                             Intent iHomeScreen = new Intent(LauncherActivity.this,HomeScreen.class);
                             startActivity(iHomeScreen);
                             finish();
@@ -106,7 +109,7 @@ public class LauncherActivity extends ActionBarActivity {
                             Intent iHomeScreen = new Intent(LauncherActivity.this,LoginScreen.class);
                             startActivity(iHomeScreen);
                             finish();
-                        }*/
+                        }
 
 
                     }

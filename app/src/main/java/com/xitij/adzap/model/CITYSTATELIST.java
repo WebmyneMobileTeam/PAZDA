@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class CITYSTATELIST{
 
     @SuppressWarnings("Sate")
-    public static  ArrayList<Sate> Sate;
+    public  ArrayList<Sate> Sate;
 
 
 }

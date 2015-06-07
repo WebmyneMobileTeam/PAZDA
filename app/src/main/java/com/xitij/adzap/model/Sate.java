@@ -8,14 +8,14 @@ import java.util.ArrayList;
 public class Sate {
 
     @SuppressWarnings("StateId")
-    public static long StateId;
+    public  long StateId;
 
     @SuppressWarnings("StateName")
-    public static String StateName;
+    public  String StateName;
 
 
     @SuppressWarnings("Cities")
-    public static  ArrayList<City> City;
+    public  ArrayList<Cities> Cities;
 
 
 }
