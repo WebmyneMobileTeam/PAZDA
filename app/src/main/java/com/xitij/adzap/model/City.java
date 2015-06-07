@@ -10,12 +10,13 @@ public class City {
     @SuppressWarnings("StateId")
     public static long StateId;
 
-    @SuppressWarnings("StateName")
-    public static String StateName;
+    @SuppressWarnings("CityName")
+    public static String CityName;
 
 
-    @SuppressWarnings("State")
-    public static  ArrayList<City> City;
+    @SuppressWarnings("CityId")
+    public static  long CityId;
+
 
 
 }

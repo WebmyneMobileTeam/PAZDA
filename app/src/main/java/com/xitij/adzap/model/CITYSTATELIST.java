@@ -7,6 +7,8 @@ import java.util.ArrayList;
  */
 public class CITYSTATELIST{
 
-    @SuppressWarnings("State")
-    public static  ArrayList<State> STATE;
+    @SuppressWarnings("Sate")
+    public static  ArrayList<Sate> Sate;
+
+
 }

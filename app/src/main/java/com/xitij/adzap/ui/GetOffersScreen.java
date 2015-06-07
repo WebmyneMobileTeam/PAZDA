@@ -23,6 +23,7 @@ import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
+import com.xitij.adzap.model.GeoLocation;
 import com.xitij.adzap.model.Offers;
 import com.xitij.adzap.model.User;
 import com.xitij.adzap.widget.CircleDialog;
@@ -107,8 +108,11 @@ public class GetOffersScreen extends ActionBarActivity {
         User currentUser = complexPreferences.getObject("current_user", User.class);
 
 
+        ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
+        GeoLocation gl = complexPreferences2.getObject("current_location", GeoLocation.class);
 
-        new CallWebService(AppConstants.GET_OFFERS + currentUser.UserId, CallWebService.TYPE_JSONOBJECT) {
+
+        new CallWebService(AppConstants.GET_OFFERS + currentUser.UserId+"/"+gl.cityID, CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String response) {
