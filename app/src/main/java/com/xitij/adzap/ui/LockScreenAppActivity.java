@@ -26,9 +26,13 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
+import com.xitij.adzap.base.MyApplication;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.ComplexPreferences;
@@ -36,6 +40,7 @@ import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.AdImageList;
 import com.xitij.adzap.model.GeoLocation;
 import com.xitij.adzap.model.User;
+import com.xitij.adzap.widget.CircleDialog;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -206,11 +211,16 @@ protected void onNewIntent(Intent intent) {
 		             if(((x_cord-home_x)<=(windowwidth/24)*5 && (home_x-x_cord)<=(windowwidth/24)*4)&&((home_y-y_cord)<=(windowheight/32)*5))
 		              {
 		                 System.out.println("home overlapps");
-		                 System.out.println("homeee"+home_x+"  "+(int)event.getRawX()+"  "+x_cord+" "+droidpos[0]);
+		                 System.out.println("homeee" + home_x + "  " + (int) event.getRawX() + "  " + x_cord + " " + droidpos[0]);
 
-		            	 System.out.println("homeee"+home_y+"  "+(int)event.getRawY()+"  "+y_cord+" "+droidpos[1]);
+		            	 System.out.println("homeee" + home_y + "  " + (int) event.getRawY() + "  " + y_cord + " " + droidpos[1]);
 
 		            	 v.setVisibility(View.GONE);
+
+                         /* if(adImageList.Img.size()!=0)
+                           processEarnCoins();*/
+
+
 
 		            	// startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people/")));
 		                finish();
@@ -303,6 +313,52 @@ protected void onNewIntent(Intent intent) {
 		}
 
     }
+
+   /* void processEarnCoins(){
+        //store current user and domain in shared preferences
+        ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(LockScreenAppActivity.this, "user_pref", 0);
+        User currentUser = complexPreferences2.getObject("current_user", User.class);
+
+        try{
+            JSONObject userobj = new JSONObject();
+            userobj.put("AdId", adImageList.Img.get(0));
+            userobj.put("UserId",String.valueOf(currentUser.UserId));
+            userobj.put("Coins", currentOffer.ViewAdz.get(pos).Coins);
+
+            Log.e("Req Resgister", userobj.toString());
+
+
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.REQUEST_POINTS, userobj, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject jobj) {
+
+                    String response = jobj.toString();
+                    Log.e("Response Register: ", "" + response);
+
+
+
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+
+                    Log.e("error : ", error + "");
+                    Toast.makeText(LockScreenAppActivity.this,"Error - "+error.toString(),Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            MyApplication.getInstance().addToRequestQueue(req);
+
+        }catch(Exception e){
+
+        }
+    }*/
 
     private void processloadImageLists(){
 
