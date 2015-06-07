@@ -111,7 +111,7 @@ public class GetOffersScreen extends ActionBarActivity {
         ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
         GeoLocation gl = complexPreferences2.getObject("current_location", GeoLocation.class);
 
-
+        Log.e("link",AppConstants.GET_OFFERS + currentUser.UserId+"/"+gl.cityID);
         new CallWebService(AppConstants.GET_OFFERS + currentUser.UserId+"/"+gl.cityID, CallWebService.TYPE_JSONOBJECT) {
 
             @Override

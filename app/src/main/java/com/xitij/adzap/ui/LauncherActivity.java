@@ -81,13 +81,19 @@ public class LauncherActivity extends ActionBarActivity {
 
                         for(int i=0;i<cityobj.Sate.size();i++){
                            for(int j=0;j<cityobj.Sate.get(i).Cities.size();j++){
+
+
+                               Log.e("Location CItyname",""+CITYNAME);
+                               CITYNAME = "Vadodara";
                                if(cityobj.Sate.get(i).Cities.get(j).CityName.equalsIgnoreCase(CITYNAME))
                                {
                                    GeoLocation gl = new GeoLocation();
-                                  gl.cityID = String.valueOf(cityobj.Sate.get(i).Cities.get(j).CityId);
+                                   gl.cityID = String.valueOf(cityobj.Sate.get(i).Cities.get(j).CityId);
                                    gl.stateID = String.valueOf(cityobj.Sate.get(i).StateId);
                                    gl.cityName = cityobj.Sate.get(i).Cities.get(j).CityName;
                                    gl.stateName = cityobj.Sate.get(i).StateName;
+
+                                   Log.e("insided if",""+"if");
 
                                    ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(LauncherActivity.this, "user_pref", 0);
                                    complexPreferences.putObject("current_location", gl);
