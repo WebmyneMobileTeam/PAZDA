@@ -219,11 +219,11 @@ protected void onNewIntent(Intent intent) {
 		            	 v.setVisibility(View.GONE);
 
 
-                         /* if(adImageList.Img.size()!=0) {
+                          if(adImageList.Img.size()!=0) {
                               if(isImageSucessfullyLoaded){
                                   processEarnCoins();
                               }
-                          }*/
+                          }
 
                           Toast.makeText(LockScreenAppActivity.this,"Screen on",Toast.LENGTH_SHORT).show();
 
