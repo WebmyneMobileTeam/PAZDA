@@ -73,7 +73,7 @@
             <EditText
                 android:focusable="false"
                 android:drawablePadding="5dp"
-                android:drawableLeft="@drawable/drawable_password"
+                android:drawableLeft="@drawable/bdy"
                 android:id="@+id/etDateofBirth"
                 style="@style/EditText_LoginScreen"
 

@@ -76,13 +76,14 @@ public class EmailVerifcation extends ActionBarActivity {
                     Toast.makeText(EmailVerifcation.this, "Please enter Correct Verification code !!!", Toast.LENGTH_LONG).show();
                 }
                 else {
-                  //  processCheckVerificationcode();
-
+                    processCheckVerificationcode();
+/*
                    PrefUtils.setLogin(EmailVerifcation.this, true);
                     PrefUtils.setPendingEmailVerification(EmailVerifcation.this, false);
                     Intent iReg = new Intent(EmailVerifcation.this, HomeScreen.class);
                     startActivity(iReg);
                     finish();
+                    */
                 }
             }
         });

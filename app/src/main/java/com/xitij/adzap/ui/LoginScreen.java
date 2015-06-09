@@ -124,20 +124,33 @@ public class LoginScreen extends ActionBarActivity {
 
 
                     }else if((obj.getString("Response").equalsIgnoreCase("-1"))){
-                        Toast.makeText(LoginScreen.this, "Please verify your accounnt", Toast.LENGTH_LONG).show();
-
-                        PrefUtils.setLogin(LoginScreen.this, false);
-
-                        User currentUser = new GsonBuilder().create().fromJson(response, User.class);
-                        //store current user and domain in shared preferences
-                        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(LoginScreen.this, "user_pref", 0);
-                        complexPreferences.putObject("current_user", currentUser);
-                        complexPreferences.commit();
 
 
-                        Intent iHomeScreen = new Intent(LoginScreen.this,EmailVerifcation.class);
-                        startActivity(iHomeScreen);
-                        finish();
+                        if((obj.getString("ResponseMsg").equalsIgnoreCase("InValid EMailId Or Password"))){
+
+                            Toast.makeText(LoginScreen.this, "Invalid EmailId Or Password", Toast.LENGTH_LONG).show();
+
+                        }
+                       else{
+                            Toast.makeText(LoginScreen.this, "Please verify your accounnt", Toast.LENGTH_LONG).show();
+
+                            PrefUtils.setLogin(LoginScreen.this, false);
+
+                            User currentUser = new GsonBuilder().create().fromJson(response, User.class);
+                            //store current user and domain in shared preferences
+                            ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(LoginScreen.this, "user_pref", 0);
+                            complexPreferences.putObject("current_user", currentUser);
+                            complexPreferences.commit();
+
+
+                            Intent iHomeScreen = new Intent(LoginScreen.this,EmailVerifcation.class);
+                            startActivity(iHomeScreen);
+                            finish();
+                        }
+
+
+
+
                     } else {
                         Toast.makeText(LoginScreen.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
                     }
