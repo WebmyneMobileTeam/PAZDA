@@ -230,6 +230,7 @@ protected void onNewIntent(Intent intent) {
 		            	// startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people/")));
 		                finish();
 		              }
+
 		             else{
 		            	 System.out.println("homeee"+home_x+"  "+(int)event.getRawX()+"  "+x_cord+" "+droidpos[0]);
 
