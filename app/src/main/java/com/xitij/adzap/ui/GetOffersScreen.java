@@ -26,9 +26,13 @@ import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.GeoLocation;
 import com.xitij.adzap.model.Offers;
 import com.xitij.adzap.model.User;
+import com.xitij.adzap.model.VideoOffers;
+import com.xitij.adzap.model.VideoOffersItems;
 import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class GetOffersScreen extends ActionBarActivity {
 
@@ -105,7 +109,7 @@ public class GetOffersScreen extends ActionBarActivity {
         dialog.show();
 
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
-        User currentUser = complexPreferences.getObject("current_user", User.class);
+        final User currentUser = complexPreferences.getObject("current_user", User.class);
 
 
         ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
@@ -119,6 +123,8 @@ public class GetOffersScreen extends ActionBarActivity {
                 dialog.dismiss();
                 Log.e("response", response.toString());
 
+
+
                 try {
                     JSONObject obj = new JSONObject(response);
                     if (obj.getString("Response").equalsIgnoreCase("0")) {
@@ -130,13 +136,28 @@ public class GetOffersScreen extends ActionBarActivity {
 
                         currentOffer = new GsonBuilder().create().fromJson(response, Offers.class);
                         Log.e("offer size",""+currentOffer.ViewAdz.size());
+                        VideoOffers vdoOffer = new VideoOffers();
 
+                       for(int i=0;i<currentOffer.ViewAdz.size();i++){
+                            if(!currentOffer.ViewAdz.get(i).VideoPath.equalsIgnoreCase("")){
+
+
+                                VideoOffersItems vi = new VideoOffersItems();
+                                vi.AdId = currentOffer.ViewAdz.get(i).AdId;
+
+                                vdoOffer.ViewAdz.add(vi);
+                            }
+                        }
+
+                       Log.e("video offer size",""+vdoOffer.ViewAdz.size());
+
+/*
                         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
                         complexPreferences.putObject("current_offer", currentOffer);
                         complexPreferences.commit();
 
-                        OfferListAdapter adpater = new OfferListAdapter(GetOffersScreen.this,currentOffer);
-                        offerListView.setAdapter(adpater);
+                        OfferListAdapter adpater = new OfferListAdapter(GetOffersScreen.this,vdoOffer);
+                        offerListView.setAdapter(adpater);*/
 
                     } else {
 
@@ -154,7 +175,7 @@ public class GetOffersScreen extends ActionBarActivity {
                     }
 
                 } catch (Exception e) {
-
+                    Log.e("exv",e.toString());
                 }
 
 

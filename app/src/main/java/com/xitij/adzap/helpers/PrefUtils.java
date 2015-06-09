@@ -30,7 +30,7 @@ public class PrefUtils {
 
     public static boolean isLogin(Context ctx){
         boolean isLogin = true;
-        int selectedLanguage = Prefs.with(ctx).getInt("login",0);
+        int selectedLanguage = Prefs.with(ctx).getInt("login", 0);
         if(selectedLanguage == 1){
             isLogin = true;
         }else{
@@ -76,7 +76,7 @@ public class PrefUtils {
     }
 
     public static String getReferenceCode(Context ctx){
-        String code = Prefs.with(ctx).getString("referenceCode","123ABC");
+        String code = Prefs.with(ctx).getString("referenceCode", "123ABC");
         return code;
     }
 
@@ -89,7 +89,7 @@ public class PrefUtils {
     }
 
     public static int getBankListPos(Context ctx){
-        int pos = Prefs.with(ctx).getInt("banklistpos",0);
+        int pos = Prefs.with(ctx).getInt("banklistpos", 0);
         return pos;
     }
 
@@ -108,7 +108,7 @@ public class PrefUtils {
     }
 
     public static boolean getChangeBackground(Context ctx){
-        boolean value = Prefs.with(ctx).getBoolean("isChnageBackground",false);
+        boolean value = Prefs.with(ctx).getBoolean("isChnageBackground", false);
         return value;
     }
 
@@ -124,7 +124,7 @@ public class PrefUtils {
 
     public static boolean isLightTheme(Context ctx){
         boolean isLight = true;
-        int selectedLanguage = Prefs.with(ctx).getInt("selected_theme",0);
+        int selectedLanguage = Prefs.with(ctx).getInt("selected_theme", 0);
         if(selectedLanguage == 0){
             isLight = true;
         }else{
@@ -203,7 +203,40 @@ public class PrefUtils {
 
     }
 
+    public static void setLockImageAdID(Context ctx,String id){
+        Prefs.with(ctx).save("LockImageID",id);
+    }
 
+    public static void setLockImageAdCoins(Context ctx,String coin){
+        Prefs.with(ctx).save("LockImageCoin",coin);
+    }
+
+    public static void setWallpaperImageAdID(Context ctx,String id){
+        Prefs.with(ctx).save("WallpaperImageID",id);
+    }
+
+    public static void setWallpaperImageAdCoins(Context ctx,String coin){
+        Prefs.with(ctx).save("WallpaperImageCoin",coin);
+    }
+
+
+    public static String getLockImageAdID(Context ctx){
+        String value = Prefs.with(ctx).getString("LockImageID", "");
+        return value;
+    }
+    public static String getLockImageAdCoins(Context ctx){
+        String value = Prefs.with(ctx).getString("LockImageCoin", "");
+        return value;
+    }
+
+    public static String getWallpaperImageAdID(Context ctx){
+        String value = Prefs.with(ctx).getString("WallpaperImageID", "");
+        return value;
+    }
+    public static String getWallpaperImageAdCoins(Context ctx){
+        String value = Prefs.with(ctx).getString("WallpaperImageCoin", "");
+        return value;
+    }
 
 
 }

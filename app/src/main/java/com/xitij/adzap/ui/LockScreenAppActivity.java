@@ -60,7 +60,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class LockScreenAppActivity extends Activity {
-
+    boolean isImageSucessfullyLoaded=false;
     /** Called when the activity is first created. */
     AdImageList adImageList;
 	  KeyguardManager.KeyguardLock k1;
@@ -217,9 +217,14 @@ protected void onNewIntent(Intent intent) {
 
 		            	 v.setVisibility(View.GONE);
 
-                         /* if(adImageList.Img.size()!=0)
-                           processEarnCoins();*/
 
+                         /* if(adImageList.Img.size()!=0) {
+                              if(isImageSucessfullyLoaded){
+                                  processEarnCoins();
+                              }
+                          }*/
+
+                          Toast.makeText(LockScreenAppActivity.this,"Screen on",Toast.LENGTH_SHORT).show();
 
 
 		            	// startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people/")));
@@ -314,18 +319,23 @@ protected void onNewIntent(Intent intent) {
 
     }
 
-   /* void processEarnCoins(){
+    void processEarnCoins(){
         //store current user and domain in shared preferences
         ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(LockScreenAppActivity.this, "user_pref", 0);
         User currentUser = complexPreferences2.getObject("current_user", User.class);
 
         try{
             JSONObject userobj = new JSONObject();
-            userobj.put("AdId", adImageList.Img.get(0));
-            userobj.put("UserId",String.valueOf(currentUser.UserId));
-            userobj.put("Coins", currentOffer.ViewAdz.get(pos).Coins);
 
-            Log.e("Req Resgister", userobj.toString());
+            String Adid = PrefUtils.getLockImageAdID(LockScreenAppActivity.this);
+            String coins = PrefUtils.getLockImageAdCoins(LockScreenAppActivity.this);
+
+
+            userobj.put("AdId", Adid);
+            userobj.put("UserId",String.valueOf(currentUser.UserId));
+            userobj.put("Coins", coins);
+
+            Log.e("Req earn coins", userobj.toString());
 
 
 
@@ -335,7 +345,7 @@ protected void onNewIntent(Intent intent) {
                 public void onResponse(JSONObject jobj) {
 
                     String response = jobj.toString();
-                    Log.e("Response Register: ", "" + response);
+                    Log.e("Response  earn coins: ", "" + response);
 
 
 
@@ -358,7 +368,7 @@ protected void onNewIntent(Intent intent) {
         }catch(Exception e){
 
         }
-    }*/
+    }
 
     private void processloadImageLists(){
 
@@ -390,6 +400,13 @@ protected void onNewIntent(Intent intent) {
 
                         Log.e("Image Path",""+adImageList.Img.get(counter).ImgPath.toString());
 
+                        PrefUtils.setLockImageAdID(LockScreenAppActivity.this, String.valueOf(adImageList.Img.get(counter).AdId));
+                        PrefUtils.setLockImageAdCoins(LockScreenAppActivity.this, adImageList.Img.get(counter).Coins);
+
+                        Log.e("Image ADid", "" + adImageList.Img.get(counter).AdId);
+                        Log.e("Image Coin",""+adImageList.Img.get(counter).Coins);
+
+
                         String tempPath = adImageList.Img.get(counter).ImgPath.toString();
                         String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
 
@@ -420,7 +437,7 @@ protected void onNewIntent(Intent intent) {
 
     class myAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        boolean isImageSucessfullyLoaded=false;
+
         int counter;
         String imageUrl;
         myAsyncTask(String uurl,int count)

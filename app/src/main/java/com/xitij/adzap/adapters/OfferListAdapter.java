@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.xitij.adzap.R;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.model.Offers;
+import com.xitij.adzap.model.VideoOffers;
 import com.xitij.adzap.widget.CircleTransform;
 
 import java.util.ArrayList;
@@ -22,10 +23,10 @@ public class OfferListAdapter extends BaseAdapter {
 
     LayoutInflater layoutInflator;
     private Context ctx;
-    private Offers offerItems;
+    private VideoOffers offerItems;
 
 
-    public OfferListAdapter(Context ctx,Offers offerObj) {
+    public OfferListAdapter(Context ctx,VideoOffers offerObj) {
         //this.offerItems = items;
         this.ctx = ctx;
         this.offerItems = offerObj;
@@ -64,19 +65,19 @@ public class OfferListAdapter extends BaseAdapter {
         ImageView imgIcon = (ImageView)view.findViewById(R.id.imgIcon);
 
 
-        Log.e("Image Path", "" + offerItems.ViewAdz.get(position).Icon);
-        String tempPath = offerItems.ViewAdz.get(position).Icon.toString();
-        String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
-        Log.e("Sub Path",subPath);
+            Log.e("Image Path", "" + offerItems.ViewAdz.get(position).Icon);
+            String tempPath = offerItems.ViewAdz.get(position).Icon.toString();
+            String subPath = tempPath.substring(tempPath.lastIndexOf("/") + 1, tempPath.length());
+            Log.e("Sub Path", subPath);
 
 
-        Glide.with(ctx).load(AppConstants.BASE_URL_IMAGE + subPath).transform(new CircleTransform(ctx)).thumbnail(0.1f).into(imgIcon);
-        txtAdName.setText(""+offerItems.ViewAdz.get(position).DisplayName);
+            Glide.with(ctx).load(AppConstants.BASE_URL_IMAGE + subPath).transform(new CircleTransform(ctx)).thumbnail(0.1f).into(imgIcon);
+            txtAdName.setText("" + offerItems.ViewAdz.get(position).DisplayName);
    /*     txtAdName.setText(""+offerItems.ViewAdz.get(position).DisplayName);
         double coin = Double.valueOf(offerItems.ViewAdz.get(position).Coins);
         int c = (int) coin;*/
 
-        txtCoins.setText("+ "+String.valueOf(offerItems.ViewAdz.get(position).Coins));
+            txtCoins.setText("+ " + String.valueOf(offerItems.ViewAdz.get(position).Coins));
 
 
         return view;
