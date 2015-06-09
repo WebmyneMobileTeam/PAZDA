@@ -76,10 +76,10 @@ public class EmailVerifcation extends ActionBarActivity {
                     Toast.makeText(EmailVerifcation.this, "Please enter Correct Verification code !!!", Toast.LENGTH_LONG).show();
                 }
                 else {
+                  //  processCheckVerificationcode();
 
-                    PrefUtils.setLogin(EmailVerifcation.this, true);
-                    PrefUtils.setPendingEmailVerification(EmailVerifcation.this,false);
-
+                   PrefUtils.setLogin(EmailVerifcation.this, true);
+                    PrefUtils.setPendingEmailVerification(EmailVerifcation.this, false);
                     Intent iReg = new Intent(EmailVerifcation.this, HomeScreen.class);
                     startActivity(iReg);
                     finish();
@@ -87,6 +87,53 @@ public class EmailVerifcation extends ActionBarActivity {
             }
         });
 
+    }
+
+
+    private void processCheckVerificationcode(){
+        dialog = new CircleDialog(EmailVerifcation.this, 0);
+        dialog.setCancelable(false);
+        dialog.show();
+
+        ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(EmailVerifcation.this, "user_pref", 0);
+        User currentuser   = complexPreferences.getObject("current_user", User.class);
+
+
+
+        new CallWebService(AppConstants.CHK_VERIFICATION_CODE +currentuser.UserId+"/"+etCode.getText().toString().trim(), CallWebService.TYPE_JSONOBJECT) {
+
+            @Override
+            public void response(String response) {
+                dialog.dismiss();
+                Log.e("response verifcation", response.toString());
+
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if (obj.getString("Response").equalsIgnoreCase("0")) {
+
+                        PrefUtils.setLogin(EmailVerifcation.this, true);
+                        PrefUtils.setPendingEmailVerification(EmailVerifcation.this, false);
+                        Intent iReg = new Intent(EmailVerifcation.this, HomeScreen.class);
+                        startActivity(iReg);
+                        finish();
+
+                    } else {
+                        Toast.makeText(EmailVerifcation.this, "Error - " + obj.getString("ResponseMsg").toString(), Toast.LENGTH_LONG).show();
+                    }
+
+                } catch (Exception e) {
+
+                }
+
+
+            }
+
+            @Override
+            public void error(VolleyError error) {
+                Log.e("volly er", error.toString());
+                dialog.dismiss();
+            }
+        }.start();
     }
 
 

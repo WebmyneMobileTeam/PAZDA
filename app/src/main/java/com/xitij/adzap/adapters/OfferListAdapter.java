@@ -23,10 +23,10 @@ public class OfferListAdapter extends BaseAdapter {
 
     LayoutInflater layoutInflator;
     private Context ctx;
-    private VideoOffers offerItems;
+    private Offers offerItems;
 
 
-    public OfferListAdapter(Context ctx,VideoOffers offerObj) {
+    public OfferListAdapter(Context ctx,Offers offerObj) {
         //this.offerItems = items;
         this.ctx = ctx;
         this.offerItems = offerObj;

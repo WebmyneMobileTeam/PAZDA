@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.GsonBuilder;
+
 import com.xitij.adzap.R;
 import com.xitij.adzap.base.MyApplication;
 import com.xitij.adzap.helpers.AppConstants;
@@ -335,7 +336,7 @@ protected void onNewIntent(Intent intent) {
             userobj.put("AdId", Adid);
             userobj.put("UserId",String.valueOf(currentUser.UserId));
             userobj.put("Coins", coins);
-
+            userobj.put("IsImage", 1);
             Log.e("Req earn coins", userobj.toString());
 
 

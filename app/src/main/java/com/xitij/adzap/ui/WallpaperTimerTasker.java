@@ -20,14 +20,19 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
+import com.xitij.adzap.base.MyApplication;
 import com.xitij.adzap.helpers.AppConstants;
 import com.xitij.adzap.helpers.CallWebService;
 import com.xitij.adzap.helpers.ComplexPreferences;
 import com.xitij.adzap.helpers.PrefUtils;
 import com.xitij.adzap.model.AdImageList;
+import com.xitij.adzap.model.GeoLocation;
 import com.xitij.adzap.model.User;
 import com.xitij.adzap.widget.CircleDialog;
 
@@ -47,6 +52,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by Krishna on 25-04-2015.
  */
 public class WallpaperTimerTasker extends TimerTask {
+    boolean isImageSucessfullyLoaded=false;
     String saveImagePath;
     AdImageList adImageList;
     private Context context;
@@ -95,8 +101,11 @@ public class WallpaperTimerTasker extends TimerTask {
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
         User currentUser = complexPreferences.getObject("current_user", User.class);
 
+        ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
+        GeoLocation gl = complexPreferences2.getObject("current_location", GeoLocation.class);
 
-        new CallWebService(AppConstants.GET_AD_IMAGES + currentUser.UserId, CallWebService.TYPE_JSONOBJECT) {
+        Log.e("request ", AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+gl.cityID);
+        new CallWebService(AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+gl.cityID, CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String response) {
@@ -115,7 +124,17 @@ public class WallpaperTimerTasker extends TimerTask {
                             counter=0;
                         }
 
-                        Log.e("Image Path",""+adImageList.Img.get(counter).ImgPath.toString());
+
+                        Log.e("Image Path", "" + adImageList.Img.get(counter).ImgPath.toString());
+
+                        PrefUtils.setWallpaperImageAdID(context, String.valueOf(adImageList.Img.get(counter).AdId));
+                        PrefUtils.setWallpaperImageAdCoins(context, adImageList.Img.get(counter).Coins);
+
+                        Log.e("Image ADid", "" + adImageList.Img.get(counter).AdId);
+                        Log.e("Image Coin",""+adImageList.Img.get(counter).Coins);
+
+
+
 
                         String tempPath = adImageList.Img.get(counter).ImgPath.toString();
                         String subPath = tempPath.substring(tempPath.lastIndexOf("/")+1,tempPath.length());
@@ -232,7 +251,12 @@ public class WallpaperTimerTasker extends TimerTask {
             WallpaperManager myWallpaperManager = WallpaperManager.getInstance(context.getApplicationContext());
             try {
                 myWallpaperManager.setBitmap(wallpaper);
-             //   Toast.makeText(context,"Sucessfully Wallpaper set",Toast.LENGTH_LONG).show();
+
+                processEarnCoins();
+
+
+
+                //   Toast.makeText(context,"Sucessfully Wallpaper set",Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 Log.e("error in prr","dsd");
                 e.printStackTrace();
@@ -243,7 +267,63 @@ public class WallpaperTimerTasker extends TimerTask {
             e.printStackTrace();
         }
 
+
     }
+
+
+    void processEarnCoins(){
+        //store current user and domain in shared preferences
+        ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
+        User currentUser = complexPreferences2.getObject("current_user", User.class);
+
+        try{
+            JSONObject userobj = new JSONObject();
+
+            String Adid = PrefUtils.getWallpaperImageAdID(context);
+            String coins = PrefUtils.getWallpaperImageAdCoins(context);
+
+
+            userobj.put("AdId", Adid);
+            userobj.put("UserId",String.valueOf(currentUser.UserId));
+            userobj.put("Coins", coins);
+            userobj.put("IsImage", 1);
+
+            Log.e("Req earn coins", userobj.toString());
+
+
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, AppConstants.REQUEST_POINTS, userobj, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject jobj) {
+
+                    String response = jobj.toString();
+                    Log.e("Response  earn coins: ", "" + response);
+
+
+
+
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+
+                    Log.e("error : ", error + "");
+                    Toast.makeText(context,"Error - "+error.toString(),Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            MyApplication.getInstance().addToRequestQueue(req);
+
+        }catch(Exception e){
+
+        }
+    }
+
+
     private String saveToInternalSorage(Bitmap bitmapImage){
         ContextWrapper cw = new ContextWrapper(context.getApplicationContext());
         // path to /data/data/yourapp/app_data/imageDir

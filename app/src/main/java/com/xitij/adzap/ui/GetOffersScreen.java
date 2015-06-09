@@ -136,9 +136,9 @@ public class GetOffersScreen extends ActionBarActivity {
 
                         currentOffer = new GsonBuilder().create().fromJson(response, Offers.class);
                         Log.e("offer size",""+currentOffer.ViewAdz.size());
-                        VideoOffers vdoOffer = new VideoOffers();
+                      /*  VideoOffers vdoOffer = new VideoOffers();
 
-                       for(int i=0;i<currentOffer.ViewAdz.size();i++){
+                         for(int i=0;i<currentOffer.ViewAdz.size();i++){
                             if(!currentOffer.ViewAdz.get(i).VideoPath.equalsIgnoreCase("")){
 
 
@@ -149,15 +149,15 @@ public class GetOffersScreen extends ActionBarActivity {
                             }
                         }
 
-                       Log.e("video offer size",""+vdoOffer.ViewAdz.size());
+                       Log.e("video offer size",""+vdoOffer.ViewAdz.size());*/
 
-/*
+
                         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
                         complexPreferences.putObject("current_offer", currentOffer);
                         complexPreferences.commit();
 
-                        OfferListAdapter adpater = new OfferListAdapter(GetOffersScreen.this,vdoOffer);
-                        offerListView.setAdapter(adpater);*/
+                        OfferListAdapter adpater = new OfferListAdapter(GetOffersScreen.this,currentOffer);
+                        offerListView.setAdapter(adpater);
 
                     } else {
 

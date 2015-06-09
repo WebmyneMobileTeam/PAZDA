@@ -49,6 +49,8 @@ public class AppConstants {
 
     public static String GET_CITY_STATE_LIST= BASE_URL + "ViewAdz.svc/json/GetStateAndCityList";
 
+    public static String CHK_VERIFICATION_CODE= BASE_URL + "Login.svc/json/CheckVerificationCode/";
+
 
     /*********  FTP IP ***********//*
     public static final String ftpPath="192.168.1.4";
