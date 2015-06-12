@@ -143,7 +143,7 @@ private void processValidateData(){
         }else if(isEdiTextEmpty(etCnfPassword)){
             etCnfPassword.setError("Please Enter Confirm Password !!!");
         }else if(isEdiTextEmpty(etDateofBirth)){
-            etPhone.setError("Please Enter Birthday !!!");
+            etDateofBirth.setError("Please Enter Birthday !!!");
         } else if(isEdiTextEmpty(etPhone)){
             etPhone.setError("Please Enter Mobile no. !!!");
         }else if(!isEmailMatch(etEmail)){

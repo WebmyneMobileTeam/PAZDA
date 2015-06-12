@@ -1,18 +1,24 @@
 package com.xitij.adzap.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +41,10 @@ import com.xitij.adzap.widget.CircleDialog;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
+import static android.graphics.Color.*;
+
 public class AddBankScreen extends ActionBarActivity {
 
     private CircleDialog dialog;
@@ -48,6 +58,8 @@ public class AddBankScreen extends ActionBarActivity {
     private static final String[] accType = new String[] {
             "Select", "Checking","Savings"
     };
+
+      ArrayList<String> asr ;
     User currentUser;
     private BankList cuurentBankList;
     private EditText etBankName,etBankBranchName,etAccNo,etAccPersonName,etIFSCCode,etAddress;
@@ -81,8 +93,14 @@ public class AddBankScreen extends ActionBarActivity {
             }
         });
 
+        asr = new ArrayList<>();
+        asr.add("Select");
+
+
         initalizeViews();
         init();
+
+
 
 
     }
@@ -100,9 +118,12 @@ public class AddBankScreen extends ActionBarActivity {
 
 
 
-        ArrayAdapter<String> spinadapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, accType);
-        spAccountType.setAdapter(spinadapter);
+/*        ArrayAdapter<String> spinadapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, accType);*/
+
+        CustomSpinnerAdapter adp =  new CustomSpinnerAdapter(AddBankScreen.this,accType);
+
+        spAccountType.setAdapter(adp);
 
         txtSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -393,6 +414,53 @@ private void fillBankdetails(){
 
     }
 
+    public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
 
+        private final Context activity;
+        private ArrayList<String> asr;
+        String[] accType;
+
+        public CustomSpinnerAdapter(Context context,  String[] values) {
+            this.accType = values;
+            activity = context;
+        }
+
+        public int getCount() {
+            return accType.length;
+        }
+
+        public Object getItem(int i) {
+            return asr.get(i);
+        }
+
+        public long getItemId(int i) {
+            return (long) i;
+        }
+
+
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            TextView txt = new TextView(AddBankScreen.this);
+            txt.setPadding(12, 12, 12, 12);
+            txt.setTextSize(getResources().getDimension(R.dimen.spinner_text));
+            txt.setGravity(Gravity.CENTER_VERTICAL);
+            txt.setText(accType[position]);
+            txt.setTextColor(parseColor("#000000"));
+            return txt;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewgroup) {
+
+            TextView txt = new TextView(AddBankScreen.this);
+            txt.setGravity(Gravity.CENTER_VERTICAL);
+            txt.setPadding(12, 12, 12, 12);
+            txt.setTextSize(getResources().getDimension(R.dimen.spinner_text));
+            txt.setText(accType[i]);
+            txt.setTextColor(parseColor("#000000"));
+            return txt;
+        }
+    }
 //end of main class
 }

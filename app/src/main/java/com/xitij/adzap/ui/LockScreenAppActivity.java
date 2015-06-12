@@ -218,15 +218,17 @@ protected void onNewIntent(Intent intent) {
 
 		            	 v.setVisibility(View.GONE);
 
+                            try {
+                                if (adImageList.Img.size() != 0) {
+                                    if (isImageSucessfullyLoaded) {
+                                        processEarnCoins();
+                                    }
+                                }
 
-                          if(adImageList.Img.size()!=0) {
-                              if(isImageSucessfullyLoaded){
-                                  processEarnCoins();
-                              }
-                          }
-
-                          Toast.makeText(LockScreenAppActivity.this,"Screen on",Toast.LENGTH_SHORT).show();
-
+                                //Toast.makeText(LockScreenAppActivity.this, "Screen on", Toast.LENGTH_SHORT).show();
+                            }catch (Exception e){
+                                Log.e("exc",e.toString());
+                            }
 
 		            	// startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people/")));
 		                finish();

@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -149,40 +150,57 @@ public class LauncherActivity extends ActionBarActivity {
 
         AppLocationService appLocationService = new AppLocationService(LauncherActivity.this);
 
-        Location nwLocation = appLocationService.getLocation(LocationManager.NETWORK_PROVIDER);
+        final Location nwLocation = appLocationService.getLocation(LocationManager.NETWORK_PROVIDER);
 
 
+        new CountDownTimer(2500,100){
 
-        if (nwLocation != null) {
-            double latitude = nwLocation.getLatitude();
-            double longitude = nwLocation.getLongitude();
-            String provoide = nwLocation.getProvider();
+            @Override
+            public void onTick(long millisUntilFinished) {
 
-            try {
-                Geocoder geocoder = new Geocoder(LauncherActivity.this, Locale.getDefault());
-                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                String cityName = addresses.get(0).getLocality();
-                String countryName = addresses.get(0).getCountryName();
+            }
 
-                CITYNAME  = cityName;
+            @Override
+            public void onFinish() {
 
-                PrefUtils.setCity(LauncherActivity.this,cityName);
-                PrefUtils.setState(LauncherActivity.this,cityName);
 
-                Toast.makeText(
+                if (nwLocation != null) {
+                    double latitude = nwLocation.getLatitude();
+                    double longitude = nwLocation.getLongitude();
+                    String provoide = nwLocation.getProvider();
+
+                    try {
+                        Geocoder geocoder = new Geocoder(LauncherActivity.this, Locale.getDefault());
+                        List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                        String cityName = addresses.get(0).getLocality();
+                        String countryName = addresses.get(0).getCountryName();
+
+                        CITYNAME  = cityName;
+
+                        PrefUtils.setCity(LauncherActivity.this, cityName);
+                        PrefUtils.setState(LauncherActivity.this, cityName);
+
+               /* Toast.makeText(
                         getApplicationContext(),
                         "Mobile Location (NW): \nLatitude: " + latitude
                                 + "\nLongitude: " + longitude + "\ncityName:" + cityName + "\ncountryName:" + countryName,
                         Toast.LENGTH_LONG).show();
+*/
+
+                    }catch (Exception e){
+                        Log.e("exc",e.toString());
+                    }
+
+                } else {
+                  //  Toast.makeText(LauncherActivity.this,"Network error !!!",Toast.LENGTH_SHORT).show();
+                }
 
 
-            }catch (Exception e){
-                Log.e("exc",e.toString());
+
             }
+        }.start();
 
-        } else {
-          Toast.makeText(LauncherActivity.this,"Network error !!!",Toast.LENGTH_SHORT).show();
-        }
+
 
 
     }
