@@ -218,7 +218,10 @@ protected void onNewIntent(Intent intent) {
 
 		            	 v.setVisibility(View.GONE);
 
-                            try {
+
+                          Toast.makeText(LockScreenAppActivity.this, "Screen on", Toast.LENGTH_SHORT).show();
+
+                       /*     try {
                                 if (adImageList.Img.size() != 0) {
                                     if (isImageSucessfullyLoaded) {
                                         processEarnCoins();
@@ -228,7 +231,7 @@ protected void onNewIntent(Intent intent) {
                                 //Toast.makeText(LockScreenAppActivity.this, "Screen on", Toast.LENGTH_SHORT).show();
                             }catch (Exception e){
                                 Log.e("exc",e.toString());
-                            }
+                            }*/
 
 		            	// startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people/")));
 		                finish();
