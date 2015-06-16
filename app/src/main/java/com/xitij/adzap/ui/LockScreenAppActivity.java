@@ -95,6 +95,16 @@ protected void onNewIntent(Intent intent) {
 	 getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 }*/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadImageFromStorage("/data/data/com.xitij.adzap/app_ADZAP");
+
+
+        processloadImageLists();
+    }
+
     public void onCreate(Bundle savedInstanceState) {
 
     	   super.onCreate(savedInstanceState);
@@ -107,10 +117,7 @@ protected void onNewIntent(Intent intent) {
            relativeMain=(RelativeLayout)findViewById(R.id.relativeMain);
            imgLock = (ImageView)findViewById(R.id.imgLock);
 
-            loadImageFromStorage("/data/data/com.xitij.adzap/app_ADZAP");
 
-
-            processloadImageLists();
 
     	   System.out.println("measured width"+droid.getMeasuredWidth());
     	   System.out.println(" width"+droid.getWidth());
@@ -219,9 +226,9 @@ protected void onNewIntent(Intent intent) {
 		            	 v.setVisibility(View.GONE);
 
 
-                          Toast.makeText(LockScreenAppActivity.this, "Screen on", Toast.LENGTH_SHORT).show();
 
-                       /*     try {
+
+                          try {
                                 if (adImageList.Img.size() != 0) {
                                     if (isImageSucessfullyLoaded) {
                                         processEarnCoins();
@@ -230,8 +237,8 @@ protected void onNewIntent(Intent intent) {
 
                                 //Toast.makeText(LockScreenAppActivity.this, "Screen on", Toast.LENGTH_SHORT).show();
                             }catch (Exception e){
-                                Log.e("exc",e.toString());
-                            }*/
+                                Log.e("exc unlock",e.toString());
+                            }
 
 		            	// startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people/")));
 		                finish();
@@ -298,6 +305,9 @@ protected void onNewIntent(Intent intent) {
 				return true;
 			}
 		});
+
+
+
 
 /*
         Button close =(Button)findViewById(R.id.lockk);
@@ -385,6 +395,8 @@ protected void onNewIntent(Intent intent) {
         ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(LockScreenAppActivity.this, "user_pref", 0);
         GeoLocation gl = complexPreferences2.getObject("current_location", GeoLocation.class);
 
+        Log.e("request - ",AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+gl.cityID);
+
 
         new CallWebService(AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+gl.cityID, CallWebService.TYPE_JSONOBJECT) {
 
@@ -427,7 +439,7 @@ protected void onNewIntent(Intent intent) {
                     }
 
                 } catch (Exception e) {
-
+                    Log.e("e", e.toString());
                 }
 
 

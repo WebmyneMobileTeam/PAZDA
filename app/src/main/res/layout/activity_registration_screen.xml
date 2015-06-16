@@ -115,6 +115,27 @@
                 style="@style/EditText_LoginScreen"
                 android:hint="MOBILE" />
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/spState"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"></Spinner>
+                <Spinner
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/spCity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"></Spinner>
+            </LinearLayout>
+
             <EditText
                 android:maxLength="10"
                 android:gravity="center"

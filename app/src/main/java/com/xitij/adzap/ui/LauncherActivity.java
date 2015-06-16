@@ -12,6 +12,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.gson.GsonBuilder;
 import com.xitij.adzap.R;
 import com.xitij.adzap.helpers.AppConstants;
@@ -36,15 +39,16 @@ public class LauncherActivity extends ActionBarActivity {
     // The minimum time between updates in milliseconds
     long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
     String CITYNAME;
+    Location nwLocation;
+
+    GoogleApiClient mGoogleApiClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
 
-        fetchCityState();
-
-   /*     new CountDownTimer(2500,1000) {
+     new CountDownTimer(2500,1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -53,107 +57,40 @@ public class LauncherActivity extends ActionBarActivity {
             @Override
             public void onFinish() {
 
-
-            }
-        }.start();
-*/
-
-
-    }
-
-
-    void fetchCityState(){
-
-        new CallWebService(AppConstants.GET_CITY_STATE_LIST , CallWebService.TYPE_JSONOBJECT) {
-
-            @Override
-            public void response(String response) {
-
-                Log.e("response loc", response.toString());
-
-                try {
-                    JSONObject obj = new JSONObject(response);
-                    if (obj.getString("ResponseId").equalsIgnoreCase("1")) {
-
-                        CITYSTATELIST cityobj = new GsonBuilder().create().fromJson(response, CITYSTATELIST.class);
-
-                        Log.e("city size",""+cityobj.Sate.size());
-                        Log.e("city size",""+cityobj.Sate.get(0).Cities.size());
-
-                        for(int i=0;i<cityobj.Sate.size();i++){
-                           for(int j=0;j<cityobj.Sate.get(i).Cities.size();j++){
-
-
-                               Log.e("Location CItyname",""+CITYNAME);
-                               CITYNAME = "Vadodara";
-                               if(cityobj.Sate.get(i).Cities.get(j).CityName.equalsIgnoreCase(CITYNAME))
-                               {
-                                   GeoLocation gl = new GeoLocation();
-                                   gl.cityID = String.valueOf(cityobj.Sate.get(i).Cities.get(j).CityId);
-                                   gl.stateID = String.valueOf(cityobj.Sate.get(i).StateId);
-                                   gl.cityName = cityobj.Sate.get(i).Cities.get(j).CityName;
-                                   gl.stateName = cityobj.Sate.get(i).StateName;
-
-                                   Log.e("insided if",""+"if");
-
-                                   ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(LauncherActivity.this, "user_pref", 0);
-                                   complexPreferences.putObject("current_location", gl);
-                                   complexPreferences.commit();
-                               }
-                           }
-                        }
-
-
-
-
-
-
-                        if(PrefUtils.isLogin(LauncherActivity.this)){
-                            Intent iHomeScreen = new Intent(LauncherActivity.this,HomeScreen.class);
-                            startActivity(iHomeScreen);
-                            finish();
-                        } else{
-                            Intent iHomeScreen = new Intent(LauncherActivity.this,LoginScreen.class);
-                            startActivity(iHomeScreen);
-                            finish();
-                        }
-
-
-                    }
-
-                } catch (Exception e) {
-                        Log.e("exc",e.toString());
+                if(PrefUtils.isLogin(LauncherActivity.this)){
+                    Intent iHomeScreen = new Intent(LauncherActivity.this,HomeScreen.class);
+                    startActivity(iHomeScreen);
+                    finish();
+                } else{
+                    Intent iHomeScreen = new Intent(LauncherActivity.this,LoginScreen.class);
+                    startActivity(iHomeScreen);
+                    finish();
                 }
 
-
-            }
-
-            @Override
-            public void error(VolleyError error) {
-                Log.e("volly er", error.toString());
             }
         }.start();
 
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-      getCellTowerInfo();
 
     }
+
+
+
+
+
+
+
+
 
     public  void getCellTowerInfo() {
 
 
         AppLocationService appLocationService = new AppLocationService(LauncherActivity.this);
 
-        final Location nwLocation = appLocationService.getLocation(LocationManager.NETWORK_PROVIDER);
+        nwLocation = appLocationService.getLocation(LocationManager.NETWORK_PROVIDER);
 
 
-        new CountDownTimer(2500,100){
+        new CountDownTimer(2500,1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -187,12 +124,19 @@ public class LauncherActivity extends ActionBarActivity {
                         Toast.LENGTH_LONG).show();
 */
 
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Your city is :- "+CITYNAME,
+                                Toast.LENGTH_LONG).show();
+
+
+
                     }catch (Exception e){
-                        Log.e("exc",e.toString());
+                        Log.e("exc in taking n/w",e.toString());
                     }
 
                 } else {
-                  //  Toast.makeText(LauncherActivity.this,"Network error !!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LauncherActivity.this,"Network error !!!",Toast.LENGTH_SHORT).show();
                 }
 
 
