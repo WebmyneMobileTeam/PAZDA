@@ -112,11 +112,12 @@ public class GetOffersScreen extends ActionBarActivity {
         final User currentUser = complexPreferences.getObject("current_user", User.class);
 
 
-        ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(GetOffersScreen.this, "user_pref", 0);
-        GeoLocation gl = complexPreferences2.getObject("current_location", GeoLocation.class);
+        String cityid = PrefUtils.getcityID(GetOffersScreen.this);
 
-        Log.e("link",AppConstants.GET_OFFERS + currentUser.UserId+"/"+gl.cityID);
-        new CallWebService(AppConstants.GET_OFFERS + currentUser.UserId+"/"+gl.cityID, CallWebService.TYPE_JSONOBJECT) {
+
+        Log.e("#####City id ",cityid);
+        Log.e("link",AppConstants.GET_OFFERS + currentUser.UserId+"/"+cityid);
+        new CallWebService(AppConstants.GET_OFFERS + currentUser.UserId+"/"+cityid, CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String response) {

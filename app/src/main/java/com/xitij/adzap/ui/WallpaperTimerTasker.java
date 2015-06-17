@@ -101,11 +101,12 @@ public class WallpaperTimerTasker extends TimerTask {
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
         User currentUser = complexPreferences.getObject("current_user", User.class);
 
-        ComplexPreferences complexPreferences2 = ComplexPreferences.getComplexPreferences(context, "user_pref", 0);
-        GeoLocation gl = complexPreferences2.getObject("current_location", GeoLocation.class);
+        String cityid = PrefUtils.getcityID(context);
 
-        Log.e("request ", AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+gl.cityID);
-        new CallWebService(AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+gl.cityID, CallWebService.TYPE_JSONOBJECT) {
+
+        Log.e("#####City id ",cityid);
+        Log.e("request ", AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+cityid);
+        new CallWebService(AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+cityid, CallWebService.TYPE_JSONOBJECT) {
 
             @Override
             public void response(String response) {
