@@ -238,5 +238,12 @@ public class PrefUtils {
         return value;
     }
 
+    public static void setcityID(Context ctx,String id){
+        Prefs.with(ctx).save("cityID",id);
+    }
 
+    public static String getcityID(Context ctx){
+        String value = Prefs.with(ctx).getString("cityID", "");
+        return value;
+    }
 }

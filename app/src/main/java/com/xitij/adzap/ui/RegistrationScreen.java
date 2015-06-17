@@ -333,6 +333,13 @@ private void processRegister(){
                         complexPreferences2.commit();
 
 
+
+                        String temp = String.valueOf(currentUser.CityId);
+                        PrefUtils.setcityID(RegistrationScreen.this, temp);
+
+                        Log.e("#####City id ", temp);
+
+
                         Intent iCOnfirmSignUp = new Intent( RegistrationScreen.this ,EmailVerifcation.class );
                         startActivity(iCOnfirmSignUp);
                         finish();

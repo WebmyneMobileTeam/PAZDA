@@ -42,4 +42,10 @@ public class User {
     @SerializedName("ReferanceCode")
     public String ReferanceCode;
 
+    @SerializedName("Stateid")
+    public long Stateid;
+
+    @SerializedName("CityId")
+    public long CityId;
+
 }
