@@ -394,8 +394,8 @@ protected void onNewIntent(Intent intent) {
 
         String cityid = PrefUtils.getcityID(LockScreenAppActivity.this);
 
-
         Log.e("#####City id ",cityid);
+
         Log.e("request - ",AppConstants.GET_AD_IMAGES + currentUser.UserId+ currentUser.UserId+"/"+cityid);
 
 

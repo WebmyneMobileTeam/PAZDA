@@ -138,6 +138,7 @@ public class LoginScreen extends ActionBarActivity {
                     } else if((obj.getString("Response").equalsIgnoreCase("-1"))){
                         Toast.makeText(LoginScreen.this, "Error while processing your request", Toast.LENGTH_LONG).show();
                     }else if((obj.getString("Response").equalsIgnoreCase("-2"))){
+
                         Toast.makeText(LoginScreen.this, "Please verify your accounnt", Toast.LENGTH_LONG).show();
 
                         PrefUtils.setLogin(LoginScreen.this, false);

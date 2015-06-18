@@ -45,10 +45,14 @@ public class EmailVerifcation extends ActionBarActivity {
     //  init();
 
 
+
+
+
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(EmailVerifcation.this, "user_pref", 0);
         currentuser   = complexPreferences.getObject("current_user", User.class);
 
 
+                Log.e("#### Vericiation code",currentuser.verifyCode);
         txtNewSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

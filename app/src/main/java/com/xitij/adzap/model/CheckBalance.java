@@ -28,4 +28,12 @@ public class CheckBalance {
 
     @SerializedName("LogId")
     public long LogId;
+
+ @SerializedName("CityId")
+ public long CityId;
+
+ @SerializedName("StateId")
+ public long StateId;
+
+
 }

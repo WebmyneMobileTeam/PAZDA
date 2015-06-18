@@ -172,6 +172,9 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
                     if (obj.getString("Response").equalsIgnoreCase("0")) {
                         CheckBalance chkBalance = new GsonBuilder().create().fromJson(response, CheckBalance.class);
 
+
+                        PrefUtils.setcityID(HomeScreen.this, String.valueOf(chkBalance.CityId));
+
                         // 1 Rs = 15 Coins
                         if(chkBalance.ClosingBal == null){
                             txtCoin.setText("0");
