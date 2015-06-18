@@ -263,7 +263,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         ImageView img = (ImageView)menuEarnCoins.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuEarnCoins.findViewById(R.id.itemHomeText);
         txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
-        img.setImageResource(R.drawable.icon1);
+        img.setImageResource(R.drawable.qq);
         txt.setText("EARN COINS");
 
     }
