@@ -61,7 +61,7 @@ public class SettingsScreen extends ActionBarActivity {
 
     private Toolbar toolbar;
     private Switch swLock,swBackground;
-    private TextView txtLogout,txtSetWallpaper;
+    private TextView txtLogout,txtSetWallpaper,txtContact;
     String saveImagePath;
     private CircleDialog cDialog;
     AdImageList adImageList;
@@ -79,7 +79,23 @@ public class SettingsScreen extends ActionBarActivity {
         txtLogout = (TextView)findViewById(R.id.txtLogout);
         swLock = (Switch)findViewById(R.id.swLock);
         swBackground = (Switch)findViewById(R.id.swBackground);
+        txtContact= (TextView)findViewById(R.id.txtContact);
 
+
+
+        txtContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_EMAIL, "  support@adzapp.in");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Support");
+                intent.putExtra(Intent.EXTRA_TEXT, "");
+
+                startActivity(Intent.createChooser(intent, "Send Email"));
+            }
+        });
 
         swLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
