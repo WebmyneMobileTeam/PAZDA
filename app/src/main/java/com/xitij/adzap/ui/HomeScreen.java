@@ -79,75 +79,11 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         setupBalance();
 
 
-
-/*
-        Location gpsLocation = appLocationService.getLocation(LocationManager.GPS_PROVIDER);
-        if (gpsLocation != null) {
-            double latitude = gpsLocation.getLatitude();
-            double longitude = gpsLocation.getLongitude();
-            String result = "Latitude: " + gpsLocation.getLatitude() +
-                    " Longitude: " + gpsLocation.getLongitude();
-            Log.e("location",result);
-        } else {
-            //showSettingsAlert();
-            turnGPSOn();
-        }*/
     }
 
 
 
 
-    private void turnGPSOn(){
-        String provider = Settings.Secure.getString(getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-
-        if(!provider.contains("gps")){ //if gps is disabled
-            final Intent poke = new Intent();
-            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
-            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
-
-            poke.setData(Uri.parse("3"));
-            sendBroadcast(poke);
-        }
-    }
-
-    public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-                HomeScreen.this);
-        alertDialog.setTitle("SETTINGS");
-        alertDialog.setMessage("Enable Location Provider! Go to settings menu?");
-        alertDialog.setPositiveButton("Settings",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(
-                                Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                        HomeScreen.this.startActivity(intent);
-                    }
-                });
-        alertDialog.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        alertDialog.show();
-    }
-
-    private class GeocoderHandler extends Handler {
-        @Override
-        public void handleMessage(Message message) {
-            String locationAddress;
-            switch (message.what) {
-                case 1:
-                    Bundle bundle = message.getData();
-                    locationAddress = bundle.getString("address");
-                    break;
-                default:
-                    locationAddress = null;
-            }
-            Log.e("location GeocoderHandler", locationAddress);
-            //tvAddress.setText(locationAddress);
-        }
-    }
 
 
     private void setupBalance(){
@@ -252,7 +188,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         ImageView img = (ImageView)menuRewards.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuRewards.findViewById(R.id.itemHomeText);
         txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
-        img.setImageResource(R.drawable.icon2);
+        img.setImageResource(R.drawable.rewards);
         txt.setText("REWARDS");
 
 
@@ -263,7 +199,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         ImageView img = (ImageView)menuEarnCoins.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuEarnCoins.findViewById(R.id.itemHomeText);
         txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
-        img.setImageResource(R.drawable.qq);
+        img.setImageResource(R.drawable.earn_coins);
         txt.setText("EARN COINS");
 
     }
@@ -274,7 +210,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         ImageView img = (ImageView)menuFriends.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuFriends.findViewById(R.id.itemHomeText);
         txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
-        img.setImageResource(R.drawable.icon3);
+        img.setImageResource(R.drawable.friends);
         txt.setText("FRIENDS");
     }
 
@@ -283,7 +219,7 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
         ImageView img = (ImageView)menuHistory.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuHistory.findViewById(R.id.itemHomeText);
         txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
-        img.setImageResource(R.drawable.icon4);
+        img.setImageResource(R.drawable.history);
         txt.setText("HISTORY");
 
     }
