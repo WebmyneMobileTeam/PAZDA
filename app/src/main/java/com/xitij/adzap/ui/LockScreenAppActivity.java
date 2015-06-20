@@ -75,7 +75,7 @@ public class LockScreenAppActivity extends Activity {
  	  //int phone_x,phone_y;
  	   int home_x,home_y;
  	   int[] droidpos;
-    private RelativeLayout relativeMain;
+    ///private RelativeLayout relativeMain;
     private ImageView imgLock;
     public int counter = 0;
 
@@ -108,13 +108,16 @@ protected void onNewIntent(Intent intent) {
     public void onCreate(Bundle savedInstanceState) {
 
     	   super.onCreate(savedInstanceState);
-    	   getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON| WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED| WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //Orginall
+    	   //getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON| WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED| WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED| WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 
 
     	   setContentView(R.layout.main);
     	   droid =(ImageView)findViewById(R.id.droid);
-           relativeMain=(RelativeLayout)findViewById(R.id.relativeMain);
+           //relativeMain=(RelativeLayout)findViewById(R.id.relativeMain);
            imgLock = (ImageView)findViewById(R.id.imgLock);
 
 

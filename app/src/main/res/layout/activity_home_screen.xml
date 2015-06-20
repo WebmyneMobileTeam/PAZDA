@@ -74,18 +74,16 @@
             android:layout_height="wrap_content" />
 
 
-        <LinearLayout
+        <TableLayout
             android:layout_gravity="center"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+            <TableRow
+                android:gravity="center"
                 android:layout_weight="1">
+
                 <include
                     android:id="@+id/menuOne"
                     layout="@layout/item_home_menu"></include>
@@ -94,14 +92,10 @@
                     android:id="@+id/menuTwo"
                     layout="@layout/item_home_menu"></include>
 
+            </TableRow>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+            <TableRow
+                android:gravity="center"
                 android:layout_weight="1">
 
                 <include
@@ -112,21 +106,11 @@
                     android:id="@+id/menuFour"
                     layout="@layout/item_home_menu"></include>
 
+            </TableRow>
 
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-
-
-
-
-
+        </TableLayout>
 
 
     </FrameLayout>
-
 
 </LinearLayout>

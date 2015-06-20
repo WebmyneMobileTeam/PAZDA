@@ -187,7 +187,6 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
         ImageView img = (ImageView)menuRewards.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuRewards.findViewById(R.id.itemHomeText);
-        txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
         img.setImageResource(R.drawable.rewards);
         txt.setText("REWARDS");
 
@@ -198,7 +197,6 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
         ImageView img = (ImageView)menuEarnCoins.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuEarnCoins.findViewById(R.id.itemHomeText);
-        txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
         img.setImageResource(R.drawable.earn_coins);
         txt.setText("EARN COINS");
 
@@ -209,7 +207,6 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
         ImageView img = (ImageView)menuFriends.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuFriends.findViewById(R.id.itemHomeText);
-        txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
         img.setImageResource(R.drawable.friends);
         txt.setText("FRIENDS");
     }
@@ -218,7 +215,6 @@ public class HomeScreen extends ActionBarActivity implements View.OnClickListene
 
         ImageView img = (ImageView)menuHistory.findViewById(R.id.itemHomeImage);
         TextView txt = (TextView)menuHistory.findViewById(R.id.itemHomeText);
-        txt.setTypeface(PrefUtils.getTypeFaceCalibri(HomeScreen.this));
         img.setImageResource(R.drawable.history);
         txt.setText("HISTORY");
 
