@@ -559,6 +559,7 @@ protected void onNewIntent(Intent intent) {
             e.printStackTrace();
         }
 
+
     }
     private String saveToInternalSorage(Bitmap bitmapImage){
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
