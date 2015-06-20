@@ -24,6 +24,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -355,7 +356,7 @@ private void processRegister(){
 
 
             }
-        }, new Response.ErrorListener() {
+        },new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -366,11 +367,11 @@ private void processRegister(){
 
             }
         });
-
+        req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
         MyApplication.getInstance().addToRequestQueue(req);
 
     }catch(Exception e){
-
+        Log.e("exc e : ", e.toString() + "");
     }
 
 

@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -236,7 +237,7 @@ public class RedeemScreen extends ActionBarActivity {
 
                 }
             });
-
+            req.setRetryPolicy(  new DefaultRetryPolicy(0,0,0));
             MyApplication.getInstance().addToRequestQueue(req);
 
         }catch(Exception e){
