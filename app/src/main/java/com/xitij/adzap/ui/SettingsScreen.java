@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -87,13 +88,21 @@ public class SettingsScreen extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "support@adzapp.in", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Support");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
+
+
+/*
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_EMAIL, "  support@adzapp.in");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Support");
                 intent.putExtra(Intent.EXTRA_TEXT, "");
 
-                startActivity(Intent.createChooser(intent, "Send Email"));
+                startActivity(Intent.createChooser(intent, "Send Email"));*/
             }
         });
 
